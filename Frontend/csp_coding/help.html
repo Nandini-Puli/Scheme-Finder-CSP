@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Scheme Finder - Help</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    color:#0d477f;
+    background:#f7fbff;
+}
+
+
+/* ================= HEADER ================= */
+
+header{
+    height:82px;
+    background:white;
+
+    display:flex;
+    align-items:center;
+
+    padding:0 4%;
+
+    border-bottom:1px solid #dceaf5;
+}
+
+.logo-area{
+    display:flex;
+    align-items:center;
+    gap:15px;
+
+    width:36%;
+}
+
+.logo-area img{
+    width:48px;
+    height:62px;
+    object-fit:contain;
+}
+
+.logo-text h1{
+    font-size:25px;
+    color:#073f78;
+    margin-bottom:4px;
+}
+
+.logo-text p{
+    font-size:13px;
+    color:#5d7da1;
+}
+
+
+/* ================= NAV ================= */
+
+nav{
+    display:flex;
+    align-items:center;
+    gap:50px;
+}
+
+nav a{
+    text-decoration:none;
+    color:#073f78;
+
+    font-size:14px;
+    font-weight:600;
+
+    padding:31px 0;
+}
+
+nav a:hover{
+    color:#176ee0;
+}
+
+nav a.active{
+    color:#176ee0;
+
+    border-bottom:3px solid #176ee0;
+}
+
+
+/* ================= RIGHT ================= */
+
+.header-right{
+    margin-left:auto;
+
+    display:flex;
+    align-items:center;
+
+    gap:14px;
+}
+
+
+.login{
+    width:118px;
+    height:50px;
+    margin-left: 230px;
+    margin-right: 20px;
+    border-radius:28px;
+
+    border:1.5px solid #176ee0;
+
+    background:white;
+
+    color:#176ee0;
+
+    font-size:15px;
+
+    font-weight:bold;
+}
+
+.register{
+    width:138px;
+    height:50px;
+
+    border:none;
+
+    border-radius:28px;
+
+    background:#176ee0;
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:bold;
+}
+
+
+/* ================= HERO ================= */
+
+.hero{
+    background:
+    linear-gradient(
+        120deg,
+        #edf8ff,
+        #e8f5ff
+    );
+
+    padding:50px 7%;
+
+    text-align:center;
+}
+
+.hero-icon{
+    width:78px;
+    height:78px;
+
+    margin:0 auto 18px;
+
+    border-radius:50%;
+
+    background:#dceeff;
+
+    color:#0873dc;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:35px;
+}
+
+.hero h1{
+    font-size:38px;
+
+    color:#073f78;
+
+    margin-bottom:14px;
+}
+
+.hero h1 span{
+    color:#176ee0;
+}
+
+.hero p{
+    max-width:800px;
+
+    margin:auto;
+
+    color:#527396;
+
+    font-size:16px;
+
+    line-height:1.7;
+}
+
+
+/* ================= HELP CONTENT ================= */
+
+.help-section{
+    padding:40px 6%;
+}
+
+
+/* ================= HOW IT WORKS ================= */
+
+.section-title{
+    text-align:center;
+
+    color:#073f78;
+
+    font-size:25px;
+
+    margin-bottom:25px;
+}
+
+.steps{
+    max-width:1150px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:18px;
+}
+
+.step{
+    background:white;
+
+    border:1px solid #dceaf5;
+
+    border-radius:13px;
+
+    padding:25px 18px;
+
+    text-align:center;
+
+    box-shadow:0 4px 15px rgba(28,94,143,.05);
+}
+
+.step-number{
+    width:48px;
+    height:48px;
+
+    border-radius:50%;
+
+    background:#0875dc;
+
+    color:white;
+
+    margin:0 auto 15px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-weight:bold;
+
+    font-size:18px;
+}
+
+.step h3{
+    color:#073f78;
+
+    font-size:16px;
+
+    margin-bottom:9px;
+}
+
+.step p{
+    color:#64819f;
+
+    font-size:13px;
+
+    line-height:1.6;
+}
+
+
+/* ================= FAQ ================= */
+
+.faq-section{
+    max-width:1000px;
+
+    margin:45px auto 0;
+}
+
+.faq{
+    background:white;
+
+    border:1px solid #dceaf5;
+
+    border-radius:10px;
+
+    margin-bottom:12px;
+
+    overflow:hidden;
+}
+
+.faq summary{
+    cursor:pointer;
+
+    list-style:none;
+
+    padding:18px 22px;
+
+    color:#073f78;
+
+    font-weight:600;
+
+    font-size:15px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+}
+
+.faq summary::-webkit-details-marker{
+    display:none;
+}
+
+.faq summary i{
+    color:#0875dc;
+}
+
+.faq p{
+    padding:0 22px 18px;
+
+    color:#607d9c;
+
+    font-size:14px;
+
+    line-height:1.7;
+}
+
+
+/* ================= SUPPORT ================= */
+
+.support{
+    max-width:1000px;
+
+    margin:40px auto 0;
+
+    background:#edf7ff;
+
+    border:1px solid #d7eafa;
+
+    border-radius:14px;
+
+    padding:30px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+}
+
+.support-content{
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+}
+
+.support-icon{
+    width:58px;
+    height:58px;
+
+    border-radius:50%;
+
+    background:#d7edff;
+
+    color:#0875dc;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:25px;
+}
+
+.support h2{
+    color:#073f78;
+
+    font-size:20px;
+
+    margin-bottom:6px;
+}
+
+.support p{
+    color:#5c7897;
+
+    font-size:14px;
+}
+
+.contact-btn{
+    background:#176ee0;
+
+    color:white;
+
+    border:none;
+
+    border-radius:25px;
+
+    padding:13px 25px;
+
+    font-size:14px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+
+/* ================= FOOTER ================= */
+
+footer{
+    margin-top:25px;
+
+    background:#073f78;
+
+    color:white;
+
+    text-align:center;
+
+    padding:22px;
+}
+
+footer p{
+    font-size:13px;
+
+    opacity:.9;
+}
+
+
+
+/* Contact form popup */
+.contact-modal
+{
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:1000;
+
+    background:rgba(5,35,67,.55);
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:20px
+}
+.contact-modal.show
+{
+    display:flex
+}
+.contact-form
+{
+    width:100%;
+
+    max-width:520px;
+
+    max-height:90vh;
+
+    overflow-y:auto;
+
+    background:#fff;
+
+    border-radius:16px;
+
+    padding:28px;
+    
+    box-shadow:0 15px 45px rgba(0,0,0,.2)
+}
+.contact-form-header
+{
+    display:flex;
+    
+    align-items:center;
+    
+    justify-content:space-between;
+    
+    gap:15px;
+    
+    margin-bottom:20px
+}
+.contact-form-header h2
+{
+    color:#073f78;
+    
+    font-size:23px
+}
+.close-modal
+{
+    border:0;
+    
+    background:#edf7ff;
+    
+    color:#073f78;
+    
+    border-radius:50%;
+    
+    width:36px;
+    
+    height:36px;
+    
+    font-size:22px;
+    
+    cursor:pointer
+}
+.contact-form label
+{
+    display:block;
+    
+    color:#073f78;
+    
+    font-weight:600;
+    
+    font-size:14px;
+    
+    margin:14px 0 6px
+}
+.contact-form input,.contact-form textarea
+{
+    width:100%;
+    
+    border:1px solid #cbddec;
+    
+    border-radius:8px;
+    
+    padding:12px;
+    
+    font:14px Arial,Helvetica,sans-serif;
+    
+    color:#173f65
+}
+.contact-form textarea
+{
+    min-height:120px;
+    
+    resize:vertical
+}
+.contact-form input:focus,.contact-form textarea:focus
+{
+    outline:2px solid #b7d9ff;
+    
+    border-color:#176ee0
+}
+.form-actions
+{
+    display:flex;
+    
+    justify-content:flex-end;
+    
+    gap:10px;
+    
+    margin-top:20px
+}
+.form-cancel,.form-submit
+{
+    border:0;
+    
+    border-radius:24px;
+    
+    padding:12px 22px;
+    
+    font-weight:bold;
+    
+    cursor:pointer
+}
+.form-cancel
+{
+    background:#edf2f7;
+    
+    color:#234765
+}
+.form-submit
+{
+    background:#176ee0;
+    
+    color:#fff
+}
+.form-status
+{
+    margin-top:14px;
+    
+    font-size:14px;
+    
+    color:#087a45
+}
+@media(max-width:500px)
+{
+    .contact-form
+    {
+        padding:20px
+    }
+    .contact-form-header h2
+    {
+        font-size:20px
+    }
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1000px){
+
+    .logo-area{
+        width:auto;
+    }
+
+    nav{
+        gap:20px;
+    }
+
+    .steps{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media(max-width:750px){
+
+    header{
+        height:auto;
+
+        padding:15px 5%;
+
+        flex-wrap:wrap;
+    }
+
+    .logo-area{
+        width:100%;
+    }
+
+    nav{
+        order:3;
+
+        width:100%;
+
+        justify-content:center;
+
+        gap:20px;
+    }
+
+    nav a{
+        padding:10px 0;
+    }
+
+    .header-right{
+        position:absolute;
+
+        right:5%;
+
+        top:20px;
+    }
+
+    .login,
+    .register{
+        display:none;
+    }
+
+    .steps{
+        grid-template-columns:1fr;
+    }
+
+    .support{
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:20px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <div class="logo-area">
+
+        <img
+        src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg"
+        alt="Government Emblem">
+
+        <div class="logo-text">
+
+            <h1>Scheme Finder</h1>
+
+            <p>
+                Government Schemes for a Brighter Future
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <nav>
+
+        <a href="home.html">
+            Home
+        </a>
+
+        <a href="schemesssss.html">
+            Schemes
+        </a>
+
+        <a href="about us.html">
+            About us
+        </a>
+
+        <a href="help.html" class="active">
+            Help
+        </a>
+
+    </nav>
+
+
+    <div class="header-right">
+
+    <a href="login.html">
+    <button class="login">Login</button>
+</a>
+
+<a href="register.html">
+    <button class="register">Register</button>
+</a>
+
+    </div>
+
+</header>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div class="hero-icon">
+
+        <i class="fa-solid fa-circle-question"></i>
+
+    </div>
+
+    <h1>
+        How Can We <span>Help You?</span>
+    </h1>
+
+    <p>
+        Find answers, understand how Scheme Finder works,
+        and get guidance on discovering and applying for
+        government schemes.
+    </p>
+
+</section>
+
+
+<!-- ================= HELP ================= -->
+
+<section class="help-section">
+
+
+    <h2 class="section-title">
+        How Scheme Finder Works
+    </h2>
+
+
+    <div class="steps">
+
+
+        <div class="step">
+
+            <div class="step-number">
+                1
+            </div>
+
+            <h3>
+                Register / Login
+            </h3>
+
+            <p>
+                Create an account or login to access
+                personalized scheme recommendations.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-number">
+                2
+            </div>
+
+            <h3>
+                Fill Your Details
+            </h3>
+
+            <p>
+                Provide basic information such as age,
+                occupation, income and other details.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-number">
+                3
+            </div>
+
+            <h3>
+                Find Eligible Schemes
+            </h3>
+
+            <p>
+                Explore schemes that match your profile
+                and eligibility requirements.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-number">
+                4
+            </div>
+
+            <h3>
+                View & Apply
+            </h3>
+
+            <p>
+                Check benefits and documents, then
+                proceed through the official application portal.
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- ================= FAQ ================= -->
+
+    <div class="faq-section">
+
+        <h2 class="section-title">
+            Frequently Asked Questions
+        </h2>
+
+
+        <details class="faq">
+
+            <summary>
+
+                How do I find a government scheme?
+
+                <i class="fa-solid fa-chevron-down"></i>
+
+            </summary>
+
+            <p>
+                Go to the Schemes section and browse schemes
+                by category. You can also use the search option
+                to find schemes based on your requirements.
+            </p>
+
+        </details>
+
+
+        <details class="faq">
+
+            <summary>
+
+                How can I check my eligibility?
+
+                <i class="fa-solid fa-chevron-down"></i>
+
+            </summary>
+
+            <p>
+                Open a scheme to view its eligibility criteria,
+                including age, occupation, income and other
+                requirements.
+            </p>
+
+        </details>
+
+
+        <details class="faq">
+
+            <summary>
+
+                Where can I apply for a scheme?
+
+                <i class="fa-solid fa-chevron-down"></i>
+
+            </summary>
+
+            <p>
+                Scheme Finder provides the official application
+                portal or official website wherever available.
+                Always verify the information before submitting
+                an application.
+            </p>
+
+        </details>
+
+
+        <details class="faq">
+
+            <summary>
+
+                Can I save schemes for later?
+
+                <i class="fa-solid fa-chevron-down"></i>
+
+            </summary>
+
+            <p>
+                Yes. You can save schemes that interest you
+                and access them later from the Saved Schemes
+                section of your dashboard.
+            </p>
+
+        </details>
+
+
+        <details class="faq">
+
+            <summary>
+
+                How do I receive scheme notifications?
+
+                <i class="fa-solid fa-chevron-down"></i>
+
+            </summary>
+
+            <p>
+                Notifications can keep you informed about
+                new schemes, application deadlines, reminders
+                and important scheme updates.
+            </p>
+
+        </details>
+
+
+    </div>
+
+
+    <!-- ================= SUPPORT ================= -->
+
+    <div class="support">
+
+
+        <div class="support-content">
+
+            <div class="support-icon">
+
+                <i class="fa-solid fa-headset"></i>
+
+            </div>
+
+
+            <div>
+
+                <h2>
+                    Still Need Help?
+                </h2>
+
+                <p>
+                    If you cannot find what you are looking for,
+                    contact our support team for assistance.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <button class="contact-btn" id="openContactForm" type="button">
+
+            <i class="fa-solid fa-envelope"></i>
+
+            &nbsp; Contact Support
+
+        </button>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- Contact Us popup form -->
+
+<div class="contact-modal" 
+    id="contactModal" 
+    role="dialog" 
+    aria-modal="true" 
+    aria-labelledby="contactFormTitle">
+
+        <form class="contact-form" id="contactForm">
+
+            <div class="contact-form-header">
+
+                <h2 id="contactFormTitle">
+                    Contact Us
+                </h2>
+
+                <button type="button" 
+                        class="close-modal" 
+                        id="closeContactForm" 
+                        aria-label="Close form">
+                        &times;
+                </button>
+
+            </div>
+
+            <label for="contactName">Name</label>
+
+            <input 
+                type="text" 
+                id="contactName" 
+                name="name" 
+                placeholder="Enter your name" 
+                required>
+
+            <label for="contactEmail">Email</label>
+
+            <input type="email" 
+                    id="contactEmail" 
+                    name="email" 
+                    placeholder="Enter your email address" 
+                    required>
+
+            <label for="contactSubject">Subject</label>
+
+            <input type="text" 
+                    id="contactSubject" 
+                    name="subject" 
+                    placeholder="Enter the subject" 
+                    required>
+
+            <label for="contactMessage">Message</label>
+
+            <textarea id="contactMessage" 
+                        name="message" 
+                        placeholder="Type your question or message here..." 
+                        required>
+            </textarea>
+
+            <div class="form-actions">
+
+                <button type="button" 
+                        class="form-cancel" 
+                        id="cancelContactForm">
+                    Cancel
+                </button>
+
+                <button type="submit" 
+                        class="form-submit">
+                    Submit
+                </button>
+
+            </div>
+
+            <p class="form-status" id="contactFormStatus" role="status"></p>
+
+        </form>
+
+</div>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <p>
+        © 2026 Scheme Finder | Government Schemes for a Brighter Future
+    </p>
+
+</footer>
+
+<script>
+(function()
+{
+    const modal=document.getElementById("contactModal");
+
+    const form=document.getElementById("contactForm");
+
+    const status=document.getElementById("contactFormStatus");
+
+    function closeForm()
+    {
+        modal.classList.remove("show");
+    }
+
+    document.getElementById("openContactForm").addEventListener("click",function()
+    {
+        modal.classList.add("show"); status.textContent="";
+        document.getElementById("contactName").focus();
+    });
+
+    document.getElementById("closeContactForm").addEventListener("click",closeForm);
+
+    document.getElementById("cancelContactForm").addEventListener("click",closeForm);
+
+    modal.addEventListener("click",function(e)
+    {
+        if(e.target===modal)closeForm();
+    });
+
+    document.addEventListener("keydown",function(e)
+    {
+        if(e.key==="Escape")closeForm();
+    });
+    
+    form.addEventListener("submit",function(e)
+    {
+        e.preventDefault();
+        if(!form.checkValidity()){form.reportValidity();return;}
+        status.textContent="Thank you! Your message has been recorded in this page.";
+        form.reset();
+    });
+})();
+
+</script>
+
+</body>
+
+</html>

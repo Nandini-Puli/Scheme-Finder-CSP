@@ -1,0 +1,1699 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Scheme Finder Dashboard</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="../js/auth_guard.js"></script>
+<style>
+
+/* ==============================
+BASIC RESET
+================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:"Poppins","Segoe UI",Arial,sans-serif;
+    background:#eef7ff;
+    color:#0b407d;
+}
+
+
+/* ==============================
+   SIDEBAR
+   SAME AS LOGOUT PAGE
+================================= */
+
+.sidebar{
+    position:fixed;
+
+    left:0;
+    top:0;
+
+    width:260px;
+    height:100vh;
+
+    background:linear-gradient(
+        180deg,
+        #07509d 0%,
+        #064b98 55%,
+        #063f82 100%
+    );
+
+    color:white;
+
+    padding:18px 15px;
+
+    z-index:1000;
+    overflow:hidden;
+}
+
+
+/* Decorative building inside sidebar */
+
+.sidebar::after{
+    content:"";
+
+    position:absolute;
+
+    left:-70px;
+    bottom:60px;
+
+    width:350px;
+    height:300px;
+
+    background:
+        linear-gradient(
+            rgba(255,255,255,0.06),
+            rgba(255,255,255,0.01)
+        );
+
+    border-radius:50% 50% 0 0;
+
+    transform:translateY(80px);
+}
+
+
+/* ==============================
+   SIDEBAR LOGO
+   SAME AS LOGOUT PAGE
+================================= */
+
+.sidebar-logo{
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    height:65px;
+
+    padding-left:10px;
+
+    margin-bottom:25px;
+
+    position:relative;
+    z-index:2;
+}
+
+.sidebar-logo img{
+    width:42px;
+    height:52px;
+
+    object-fit:contain;
+
+    filter:brightness(0) invert(1);
+}
+
+.sidebar-logo-text{
+    font-size:24px;
+    font-weight:600;
+
+    color:white;
+
+    white-space:nowrap;
+}
+
+
+/* ==============================
+   MENU
+   SAME AS LOGOUT PAGE
+================================= */
+
+.menu{
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+    position:relative;
+    z-index:2;
+}
+
+.menu-item{
+    width:100%;
+    height:52px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+    padding:0 14px;
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:16px;
+    font-weight:500;
+
+    border-radius:9px;
+
+    transition:0.25s ease;
+}
+
+.menu-item i{
+    width:26px;
+
+    text-align:center;
+
+    font-size:24px;
+}
+
+.menu-item:hover{
+    background:rgba(255,255,255,0.12);
+}
+
+.menu-item.active{
+    background:linear-gradient(
+        90deg,
+        #168cff,
+        #1685f4
+    );
+
+    box-shadow:
+        0 5px 15px rgba(0,126,255,0.25);
+}
+
+
+/* ==============================
+   SIDEBAR BOTTOM
+   SAME AS LOGOUT PAGE
+================================= */
+
+.sidebar-bottom{
+    position:absolute;
+
+    bottom:25px;
+    left:0;
+
+    width:100%;
+
+    text-align:center;
+
+    z-index:3;
+}
+
+.sidebar-bottom p{
+    color:white;
+
+    font-size:14px;
+
+    line-height:1.6;
+
+    opacity:0.95;
+}
+
+
+/* Indian tricolor curve */
+
+.india-line{
+    width:90px;
+    height:20px;
+
+    margin:8px auto 0;
+
+    position:relative;
+}
+
+.india-line::before{
+    content:"";
+
+    position:absolute;
+
+    width:75px;
+    height:5px;
+
+    background:#ff9933;
+
+    border-radius:50%;
+
+    left:8px;
+    top:2px;
+
+    transform:rotate(-10deg);
+}
+
+.india-line::after{
+    content:"";
+
+    position:absolute;
+
+    width:75px;
+    height:5px;
+
+    background:#138808;
+
+    border-radius:50%;
+
+    left:8px;
+    top:11px;
+
+    transform:rotate(-10deg);
+}
+
+
+/* ==============================
+   HEADER
+================================= */
+
+.header{
+    position:fixed;
+
+    top:0;
+    left:260px;
+    right:0;
+
+    height:74px;
+
+    background:#ffffff;
+
+    border-bottom:1px solid #dceaf5;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:flex-end;
+
+    padding:0 30px;
+
+    z-index:900;
+}
+
+
+/* ==============================
+   HEADER RIGHT
+================================= */
+
+.header-right{
+    display:flex;
+
+    align-items:center;
+
+    gap:25px;
+}
+
+
+/* ==============================
+   NOTIFICATION
+================================= */
+
+.notification{
+    width:40px;
+    height:40px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    position:relative;
+
+    color:#0755a0;
+
+    font-size:23px;
+
+    cursor:pointer;
+}
+
+.notification-number{
+    position:absolute;
+
+    top:0;
+    right:0;
+
+    width:17px;
+    height:17px;
+
+    background:#e51f36;
+
+    color:white;
+
+    font-size:10px;
+
+    font-weight:bold;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border:2px solid white;
+}
+
+
+/* ==============================
+   PROFILE
+================================= */
+
+.profile{
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    cursor:pointer;
+}
+
+.profile-circle{
+    width:48px;
+    height:48px;
+
+    border-radius:50%;
+
+    background:#e4f1ff;
+
+    border:2px solid #d7eafa;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    color:#0759a5;
+
+    font-size:26px;
+}
+
+.profile-name{
+    font-size:16px;
+
+    font-weight:600;
+
+    color:#08457f;
+}
+
+.profile-arrow{
+    font-size:13px;
+
+    color:#0756a0;
+}
+
+
+/* ==============================
+   MAIN
+================================= */
+
+.main{
+    margin-left:260px;
+
+    padding-top:74px;
+
+    min-height:100vh;
+
+    background:
+    linear-gradient(
+        135deg,
+        #eaf6ff,
+        #f5fbff
+    );
+}
+
+.dashboard{
+    width:100%;
+
+    padding:30px 30px 40px;
+}
+
+
+/* ==============================
+   GREETING
+================================= */
+
+.greeting{
+    margin-bottom:22px;
+}
+
+.greeting h1{
+    font-size:31px;
+
+    color:#064581;
+
+    margin-bottom:6px;
+}
+
+.greeting h1 span{
+    color:#075eae;
+}
+
+.greeting p{
+    font-size:17px;
+
+    color:#536f91;
+}
+
+
+/* ==============================
+   STATISTICS
+================================= */
+
+.stats{
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:18px;
+
+    margin-bottom:22px;
+}
+
+.stat-card{
+    min-height:160px;
+
+    padding:18px 20px;
+
+    border-radius:12px;
+
+    border:1px solid #d7e7f3;
+
+    background:#fff;
+}
+
+.stat-card.viewed{
+    background:#f1f8ff;
+}
+
+.stat-card.application{
+    background:#effcf8;
+}
+
+.stat-card.reminder{
+    background:#fff3fa;
+}
+
+.stat-card.saved{
+    background:#f5f2ff;
+}
+
+
+/* ==============================
+   STAT ICON
+================================= */
+
+.stat-icon{
+    width:51px;
+    height:51px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:24px;
+
+    margin-bottom:14px;
+}
+
+.viewed .stat-icon{
+    background:#d7ecff;
+    color:#0873d9;
+}
+
+.application .stat-icon{
+    background:#cdf7df;
+    color:#0eaf62;
+}
+
+.reminder .stat-icon{
+    background:#ffd7ed;
+    color:#ec2382;
+}
+
+.saved .stat-icon{
+    background:#e8dcff;
+    color:#6636d6;
+}
+
+.stat-number{
+    font-size:28px;
+
+    font-weight:700;
+
+    color:#08447f;
+
+    line-height:1;
+
+    margin-bottom:7px;
+}
+
+.stat-label{
+    font-size:15px;
+
+    color:#144d84;
+}
+
+
+/* ==============================
+   SECTION
+================================= */
+
+.section{
+    background:#ffffff;
+
+    border-radius:13px;
+
+    padding:17px 18px 18px;
+
+    margin-bottom:22px;
+
+    border:1px solid #dfebf5;
+
+    box-shadow:
+    0 3px 12px rgba(38,101,150,.05);
+}
+
+.section-heading{
+    height:38px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-bottom:8px;
+}
+
+.section-title{
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    color:#07467f;
+
+    font-size:20px;
+
+    font-weight:700;
+}
+
+.section-title i{
+    color:#0871d5;
+
+    font-size:21px;
+}
+
+.view-all{
+    color:#0872d4;
+
+    text-decoration:none;
+
+    font-size:14px;
+
+    font-weight:600;
+}
+
+
+/* ==============================
+   RECOMMENDED
+================================= */
+
+.recommended-grid{
+    display:grid;
+
+    grid-template-columns:
+    1fr 1fr;
+
+    gap:22px;
+}
+
+.scheme-card{
+    border:1px solid #d8e6f1;
+
+    border-radius:11px;
+
+    padding:16px 18px;
+
+    background:#fff;
+
+    min-height:265px;
+}
+
+.scheme-top{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+}
+
+.scheme-icon{
+    width:53px;
+    height:53px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:24px;
+}
+
+.education-icon{
+    background:#d9efff;
+    color:#0872d6;
+}
+
+.employment-icon{
+    background:#d6f8e7;
+    color:#14995c;
+}
+
+.match{
+    background:#dcf8e9;
+
+    color:#168752;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    padding:7px 11px;
+
+    border-radius:9px;
+}
+
+.scheme-card h3{
+    color:#06447f;
+
+    font-size:17px;
+
+    margin-top:14px;
+
+    margin-bottom:7px;
+}
+
+.scheme-card p{
+    color:#58718e;
+
+    font-size:14px;
+
+    line-height:1.65;
+
+    min-height:48px;
+}
+
+.category{
+    display:inline-block;
+
+    padding:5px 10px;
+
+    border-radius:7px;
+
+    margin-top:8px;
+
+    margin-bottom:13px;
+
+    font-size:12px;
+}
+
+.category.blue{
+    background:#e7f4ff;
+    color:#1475ce;
+}
+
+.category.orange{
+    background:#fff4df;
+    color:#dc8b16;
+}
+
+.details{
+    height:41px;
+
+    border-radius:8px;
+
+    background:linear-gradient(
+        90deg,
+        #0875eb,
+        #0879e8
+    );
+
+    color:white;
+
+    border:none;
+
+    width:100%;
+
+    font-size:14px;
+
+    cursor:pointer;
+
+    font-weight:600;
+}
+
+.details i{
+    margin-left:8px;
+}
+
+
+
+/* ==============================
+   RESPONSIVE
+================================= */
+
+@media(max-width:1000px){
+
+    .stats{
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
+    .popular-grid{
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+}
+
+
+@media(max-width:800px){
+
+    .sidebar{
+        width:260px;
+    }
+
+    .header{
+        left:260px;
+    }
+
+    .main{
+        margin-left:260px;
+    }
+
+    .recommended-grid{
+        grid-template-columns:1fr;
+    }
+
+    .dashboard{
+        padding:25px 20px 35px;
+    }
+}
+
+
+@media(max-width:550px){
+
+    .header{
+        height:65px;
+
+        padding:0 15px;
+    }
+
+    .main{
+        padding-top:65px;
+    }
+
+    .dashboard{
+        padding:22px 15px;
+    }
+
+    .greeting h1{
+        font-size:24px;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .popular-grid{
+        grid-template-columns:1fr;
+    }
+
+    .profile-name,
+    .profile-arrow{
+        display:none;
+    }
+
+    .profile{
+        padding:0;
+    }
+
+    .notification{
+        width:38px;
+        height:38px;
+    }
+
+    .profile-circle{
+        width:43px;
+        height:43px;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- ==============================
+     SIDEBAR
+================================= -->
+
+<aside class="sidebar">
+
+
+    <!-- LOGO -->
+
+    <div class="sidebar-logo">
+
+        <!-- Government of India Emblem -->
+
+        <img
+            src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg"
+            alt="Government of India">
+
+        <div class="sidebar-logo-text">
+
+            Scheme Finder
+
+        </div>
+
+    </div>
+
+
+
+    <!-- MENU -->
+
+    <nav class="menu">
+
+
+        <a href="dashboard.html"
+           class="menu-item active">
+
+            <i class="fa-solid fa-house"></i>
+
+            <span>
+                Dashboard
+            </span>
+
+        </a>
+
+
+        <a href="schemes.html"
+        class="menu-item">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <span>
+                Schemes
+            </span>
+
+        </a>
+
+
+        <a href="savedschemes.html"
+        class="menu-item">
+
+            <i class="fa-regular fa-heart"></i>
+
+            <span>
+                Saved Schemes
+            </span>
+
+        </a>
+
+
+        <a href="alerts.html"
+           class="menu-item">
+
+            <i class="fa-regular fa-bell"></i>
+
+            <span>
+                Alerts
+            </span>
+
+        </a>
+
+
+        <a href="profile.html"
+           class="menu-item">
+
+            <i class="fa-regular fa-user"></i>
+
+            <span>
+                Profile
+            </span>
+
+        </a>
+
+
+        <a href="settings.html"
+           class="menu-item">
+
+            <i class="fa-solid fa-gear"></i>
+
+            <span>
+                Settings
+            </span>
+
+        </a>
+
+
+        <a href="logout.html"
+           class="menu-item">
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+            <span>
+                Logout
+            </span>
+
+        </a>
+
+
+    </nav>
+
+
+
+    <!-- BOTTOM TEXT -->
+
+    <div class="sidebar-bottom">
+
+        <p>
+
+            Government Schemes<br>
+
+            for a Better Tomorrow
+
+        </p>
+
+        <div class="india-line"></div>
+
+    </div>
+
+
+</aside>
+
+
+
+<!-- ==============================
+     HEADER
+================================= -->
+
+<header class="header">
+
+    <div class="header-right">
+
+
+        <!-- NOTIFICATION -->
+
+        <div class="notification">
+
+            <i class="fa-regular fa-bell"></i>
+
+            <span class="notification-number" id="unreadAlertCount">0</span>
+
+        </div>
+
+
+        <!-- PROFILE -->
+
+        <div class="profile">
+
+            <div class="profile-circle">
+
+                <i class="fa-regular fa-user"></i>
+
+            </div>
+
+            <span class="profile-name"
+                id="profileName">
+
+                User
+
+            </span>
+
+            <i class="fa-solid fa-chevron-down profile-arrow"></i>
+
+        </div>
+
+
+    </div>
+
+</header>
+
+
+
+<!-- ==============================
+     MAIN
+================================= -->
+
+<main class="main">
+
+<div class="dashboard">
+
+
+    <!-- =========================
+         GREETING
+    ========================== -->
+
+    <div class="greeting">
+
+        <h1>
+
+            Welcome Back,
+
+            <span id="greetingName">
+                User
+            </span>
+
+            👋
+
+        </h1>
+
+        <p>
+            Find schemes that match your profile.
+        </p>
+
+    </div>
+
+
+
+    <!-- =========================
+         STATISTICS
+    ========================== -->
+
+    <div class="stats">
+
+
+        <!-- VIEWED -->
+
+        <div class="stat-card viewed">
+
+            <div class="stat-icon">
+
+                <i class="fa-solid fa-eye"></i>
+
+            </div>
+
+            <div class="stat-number" id="viewedSchemesCount">
+                0
+            </div>
+
+            <div class="stat-label">
+                Viewed Schemes
+            </div>
+
+        </div>
+
+
+
+        <!-- APPLICATIONS -->
+
+        <div class="stat-card applications">
+
+            <div class="stat-icon">
+
+                <i class="fa-regular fa-file-lines"></i>
+
+            </div>
+
+            <div class="stat-number" id="applicationsCount">
+                0
+            </div>
+
+            <div class="stat-label">
+                Applications
+            </div>
+
+        </div>
+
+
+
+        <!-- REMINDERS -->
+
+        <div class="stat-card reminder">
+
+            <div class="stat-icon">
+
+                <i class="fa-regular fa-bell"></i>
+
+            </div>
+
+            <div class="stat-number" id="remindersCount">
+                0
+            </div>
+
+            <div class="stat-label">
+                Reminders
+            </div>
+
+        </div>
+
+
+
+        <!-- SAVED -->
+
+        <div class="stat-card saved">
+
+            <div class="stat-icon">
+
+                <i class="fa-regular fa-bookmark"></i>
+
+            </div>
+
+            <div class="stat-number">
+                0
+            </div>
+
+            <div class="stat-label">
+                Saved Schemes
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =========================
+         RECOMMENDED
+    ========================== -->
+
+    
+<section class="section">
+
+    <div class="section-heading">
+
+        <div class="section-title">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            <span>Recommended For You</span>
+        </div>
+
+        <a href="schemes.html" class="view-all">
+            View All
+            <i class="fa-solid fa-arrow-right"></i>
+        </a>
+
+    </div>
+
+    <div class="recommended-grid" id="recommendedGrid">
+
+        <!-- EDUCATION -->
+        <div class="scheme-card" id="recommendedCard1">
+
+            <div class="scheme-top">
+
+                <div class="scheme-icon education-icon" id="recommendedIcon1">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+
+                <div class="match" id="recommendedMatch1">
+                    95% Match
+                </div>
+
+            </div>
+
+            <h3 id="recommendedName1">
+                Education Support Scheme
+            </h3>
+
+            <p id="recommendedDescription1">
+                Financial assistance for higher education
+                and skill development.
+            </p>
+
+            <span class="category blue" id="recommendedCategory1">
+                Education
+            </span>
+
+            <button class="details" id="recommendedButton1" type="button">
+                View Details
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+
+        </div>
+
+        <!-- EMPLOYMENT -->
+        <div class="scheme-card" id="recommendedCard2">
+
+            <div class="scheme-top">
+
+                <div class="scheme-icon employment-icon" id="recommendedIcon2">
+                    <i class="fa-solid fa-briefcase"></i>
+                </div>
+
+                <div class="match" id="recommendedMatch2">
+                    88% Match
+                </div>
+
+            </div>
+
+            <h3 id="recommendedName2">
+                Employment Generation Scheme
+            </h3>
+
+            <p id="recommendedDescription2">
+                Support for self-employment and
+                job creation.
+            </p>
+
+            <span class="category orange" id="recommendedCategory2">
+                Employment
+            </span>
+
+            <button class="details" id="recommendedButton2" type="button">
+                View Details
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+</div>
+
+</main>
+
+
+
+<!-- ==============================
+    JAVASCRIPT
+================================= -->
+
+
+<script>
+(() => {
+    "use strict";
+
+    const API_BASE = "http://127.0.0.1:5000/api";
+
+    document.addEventListener("DOMContentLoaded", initDashboard);
+
+    async function initDashboard() {
+        // Connect both View All links without changing their styling.
+        document.querySelectorAll(".section .view-all").forEach(link => {
+            link.href = "schemes.html";
+        });
+
+        // Load each feature independently so one failure does not
+        // prevent the other dashboard sections from updating.
+        const profile = await loadProfile();
+
+        await Promise.allSettled([
+            loadViewedCount(),
+            loadApplicationsCount(),
+            loadSavedCount(),
+            loadRemindersCount(),
+            loadRecommendations(profile.category)
+        ]);
+    }
+
+    // =====================================================
+    // COMMON API REQUEST
+    // =====================================================
+
+    async function apiGet(endpoint) {
+        const response = await fetch(`${API_BASE}${endpoint}`, {
+            method: "GET",
+            credentials: "include",
+            cache: "no-store",
+            headers: {
+                "Accept": "application/json"
+            }
+        });
+
+        const text = await response.text();
+        let data = {};
+
+        try {
+            data = text ? JSON.parse(text) : {};
+        } catch {
+            throw new Error(
+                `The API ${endpoint} did not return JSON. ` +
+                `Check the Flask route and server logs.`
+            );
+        }
+
+        if (response.status === 401) {
+            window.location.replace("login.html");
+            throw new Error("Session expired. Please log in again.");
+        }
+
+        if (!response.ok) {
+            throw new Error(
+                data.message || `${endpoint} returned HTTP ${response.status}`
+            );
+        }
+
+        return data;
+    }
+
+    // =====================================================
+    // PROFILE: NAME AND CATEGORY
+    // GET /api/user/settings/profile
+    // =====================================================
+
+    async function loadProfile() {
+        try {
+            const data = await apiGet("/user/settings/profile");
+            const user = data.user || {};
+
+            const name =
+                user.full_name ||
+                user.profile_username ||
+                user.username ||
+                user.name ||
+                "User";
+
+            setText("profileName", name);
+            setText("greetingName", name);
+
+            console.log("Dashboard profile:", user);
+
+            return {
+                category: user.category || ""
+            };
+        } catch (error) {
+            console.error("Profile loading failed:", error);
+            return { category: "" };
+        }
+    }
+
+    // =====================================================
+    // VIEWED SCHEMES COUNT
+    // Expected response: { "total_views": 12 }
+    // =====================================================
+
+    async function loadViewedCount() {
+        try {
+            const data = await apiGet("/user/viewed-schemes/summary");
+
+            const count =
+                data.total_views ??
+                data.viewed_count ??
+                data.count;
+
+            if (count !== undefined && count !== null) {
+                setText("viewedSchemesCount", count);
+            } else {
+                console.warn("Viewed count field is missing:", data);
+            }
+        } catch (error) {
+            console.error("Viewed schemes request failed:", error);
+        }
+    }
+
+// =====================================
+// APPLICATIONS COUNT
+// GET /api/user/apply-clicks/summary
+// =====================================
+
+async function loadApplicationsCount() {
+    try {
+        const data = await apiGet("/user/apply-clicks/summary");
+
+        console.log("Applications API response:", data);
+
+        // Match the field names returned by your Flask route.
+        const count = data.total_clicks ?? 0;
+
+        const element = document.getElementById("applicationsCount");
+
+        if (element) {
+            element.textContent = Number(count);
+        } else {
+            console.error(
+                "Applications count element #applicationsCount not found."
+            );
+        }
+
+    } catch (error) {
+        console.error("Applications count request failed:", error);
+    }
+}
+
+    // =====================================================
+    // SAVED SCHEMES COUNT
+    //
+    // Tries the existing /user/saved-schemes endpoint.
+    // Supports either a count response or a list response.
+    // =====================================================
+
+    async function loadSavedCount() {
+        try {
+            const data = await apiGet("/saved-schemes");
+
+            let count = data.total_saved ??
+                        data.saved_count ??
+                        data.count;
+
+            if (count === undefined || count === null) {
+                if (Array.isArray(data)) {
+                    count = data.length;
+                } else {
+                    const list =
+                        data.saved_schemes ??
+                        data.schemes ??
+                        data.saved;
+
+                    if (Array.isArray(list)) {
+                        count = list.length;
+                    }
+                }
+            }
+
+            if (count !== undefined && count !== null) {
+                const element = document.querySelector(
+                    ".stat-card.saved .stat-number"
+                );
+
+                if (element) element.textContent = Number(count);
+            } else {
+                console.warn("Saved count not found in API response:", data);
+            }
+        } catch (error) {
+            console.error("Saved schemes request failed:", error);
+        }
+    }
+
+    // =====================================================
+    // RECOMMENDED SCHEMES
+    // GET /api/user/recommended-schemes
+    // =====================================================
+
+    async function loadRecommendations(userCategory) {
+        const container = document.getElementById("recommendedGrid");
+        if (!container) return;
+
+        try {
+            const data = await apiGet("/user/recommended-schemes");
+
+            const schemes = Array.isArray(data)
+                ? data
+                : Array.isArray(data.schemes)
+                    ? data.schemes
+                    : Array.isArray(data.recommended_schemes)
+                        ? data.recommended_schemes
+                        : [];
+
+            console.log("User category:", userCategory);
+            console.log("Schemes received from backend:", schemes);
+
+            const category = normalizeCategory(userCategory);
+
+            // If the backend does not provide a user category, do not
+            // silently show unrelated schemes.
+            const matched = category
+                ? schemes.filter(scheme =>
+                    normalizeCategory(
+                        scheme.category ??
+                        scheme.scheme_category
+                    ) === category
+                ).slice(0, 2)
+                : [];
+
+            for (let i = 1; i <= 2; i++) {
+                const card = document.getElementById(`recommendedCard${i}`);
+                const scheme = matched[i - 1];
+
+                if (!card) continue;
+
+                if (!scheme) {
+                    card.hidden = true;
+                    continue;
+                }
+
+                card.hidden = false;
+                updateRecommendationCard(i, scheme);
+            }
+
+            // Show a message only when there are no matching schemes.
+            let emptyMessage = document.getElementById(
+                "noRecommendedSchemesMessage"
+            );
+
+            if (matched.length === 0) {
+                if (!emptyMessage) {
+                    emptyMessage = document.createElement("p");
+                    emptyMessage.id = "noRecommendedSchemesMessage";
+                    emptyMessage.style.cssText =
+                        "padding:12px;color:#58718e;";
+                    container.appendChild(emptyMessage);
+                }
+
+                emptyMessage.textContent = category
+                    ? "No recommended schemes are currently available for your category."
+                    : "Your profile category is not available. Please check your profile details.";
+
+                if (!emptyMessage.querySelector("a")) {
+                    const link = document.createElement("a");
+                    link.href = "schemes.html";
+                    link.textContent = " View all schemes";
+                    emptyMessage.appendChild(link);
+                }
+            } else if (emptyMessage) {
+                emptyMessage.remove();
+            }
+
+        } catch (error) {
+            console.error("Recommended schemes request failed:", error);
+        }
+    }
+
+    // =====================================================
+    // UPDATE EXISTING CARD WITHOUT CHANGING THE DESIGN
+    // =====================================================
+
+    function updateRecommendationCard(index, scheme) {
+        const name =
+            scheme.scheme_name ||
+            scheme.schemeName ||
+            scheme.name ||
+            "Government Scheme";
+
+        const description =
+            scheme.description ||
+            scheme.scheme_description ||
+            "View scheme details to learn more.";
+
+        const categoryValue =
+            scheme.category ??
+            scheme.scheme_category ??
+            "";
+
+        const category = normalizeCategory(categoryValue);
+
+        setText(`recommendedName${index}`, name);
+        setText(`recommendedDescription${index}`, description);
+        setText(`recommendedCategory${index}`, categoryValue);
+
+        const percentage = Number(
+            scheme.match_percentage ??
+            scheme.match_percentage_value
+        );
+
+        setText(
+            `recommendedMatch${index}`,
+            Number.isFinite(percentage) && percentage > 0
+                ? `${Math.min(100, percentage)}% Match`
+                : "Category Match"
+        );
+
+        const iconBox = document.getElementById(
+            `recommendedIcon${index}`
+        );
+
+        const icon = iconBox?.querySelector("i");
+        const badge = document.getElementById(
+            `recommendedCategory${index}`
+        );
+
+        const iconClasses = {
+            education: "fa-graduation-cap",
+            employment: "fa-briefcase",
+            unemployed: "fa-briefcase",
+            entrepreneurship: "fa-lightbulb",
+            internship: "fa-laptop"
+        };
+
+        if (icon) {
+            icon.className =
+                "fa-solid " +
+                (iconClasses[category] || "fa-landmark");
+        }
+
+        if (iconBox) {
+            const education = category === "education";
+
+            iconBox.classList.toggle("education-icon", education);
+            iconBox.classList.toggle("employment-icon", !education);
+        }
+
+        if (badge) {
+            badge.classList.toggle("blue", category === "education");
+            badge.classList.toggle("orange", category !== "education");
+        }
+
+        const button = document.getElementById(
+            `recommendedButton${index}`
+        );
+
+        if (button) {
+            button.onclick = () => {
+                const schemeId = scheme.scheme_id ?? scheme.id;
+                const url = new URL("schemes.html", window.location.href);
+
+                if (schemeId !== undefined && schemeId !== null) {
+                    url.searchParams.set("scheme_id", schemeId);
+                }
+
+                window.location.href = url.href;
+            };
+        }
+    }
+
+    // =====================================================
+    // HELPERS
+    // =====================================================
+
+    function setText(id, value) {
+        const element = document.getElementById(id);
+
+        if (element) {
+            element.textContent = String(value ?? "");
+        }
+    }
+
+    function normalizeCategory(value) {
+        return String(value || "")
+            .trim()
+            .toLowerCase()
+            .replace(/[_-]+/g, " ")
+            .replace(/\s+/g, " ");
+    }
+})();
+</script>
+<script src="../js/user_notifications.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,1904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Scheme Finder - Reports & Analytics</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+/* =========================
+   RESET
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background: #f4f8fc;
+    color: #172b4d;
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    width: 260px;
+    height: 100vh;
+
+    background: linear-gradient(
+        180deg,
+        #064b91,
+        #0755a5,
+        #0866c4
+    );
+
+    color: white;
+    padding: 22px 15px;
+
+    z-index: 1000;
+}
+
+
+/* Sidebar Logo */
+
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 5px 10px 25px;
+
+    border-bottom: 1px solid rgba(255,255,255,0.18);
+}
+
+.sidebar-logo i {
+    font-size: 28px;
+}
+
+.sidebar-logo span {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+
+/* Sidebar Menu */
+
+.sidebar-menu {
+    margin-top: 25px;
+}
+
+.sidebar-menu a {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    text-decoration: none;
+    color: white;
+
+    padding: 13px 15px;
+    margin-bottom: 6px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    transition: 0.3s;
+}
+
+.sidebar-menu a i {
+    width: 20px;
+    text-align: center;
+}
+
+.sidebar-menu a:hover {
+    background: rgba(255,255,255,0.15);
+}
+
+.sidebar-menu a.active {
+    background: white;
+    color: #0755a5;
+    font-weight: 600;
+}
+
+
+/* Sidebar Bottom */
+
+.sidebar-bottom {
+    position: absolute;
+
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+
+    text-align: center;
+
+    font-size: 11px;
+
+    color: rgba(255,255,255,0.85);
+}
+
+.tricolor {
+    display: flex;
+
+    height: 3px;
+
+    margin-top: 8px;
+}
+
+.tricolor span {
+    flex: 1;
+}
+
+.orange {
+    background: #ff9933;
+}
+
+.white {
+    background: white;
+}
+
+.green {
+    background: #138808;
+}
+
+
+/* =========================
+   MAIN CONTENT
+========================= */
+
+.main {
+    margin-left: 260px;
+
+    min-height: 100vh;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+    height: 72px;
+
+    background: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 28px;
+
+    border-bottom: 1px solid #e4eaf1;
+
+    position: sticky;
+    top: 0;
+
+    z-index: 900;
+}
+
+
+/* Search */
+
+.header-search {
+    display: flex;
+    align-items: center;
+
+    width: 360px;
+
+    background: #f5f8fc;
+
+    border: 1px solid #e3eaf2;
+
+    border-radius: 8px;
+
+    padding: 9px 14px;
+
+    margin-left: auto;
+    margin-right: 30px;
+}
+
+.header-search i {
+    color: #8291a5;
+
+    margin-right: 9px;
+}
+
+.header-search input {
+    width: 100%;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    font-size: 13px;
+}
+
+
+/* Header Right */
+
+.header-right {
+    display: flex;
+    align-items: center;
+
+    gap: 22px;
+}
+
+.notification {
+    position: relative;
+
+    font-size: 19px;
+
+    color: #526579;
+
+    cursor: pointer;
+}
+
+.notification span {
+    position: absolute;
+
+    top: -8px;
+    right: -8px;
+
+    width: 17px;
+    height: 17px;
+
+    background: #e63946;
+
+    color: white;
+
+    border-radius: 50%;
+
+    font-size: 9px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* Admin Profile */
+
+.admin-profile {
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+}
+
+.profile-circle {
+    width: 38px;
+    height: 38px;
+
+    border-radius: 50%;
+
+    background: #0755a5;
+
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-profile strong {
+    display: block;
+
+    color: #172b4d;
+
+    font-size: 12px;
+}
+
+.admin-profile small {
+    color: #7b899b;
+
+    font-size: 10px;
+}
+
+
+.admin-name-link {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.admin-name-link:hover {
+    color: #2563eb;
+}
+
+.admin-name-link:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 3px;
+    border-radius: 3px;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.content {
+    padding: 28px;
+}
+
+
+/* Page Heading */
+
+.page-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 25px;
+}
+
+.page-heading h1 {
+    font-size: 25px;
+
+    color: #12345b;
+}
+
+.page-heading p {
+    font-size: 13px;
+
+    color: #7b899b;
+
+    margin-top: 4px;
+}
+
+
+/* Export Button */
+
+.export-btn {
+    border: none;
+
+    background: #0755a5;
+
+    color: white;
+
+    padding: 10px 17px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-size: 13px;
+}
+
+.export-btn i {
+    margin-right: 7px;
+}
+
+.export-btn:hover {
+    background: #064682;
+}
+
+
+/* =========================
+   SUMMARY CARDS
+========================= */
+
+.summary-grid {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 18px;
+
+    margin-bottom: 22px;
+}
+
+.summary-card {
+    background: white;
+
+    border: 1px solid #e2e9f1;
+
+    border-radius: 10px;
+
+    padding: 20px;
+
+    box-shadow: 0 3px 12px rgba(0,0,0,0.04);
+}
+
+.summary-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.summary-top p {
+    font-size: 12px;
+
+    color: #7b899b;
+}
+
+.summary-icon {
+    width: 42px;
+    height: 42px;
+
+    border-radius: 9px;
+
+    background: #eaf2ff;
+
+    color: #0755a5;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 18px;
+}
+
+.summary-card h3 {
+    font-size: 25px;
+
+    margin-top: 15px;
+
+    color: #173b65;
+}
+
+
+
+
+/* =========================
+   ANALYTICS GRID
+========================= */
+
+.analytics-grid {
+    display: grid;
+
+    grid-template-columns: 2fr 1fr;
+
+    gap: 20px;
+
+    margin-bottom: 22px;
+}
+
+.card {
+    background: white;
+
+    border: 1px solid #e2e9f1;
+
+    border-radius: 10px;
+
+    box-shadow: 0 3px 12px rgba(0,0,0,0.04);
+
+    padding: 20px;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+.card-header h2 {
+    font-size: 16px;
+
+    color: #173b65;
+}
+
+.card-header p {
+    font-size: 11px;
+
+    color: #8996a8;
+
+    margin-top: 3px;
+}
+
+
+/* =========================
+   BAR CHART
+========================= */
+
+.chart {
+    height: 260px;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+
+    padding: 15px 10px 5px;
+
+    border-bottom: 1px solid #dce4ed;
+}
+
+.bar-item {
+    height: 100%;
+
+    width: 45px;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.bar {
+    width: 30px;
+
+    background: linear-gradient(
+        180deg,
+        #2582df,
+        #0755a5
+    );
+
+    border-radius: 5px 5px 0 0;
+
+    transition: 0.3s;
+}
+
+.bar:hover {
+    opacity: 0.8;
+}
+
+.bar-label {
+    margin-top: 8px;
+
+    font-size: 10px;
+
+    color: #7d8b9c;
+}
+
+
+/* =========================
+    DONUT CHART
+========================= */
+
+.category-card {
+    min-width: 0;
+    overflow: hidden;
+}
+
+.donut-wrapper {
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.donut {
+    width: 165px;
+    height: 165px;
+    flex: 0 0 165px;
+    border-radius: 50%;
+    background: #e8eef5;
+    position: relative;
+    transition: background 0.3s ease;
+}
+
+.donut::after {
+    content: "";
+    position: absolute;
+    inset: 27px;
+    background: #fff;
+    border-radius: 50%;
+}
+
+.donut-center {
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.donut-center strong {
+    font-size: 25px;
+    color: #173b65;
+}
+
+.donut-center span {
+    font-size: 11px;
+    color: #7b899b;
+}
+
+.legend {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    color: #536579;
+    font-size: 12px;
+}
+
+.legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+    .legend {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+.table-card {
+    margin-bottom: 22px;
+}
+
+.report-table {
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+.report-table th {
+    text-align: left;
+
+    background: #f5f8fc;
+
+    color: #627489;
+
+    font-size: 11px;
+
+    padding: 12px;
+}
+
+.report-table td {
+    padding: 13px 12px;
+
+    border-bottom: 1px solid #edf1f5;
+
+    font-size: 12px;
+
+    color: #536579;
+}
+
+.report-table tr:hover {
+    background: #fafcff;
+}
+
+
+/* Status */
+
+.status {
+    padding: 4px 9px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+
+    font-weight: 500;
+}
+
+.status.high {
+    background: #e5f7ec;
+
+    color: #15803d;
+}
+
+.status.medium {
+    background: #fff4dc;
+
+    color: #b7791f;
+}
+
+.status.low {
+    background: #eef2f7;
+
+    color: #66778a;
+}
+
+
+/* =========================
+   REPORT CARDS
+========================= */
+
+.report-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 18px;
+}
+
+.report-box {
+    background: white;
+
+    border: 1px solid #e2e9f1;
+
+    border-radius: 10px;
+
+    padding: 20px;
+
+    box-shadow: 0 3px 12px rgba(0,0,0,0.04);
+}
+
+.report-box > i {
+    width: 40px;
+    height: 40px;
+
+    border-radius: 8px;
+
+    background: #edf4ff;
+
+    color: #0755a5;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 13px;
+}
+
+.report-box h3 {
+    font-size: 14px;
+
+    color: #173b65;
+
+    margin-bottom: 5px;
+}
+
+.report-box p {
+    font-size: 11px;
+
+    line-height: 1.6;
+
+    color: #7b899b;
+
+    margin-bottom: 13px;
+}
+
+.view-report {
+    border: none;
+
+    background: transparent;
+
+    color: #0755a5;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.view-report i {
+    margin-left: 4px;
+}
+
+
+.category-stat {
+    margin: 14px 0;
+}
+
+.category-stat-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 7px;
+    font-size: 12px;
+}
+
+.category-stat-heading span {
+    color: #52708d;
+}
+
+.category-stat-heading strong {
+    color: #164675;
+    font-size: 11px;
+}
+
+.category-stat-track {
+    height: 8px;
+    overflow: hidden;
+    border-radius: 10px;
+    background: #eaf1f8;
+}
+
+.category-stat-bar {
+    height: 100%;
+    border-radius: 10px;
+    background: #1672d4;
+    transition: width 0.3s ease;
+}
+
+
+.table-card {
+    margin-top: 22px;
+    padding: 24px;
+    overflow: hidden;
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid #e5ebf2;
+    border-radius: 12px;
+}
+
+.report-table {
+    width: 100%;
+    min-width: 720px;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #fff;
+}
+
+.report-table thead th {
+    background: #f1f6fc;
+    color: #315477;
+    font-size: 11px;
+    font-weight: 600;
+    text-align: left;
+    padding: 15px 16px;
+    white-space: nowrap;
+    border-bottom: 1px solid #e0e8f1;
+}
+
+.report-table tbody td {
+    padding: 16px;
+    font-size: 12px;
+    color: #526579;
+    border-bottom: 1px solid #edf1f5;
+    vertical-align: middle;
+}
+
+.report-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.report-table tbody tr:hover {
+    background: #f8fbff;
+}
+
+.report-table tbody td:first-child {
+    color: #173b65;
+    font-weight: 600;
+    min-width: 200px;
+}
+
+.performance-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 11px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.performance-badge.high {
+    background: #e5f7ec;
+    color: #15803d;
+}
+
+.performance-badge.medium {
+    background: #fff4dc;
+    color: #a16207;
+}
+
+.performance-badge.low {
+    background: #eef2f7;
+    color: #66778a;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast {
+    position: fixed;
+
+    right: 25px;
+    bottom: 25px;
+
+    background: #173b65;
+
+    color: white;
+
+    padding: 12px 18px;
+
+    border-radius: 7px;
+
+    font-size: 12px;
+
+    display: none;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+
+    z-index: 2000;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1100px) {
+
+    .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .analytics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .report-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+
+@media (max-width: 768px) {
+
+    .sidebar {
+        width: 220px;
+    }
+
+    .main {
+        margin-left: 220px;
+    }
+
+    .header-search {
+        width: 220px;
+    }
+
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .report-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .page-heading {
+        align-items: flex-start;
+
+        gap: 15px;
+
+        flex-direction: column;
+    }
+
+    .content {
+        padding: 18px;
+    }
+
+    .table-card {
+        overflow-x: auto;
+    }
+
+    .report-table {
+        min-width: 700px;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .sidebar {
+        width: 190px;
+    }
+
+    .main {
+        margin-left: 190px;
+    }
+
+    .sidebar-logo span {
+        font-size: 15px;
+    }
+
+    .sidebar-menu a {
+        font-size: 12px;
+        padding: 11px;
+    }
+
+    .header {
+        padding: 0 15px;
+    }
+
+    .header-search {
+        display: none;
+    }
+
+    .admin-profile div:last-child {
+        display: none;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- ==================================================
+     SIDEBAR
+================================================== -->
+
+<aside class="sidebar">
+
+    <div class="sidebar-logo">
+
+        <i class="fa-solid fa-landmark"></i>
+
+        <span>Scheme Finder</span>
+
+    </div>
+
+
+    <div class="sidebar-menu">
+
+        <a href="admin_dashboard.html">
+
+            <i class="fa-solid fa-chart-line"></i>
+
+            <span>Dashboard</span>
+
+        </a>
+
+
+        <a href="admin_schemes.html">
+
+            <i class="fa-solid fa-file-lines"></i>
+
+            <span>Schemes</span>
+
+        </a>
+
+
+        <a href="admin_users.html">
+
+            <i class="fa-solid fa-users"></i>
+
+            <span>Users</span>
+
+        </a>
+
+
+        <a href="admin_applications.html">
+
+            <i class="fa-solid fa-clipboard-list"></i>
+
+            <span>Applications</span>
+
+        </a>
+
+
+        <a href="admin_alerts.html">
+
+            <i class="fa-solid fa-bell"></i>
+
+            <span>Alerts & Notifications</span>
+
+        </a>
+
+
+        <a href="admin_reports.html" class="active">
+
+            <i class="fa-solid fa-chart-pie"></i>
+
+            <span>Reports</span>
+
+        </a>
+
+
+        <a href="admin_settings.html">
+
+            <i class="fa-solid fa-gear"></i>
+
+            <span>Settings</span>
+
+        </a>
+
+
+        <a href="admin_logout.html">
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+            <span>Logout</span>
+
+        </a>
+
+    </div>
+
+
+    <div class="sidebar-bottom">
+
+        <div>Government of India</div>
+
+        <div>Scheme Finder Admin Portal</div>
+
+
+        <div class="tricolor">
+
+            <span class="orange"></span>
+
+            <span class="white"></span>
+
+            <span class="green"></span>
+
+        </div>
+
+    </div>
+
+</aside>
+
+
+
+<!-- ==================================================
+     MAIN
+================================================== -->
+
+<main class="main" id="dashboard-content">
+
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+
+        <div class="header-search">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="text"
+                placeholder="Search reports..."
+            >
+
+        </div>
+
+
+        <div class="header-right">
+
+
+            <div class="notification"
+                role="link"
+                tabindex="0"
+                onclick="window.location.href='admin_alerts.html'"
+                onkeydown="if(event.key==='Enter'||event.key===' ')
+                {
+                    event.preventDefault();window.location.href='admin_alerts.html'
+                }">
+                <i class="fa-regular fa-bell"></i>
+                <span id="adminUnreadCount" style="display:none;">0</span>
+            </div>
+
+
+            <div class="admin-profile">
+
+                <div class="profile-circle">
+
+                    <i class="fa-solid fa-user"></i>
+
+                </div>
+
+
+                <div>
+
+                    <a href="admin_settings.html" class="admin-name-link">
+                        <strong id="adminName">Admin</strong>
+                    </a>
+
+                    <small>Administrator</small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ==================================================
+         CONTENT
+    ================================================== -->
+
+    <section class="content">
+
+
+        <!-- PAGE HEADING -->
+
+        <div class="page-heading">
+
+            <div>
+
+                <h1>Reports & Analytics</h1>
+
+                <p>
+                    Monitor scheme performance, applications and user activity.
+                </p>
+
+            </div>
+
+
+            <button
+                class="export-btn"
+                id="exportReportBtn" type="button"
+            >
+
+                <i class="fa-solid fa-download"></i>
+
+                Export Report
+
+            </button>
+
+        </div>
+
+
+
+        <!-- ==================================================
+             SUMMARY CARDS
+        ================================================== -->
+
+        <div class="summary-grid">
+
+
+            <!-- Users -->
+
+            <div class="summary-card">
+
+                <div class="summary-top">
+
+                    <p>Total Users</p>
+
+                    <div class="summary-icon">
+
+                        <i class="fa-solid fa-users"></i>
+
+                    </div>
+
+                </div>
+
+
+                <h3 id="totalUsers">0</h3>
+
+
+            </div>
+
+
+
+            <!-- Applications -->
+
+            <div class="summary-card">
+
+                <div class="summary-top">
+
+                    <p>Total Applications</p>
+
+                    <div class="summary-icon">
+
+                        <i class="fa-solid fa-file-circle-check"></i>
+
+                    </div>
+
+                </div>
+
+
+                <h3 id="totalApplications">0</h3>
+
+
+            </div>
+
+
+
+            <!-- Views -->
+
+            <div class="summary-card">
+
+                <div class="summary-top">
+
+                    <p>Schemes Viewed</p>
+
+                    <div class="summary-icon">
+
+                        <i class="fa-solid fa-eye"></i>
+
+                    </div>
+
+                </div>
+
+
+                <h3 id="totalSchemeViews">0</h3>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ==================================================
+             CHARTS
+        ================================================== -->
+
+        <div class="analytics-grid">
+
+
+            <!-- MONTHLY APPLICATIONS -->
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h2>Monthly Applications</h2>
+
+                        <p>
+                            Applications received over the last 6 months
+                        </p>
+
+                    </div>
+
+
+                    <i
+                        class="fa-solid fa-chart-column"
+                        style="color:#0755a5;"
+                    ></i>
+
+                </div>
+
+
+                <div class="chart">
+
+
+                    <div class="bar-item">
+
+                        <div
+                            class="bar"
+                            style="height:45%;"
+                        ></div>
+
+                        <div class="bar-label">
+                            May
+                        </div>
+
+                    </div>
+
+
+                    <div class="bar-item">
+
+                        <div
+                            class="bar"
+                            style="height:58%;"
+                        ></div>
+
+                        <div class="bar-label">
+                            Jun
+                        </div>
+
+                    </div>
+
+
+                    <div class="bar-item">
+
+                        <div
+                            class="bar"
+                            style="height:65%;"
+                        ></div>
+
+                        <div class="bar-label">
+                            Jul
+                        </div>
+
+                    </div>
+
+
+                    <div class="bar-item">
+
+                        <div
+                            class="bar"
+                            style="height:72%;"
+                        ></div>
+
+                        <div class="bar-label">
+                            Aug
+                        </div>
+
+                    </div>
+
+
+                    <div class="bar-item">
+
+                        <div
+                            class="bar"
+                            style="height:83%;"
+                        ></div>
+
+                        <div class="bar-label">
+                            Sep
+                        </div>
+
+                    </div>
+
+
+                    <div class="bar-item">
+
+                        <div
+                            class="bar"
+                            style="height:94%;"
+                        ></div>
+
+                        <div class="bar-label">
+                            Oct
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- CATEGORY DONUT -->
+
+            
+            <div class="card category-card" id="categoryChart">
+                <div class="card-header">
+                    <div>
+                        <h2>Applications by Category</h2>
+                        <p>Distribution of applications by user category</p>
+                    </div>
+                    <i class="fa-solid fa-chart-pie" style="color:#0755a5;"></i>
+                </div>
+
+                <div class="donut-wrapper">
+                    <div class="donut" id="categoryDonut"></div>
+                        <div class="donut-center">
+                            <strong id="categoryTotal">0</strong>
+                            <span>Applications</span>
+                        </div>
+                </div>
+
+                    <div class="legend" id="categoryLegend">
+                        <p>Loading category data...</p>
+                    </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ==================================================
+             TOP PERFORMING SCHEMES
+        ================================================== -->
+
+        <div class="card table-card">
+
+
+            <div class="table-responsive">
+
+                <div>
+
+                    <h2>Top Performing Schemes</h2>
+
+                    <p>
+                        Schemes with the highest user engagement
+                    </p>
+
+                </div>
+
+
+                <i
+                    class="fa-solid fa-ranking-star"
+                    style="color:#0755a5;"
+                ></i>
+
+            </div>
+
+            <table class="report-table">
+
+                <thead>
+                    <tr>
+                        <th>Scheme Name</th>
+                        <th>Views</th>
+                        <th>Applications</th>
+                        <th>Success Rate</th>
+                        <th>Performance</th>
+                    </tr>
+                </thead>
+
+                <tbody id="topSchemesBody">
+                    <tr>
+                        <td colspan="5">Loading schemes...</td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+
+<!-- ==================================================
+    TOAST
+================================================== -->
+
+<div class="toast" id="toast">
+    Report generated successfully.
+</div>
+
+
+
+<script>
+
+/* =========================
+   EXPORT REPORT
+========================= */
+
+
+(() => {
+    "use strict";
+
+    const API_BASE = "http://127.0.0.1:5000/api";
+
+    const elements = {
+        adminName: document.getElementById("adminName"),
+        notifications: document.getElementById("adminUnreadCount"),
+        totalUsers: document.getElementById("totalUsers"),
+        totalApplications: document.getElementById("totalApplications"),
+        totalViews: document.getElementById("totalSchemeViews"),
+        categoryChart: document.getElementById("categoryChart"),
+        topSchemes: document.getElementById("topSchemesBody")
+    };
+
+    const numberFormat = new Intl.NumberFormat("en-IN");
+
+    document.getElementById("exportReportBtn").addEventListener("click", async function () {
+    const dashboard = document.querySelector("#dashboard-content");
+
+    if (!dashboard) {
+        alert("Dashboard content was not found.");
+        return;
+    }
+
+    const button = this;
+    const originalText = button.innerHTML;
+
+    try {
+        button.disabled = true;
+        button.innerHTML = "Generating PDF...";
+
+        // Wait for charts and images to finish rendering
+        await new Promise(resolve => setTimeout(resolve, 300));
+
+        const canvas = await html2canvas(dashboard, {
+            scale: 2,
+            useCORS: true,
+            backgroundColor: "#ffffff",
+            logging: false
+        });
+
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF("p", "mm", "a4");
+
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
+        const margin = 10;
+        const imageWidth = pageWidth - margin * 2;
+        const imageHeight = canvas.height * imageWidth / canvas.width;
+        const pageContentHeight = pageHeight - margin * 2;
+
+        const image = canvas.toDataURL("image/png");
+        let remainingHeight = imageHeight;
+        let position = margin;
+
+        pdf.addImage(image, "PNG", margin, position, imageWidth, imageHeight);
+        remainingHeight -= pageContentHeight;
+
+        while (remainingHeight > 0) {
+            pdf.addPage();
+            position = margin - (imageHeight - remainingHeight);
+            pdf.addImage(image, "PNG", margin, position, imageWidth, imageHeight);
+            remainingHeight -= pageContentHeight;
+        }
+
+        pdf.save("admin-dashboard-report.pdf");
+    } catch (error) {
+        console.error("Failed to export dashboard:", error);
+        alert("Unable to export the report. Please try again.");
+    } finally {
+        button.disabled = false;
+        button.innerHTML = originalText;
+    }
+});
+
+    function setText(element, value) {
+        if (element) {
+            element.textContent = value;
+        }
+    }
+
+    function createCell(value) {
+        const td = document.createElement("td");
+        td.textContent = value;
+        return td;
+    }
+
+    function showMessage(container, message, columns = 1) {
+        if (!container) return;
+
+        container.replaceChildren();
+
+        const row = document.createElement("tr");
+        const cell = document.createElement("td");
+
+        cell.colSpan = columns;
+        cell.textContent = message;
+
+        row.appendChild(cell);
+        container.appendChild(row);
+    }
+
+function renderCategories(categories) {
+    const donut = document.getElementById("categoryDonut");
+    const totalElement = document.getElementById("categoryTotal");
+    const legend = document.getElementById("categoryLegend");
+
+    if (!donut || !totalElement || !legend) {
+        console.error("Category donut elements are missing.");
+        return;
+    }
+
+    const colors = [
+        "#0755a5",
+        "#2f80ed",
+        "#52b788",
+        "#f4a261",
+        "#9b5de5",
+        "#e63946",
+        "#00a6a6",
+        "#64748b"
+    ];
+
+    const items = (Array.isArray(categories) ? categories : [])
+        .map(item => ({
+            category: String(item.category || "Other"),
+            applications: Math.max(0, Number(item.applications) || 0)
+        }))
+        .filter(item => item.applications > 0);
+
+    const total = items.reduce(
+        (sum, item) => sum + item.applications,
+        0
+    );
+
+    totalElement.textContent = new Intl.NumberFormat("en-IN")
+        .format(total);
+
+    legend.replaceChildren();
+
+    if (total === 0) {
+        donut.style.background = "#e8eef5";
+
+        const message = document.createElement("p");
+        message.textContent = "No application data available.";
+        legend.appendChild(message);
+        return;
+    }
+
+    let currentAngle = 0;
+
+    const segments = items.map((item, index) => {
+        const percentage = (item.applications / total) * 100;
+        const endAngle = currentAngle + percentage * 3.6;
+        const color = colors[index % colors.length];
+
+        const segment = {
+            ...item,
+            percentage,
+            color,
+            start: currentAngle,
+            end: endAngle
+        };
+
+        currentAngle = endAngle;
+        return segment;
+    });
+
+    donut.style.background = "conic-gradient(" +
+        segments.map(segment =>
+            `${segment.color} ${segment.start}deg ${segment.end}deg`
+        ).join(", ") +
+        ")";
+
+    segments.forEach(segment => {
+        const item = document.createElement("div");
+        item.className = "legend-item";
+
+        const dot = document.createElement("span");
+        dot.className = "legend-dot";
+        dot.style.backgroundColor = segment.color;
+
+        const label = document.createElement("span");
+        label.textContent =
+            `${segment.category}: ` +
+            `${new Intl.NumberFormat("en-IN").format(segment.applications)} ` +
+            `(${segment.percentage.toFixed(1)}%)`;
+
+        item.append(dot, label);
+        legend.appendChild(item);
+    });
+}
+
+
+    function renderTopSchemes(schemes) {
+        const tbody = elements.topSchemes;
+
+        if (!tbody) return;
+
+        tbody.replaceChildren();
+
+        if (!schemes || schemes.length === 0) {
+            showMessage(tbody, "No scheme statistics available.", 5);
+            return;
+        }
+
+        schemes.forEach(scheme => {
+            const row = document.createElement("tr");
+
+            row.appendChild(
+                createCell(scheme.scheme_name || "Unnamed scheme")
+            );
+
+            row.appendChild(
+                createCell(numberFormat.format(scheme.views || 0))
+            );
+
+            row.appendChild(
+                createCell(numberFormat.format(scheme.applications || 0))
+            );
+
+            row.appendChild(
+                createCell(
+                    `${Number(scheme.success_rate || 0).toFixed(2)}%`
+                )
+            );
+
+            const performanceCell = document.createElement("td");
+            const badge = document.createElement("span");
+
+            const performance = scheme.performance || "Low";
+
+            badge.className =
+                "performance-badge " + performance.toLowerCase();
+
+            badge.textContent = performance;
+
+            performanceCell.appendChild(badge);
+            row.appendChild(performanceCell);
+
+            tbody.appendChild(row);
+        });
+    }
+
+    async function loadDashboard() {
+        try {
+            const response = await fetch(
+                `${API_BASE}/admin/dashboard-analytics`,
+                {
+                    method: "GET",
+                    credentials: "include",
+                    headers: {
+                        "Accept": "application/json"
+                    }
+                }
+            );
+
+            const data = await response.json().catch(() => ({}));
+
+            if (!response.ok || !data.success) {
+                throw new Error(
+                    data.message ||
+                    `Dashboard request failed (${response.status}).`
+                );
+            }
+
+            // Header
+            setText(elements.adminName, data.admin_name || "Admin");
+
+            const unreadCount = Number(data.unread_notifications) || 0;
+
+            if (elements.notifications) {
+                elements.notifications.textContent =
+                    unreadCount > 99 ? "99+" : String(unreadCount);
+
+                elements.notifications.style.display =
+                    unreadCount > 0 ? "flex" : "none";
+
+                elements.notifications.setAttribute(
+                    "aria-label",
+                    `${unreadCount} unread notifications`
+                );
+            }
+
+            // Summary cards
+            setText(
+                elements.totalUsers,
+                numberFormat.format(data.total_users || 0)
+            );
+
+            setText(
+                elements.totalApplications,
+                numberFormat.format(data.total_applications || 0)
+            );
+
+            setText(
+                elements.totalViews,
+                numberFormat.format(data.total_views || 0)
+            );
+
+            // Dynamic analytics
+            renderCategories(data.applications_by_category || []);
+            renderTopSchemes(data.top_schemes || []);
+
+        } catch (error) {
+            console.error("Dashboard loading failed:", error);
+
+            if (elements.categoryChart) {
+                elements.categoryChart.textContent =
+                    "Unable to load category statistics.";
+            }
+
+            showMessage(
+                elements.topSchemes,
+                "Unable to load scheme statistics. Check the Flask server.",
+                5
+            );
+        }
+    }
+
+    loadDashboard();
+})();
+
+
+
+</script>
+<script src="../js/admin_logout.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</body>
+</html>

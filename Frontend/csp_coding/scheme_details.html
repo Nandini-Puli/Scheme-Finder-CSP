@@ -1,0 +1,1537 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Scheme Details | Scheme Finder</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <script src="../js/auth_guard.js"></script>
+    <link rel="stylesheet" href="css/appearance.css">
+    <script src="js/appearance.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Poppins", Arial, Helvetica, sans-serif;
+            background: #f5f8fc;
+            color: #1e293b;
+        }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            height: 73px;
+            background: white;
+            display: flex;
+            align-items: center;
+            padding: 0 28px;
+            border-bottom: 1px solid #e5e7eb;
+            z-index: 900;
+        }
+
+        .search-box {
+            position: relative;
+            margin-left: auto;
+            width: 340px;
+            height: 42px;
+            background: #f8fafc;
+            border: 1px solid #dbe3ec;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            gap: 10px;
+        }
+
+        .search-box > i {
+            color: #64748b;
+        }
+
+        .search-box input {
+            width: 100%;
+            border: 0;
+            outline: 0;
+            background: transparent;
+            font-size: 14px;
+            color: #334155;
+        }
+
+        .search-box input::placeholder {
+            color: #94a3b8;
+        }
+
+        .scheme-search-results {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            width: min(440px, calc(100vw - 32px));
+            max-height: 360px;
+            overflow-y: auto;
+            background: #fff;
+            border: 1px solid #dbe3ec;
+            border-radius: 10px;
+            box-shadow: 0 12px 28px rgba(15, 23, 42, .14);
+            z-index: 1200;
+        }
+
+        .scheme-search-results[hidden] {
+            display: none;
+        }
+
+        .scheme-search-result {
+            display: block;
+            width: 100%;
+            padding: 12px 15px;
+            border: 0;
+            border-bottom: 1px solid #eef2f7;
+            background: #fff;
+            text-align: left;
+            cursor: pointer;
+            color: #1e293b;
+        }
+
+        .scheme-search-result:last-child {
+            border-bottom: 0;
+        }
+
+        .scheme-search-result:hover,
+        .scheme-search-result:focus {
+            background: #f1f5f9;
+            outline: none;
+        }
+
+        .scheme-search-result strong {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .scheme-search-result span {
+            display: block;
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .scheme-search-empty {
+            padding: 14px 15px;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .main {
+            min-height: calc(100vh - 73px);
+        }
+
+        .content {
+            padding: 35px 45px 50px;
+            min-height: calc(100vh - 73px);
+        }
+
+        .page-title {
+            margin-bottom: 25px;
+        }
+
+        .page-title h1 {
+            font-size: 30px;
+            color: #0f3f78;
+            margin-bottom: 7px;
+        }
+
+        .page-title p {
+            color: #64748b;
+            font-size: 15px;
+        }
+
+        .scheme-hero {
+            background: linear-gradient(135deg, #07529b, #1285ed);
+            border-radius: 18px;
+            padding: 35px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+
+        .scheme-hero::after {
+            content: "";
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            right: -100px;
+            top: -130px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+        }
+
+        .scheme-hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .scheme-tag {
+            display: inline-block;
+            padding: 7px 15px;
+            background: rgba(255, 255, 255, .16);
+            border-radius: 20px;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        .scheme-hero h2 {
+            font-size: 31px;
+            line-height: 1.3;
+            margin-bottom: 12px;
+        }
+
+        .scheme-hero p {
+            max-width: 850px;
+            font-size: 15px;
+            line-height: 1.7;
+            opacity: .95;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 27px;
+            border: 1px solid #e5eaf0;
+            box-shadow: 0 4px 15px rgba(15, 23, 42, .05);
+            margin-bottom: 25px;
+        }
+
+        .card h3 {
+            font-size: 21px;
+            color: #0f3f78;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h3 i {
+            color: #1285ed;
+        }
+
+        .card p {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #475569;
+        }
+
+        .benefits-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .benefit {
+            background: #f5f9ff;
+            border: 1px solid #e1ecfa;
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .benefit i {
+            color: #1285ed;
+            font-size: 19px;
+            margin-top: 2px;
+        }
+
+        .benefit span {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #334155;
+        }
+
+        .eligibility-list {
+            list-style: none;
+        }
+
+        .eligibility-list li {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 14px;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #475569;
+        }
+
+        .eligibility-list li i {
+            color: #16a34a;
+            margin-top: 4px;
+        }
+
+        .documents-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .document {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f8fafc;
+            padding: 13px;
+            border-radius: 9px;
+            border: 1px solid #e5e7eb;
+            font-size: 14px;
+            color: #475569;
+        }
+
+        .document i {
+            color: #07529b;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 13px;
+            padding: 14px 0;
+            border-bottom: 1px solid #edf0f4;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 9px;
+            background: #eff6ff;
+            color: #07529b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .info-text strong {
+            display: block;
+            font-size: 13px;
+            color: #64748b;
+            margin-bottom: 3px;
+        }
+
+        .info-text span {
+            font-size: 14px;
+            color: #1e293b;
+        }
+
+        .eligible-card {
+            background: linear-gradient(135deg, #eff6ff, #f8fbff);
+            border: 1px solid #d9eaff;
+        }
+
+        .eligible-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: #dbeafe;
+            color: #07529b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .eligible-card h3 {
+            margin-bottom: 8px;
+        }
+
+        .eligible-card p {
+            margin-bottom: 20px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            padding: 12px 20px;
+            border-radius: 9px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .btn:disabled {
+            opacity: .65;
+            cursor: not-allowed;
+        }
+
+        .btn-primary {
+            background: #07529b;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #06437e;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #07529b;
+            border: 1px solid #b9d2ed;
+        }
+
+        .btn-secondary:hover {
+            background: #eff6ff;
+        }
+
+        .help-card {
+            background: #fff;
+            border-left: 4px solid #1285ed;
+        }
+
+        .help-card h3 {
+            font-size: 18px;
+        }
+
+        .help-card p {
+            margin-bottom: 12px;
+        }
+
+        @media (max-width: 1100px) {
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .content {
+                padding: 30px;
+            }
+
+            .search-box {
+                width: 280px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .topbar {
+                padding: 0 18px;
+            }
+
+            .search-box {
+                width: 100%;
+                max-width: 360px;
+            }
+
+            .page-title h1 {
+                font-size: 25px;
+            }
+
+            .scheme-hero {
+                padding: 28px;
+            }
+
+            .scheme-hero h2 {
+                font-size: 23px;
+            }
+
+            .benefits-list,
+            .documents-list {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 21px;
+            }
+
+            .content {
+                padding: 25px 15px 30px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .search-box {
+                max-width: 100%;
+            }
+
+            .search-box input {
+                font-size: 12px;
+            }
+
+            .scheme-hero {
+                padding: 23px;
+            }
+
+            .scheme-hero h2 {
+                font-size: 21px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="topbar">
+        <div class="search-box" id="schemeSearchBox">
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="search"
+                id="schemeSearchInput"
+                placeholder="Search by scheme name or category..."
+                autocomplete="off"
+                aria-label="Search schemes by name or category"
+                aria-controls="schemeSearchResults"
+                aria-expanded="false"
+            >
+
+            <div
+                id="schemeSearchResults"
+                class="scheme-search-results"
+                role="listbox"
+                hidden
+            ></div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="content">
+
+            <div class="page-title">
+                <h1>Scheme Details</h1>
+                <p>Explore complete information about this government scheme.</p>
+            </div>
+
+            <div id="loadingMessage" class="card" role="status">
+                Loading scheme details...
+            </div>
+
+            <div
+                id="errorMessage"
+                class="card"
+                role="alert"
+                style="display:none;color:#b91c1c"
+            ></div>
+
+            <div
+                id="statusMessage"
+                class="card"
+                role="status"
+                style="display:none"
+            ></div>
+
+            <div id="schemeContent" style="display:none">
+
+                <section class="scheme-hero">
+                    <div class="scheme-hero-content">
+                        <span class="scheme-tag" id="schemeCategory">
+                            Scheme category
+                        </span>
+
+                        <h2 id="schemeName">Scheme name</h2>
+
+                        <p id="schemeDescription"></p>
+                    </div>
+                </section>
+
+                <div class="details-grid">
+
+                    <div>
+                        <div class="card">
+                            <h3>
+                                <i class="fa-solid fa-circle-info"></i>
+                                About the Scheme
+                            </h3>
+
+                            <p id="schemeAbout"></p>
+                        </div>
+
+                        <div class="card">
+                            <h3>
+                                <i class="fa-solid fa-gift"></i>
+                                Benefits
+                            </h3>
+
+                            <div class="benefits-list" id="benefitsList"></div>
+                        </div>
+
+                        <div class="card">
+                            <h3>
+                                <i class="fa-solid fa-user-check"></i>
+                                Eligibility
+                            </h3>
+
+                            <ul class="eligibility-list" id="eligibilityList"></ul>
+                        </div>
+
+                        <div class="card">
+                            <h3>
+                                <i class="fa-solid fa-file-lines"></i>
+                                Required Documents
+                            </h3>
+
+                            <div class="documents-list" id="documentsList"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="card">
+                            <h3>
+                                <i class="fa-solid fa-circle-info"></i>
+                                Quick Info
+                            </h3>
+
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <i class="fa-solid fa-users"></i>
+                                </div>
+
+                                <div class="info-text">
+                                    <strong>Beneficiaries</strong>
+                                    <span id="schemeBeneficiaries">
+                                        Eligible applicants
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+
+                                <div class="info-text">
+                                    <strong>Location</strong>
+                                    <span>Across India</span>
+                                </div>
+                            </div>
+
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <i class="fa-solid fa-indian-rupee-sign"></i>
+                                </div>
+
+                                <div class="info-text">
+                                    <strong>Financial Support</strong>
+                                    <span id="financialSupport">
+                                        As per applicable scheme guidelines
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <i class="fa-regular fa-calendar"></i>
+                                </div>
+
+                                <div class="info-text">
+                                    <strong>Deadline</strong>
+                                    <span id="schemeDeadline">Not specified</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3>
+                                <i class="fa-solid fa-bolt"></i>
+                                Take Action
+                            </h3>
+
+                            <div class="action-buttons">
+                                <a
+                                    id="applyLink"
+                                    href="#"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="btn btn-primary"
+                                >
+                                    <i class="fa-solid fa-up-right-from-square"></i>
+                                    Apply Now
+                                </a>
+
+                                <button
+                                    id="saveSchemeButton"
+                                    type="button"
+                                    class="btn btn-secondary"
+                                >
+                                    <i class="fa-regular fa-bookmark"></i>
+                                    Save Scheme
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card help-card">
+                            <h3>
+                                <i class="fa-solid fa-circle-question"></i>
+                                Need Help?
+                            </h3>
+
+                            <p>
+                                If you need assistance understanding eligibility,
+                                documents or the application process, visit the
+                                Help section.
+                            </p>
+
+                            <a href="help.html" class="btn btn-secondary">
+                                <i class="fa-solid fa-headset"></i>
+                                Visit Help
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        "use strict";
+
+        // =====================================================
+        // CONFIGURATION
+        // =====================================================
+
+        const API_BASE = "http://127.0.0.1:5000/api";
+
+        const params = new URLSearchParams(window.location.search);
+        const requestedId = params.get("id");
+
+        let activeSchemeId =
+            requestedId && /^\d+$/.test(requestedId)
+                ? requestedId
+                : null;
+
+        let currentScheme = null;
+        let allSchemes = [];
+        let searchLoadPromise = null;
+        let applyClickInProgress = false;
+
+        const byId = id => document.getElementById(id);
+
+        const searchInput = byId("schemeSearchInput");
+        const searchResults = byId("schemeSearchResults");
+
+
+        // =====================================================
+        // STATUS AND ERROR MESSAGES
+        // =====================================================
+
+        function showStatus(message, isError = false) {
+            const element = byId("statusMessage");
+
+            element.textContent = message;
+            element.style.color = isError ? "#b91c1c" : "#166534";
+            element.style.display = "block";
+        }
+
+        function hideStatus() {
+            const element = byId("statusMessage");
+
+            element.style.display = "none";
+            element.textContent = "";
+        }
+
+        function showError(message) {
+            byId("loadingMessage").style.display = "none";
+
+            byId("errorMessage").textContent = message;
+            byId("errorMessage").style.display = "block";
+
+            byId("schemeContent").style.display = "none";
+        }
+
+
+        // =====================================================
+        // CONVERT BENEFITS, ELIGIBILITY AND DOCUMENTS TO ARRAYS
+        // =====================================================
+
+        function asItems(value) {
+            if (value == null || value === "") {
+                return [];
+            }
+
+            if (Array.isArray(value)) {
+                return value
+                    .map(item =>
+                        typeof item === "object" && item
+                            ? (item.name || item.title || JSON.stringify(item))
+                            : String(item ?? "")
+                    )
+                    .filter(Boolean);
+            }
+
+            const stringValue = String(value).trim();
+
+            if (!stringValue) {
+                return [];
+            }
+
+            try {
+                const parsed = JSON.parse(stringValue);
+
+                if (Array.isArray(parsed)) {
+                    return asItems(parsed);
+                }
+            } catch (_) {
+                // Treat non-JSON values as ordinary text.
+            }
+
+            return stringValue
+                .split(/\r?\n|;/)
+                .map(item => item.trim())
+                .filter(Boolean);
+        }
+
+
+        // =====================================================
+        // RENDER BENEFITS
+        // =====================================================
+
+        function renderBenefits(value) {
+            const container = byId("benefitsList");
+
+            container.replaceChildren();
+
+            const items = asItems(value);
+
+            if (!items.length) {
+                const paragraph = document.createElement("p");
+
+                paragraph.textContent = "Benefits have not been provided.";
+
+                container.append(paragraph);
+                return;
+            }
+
+            const icons = [
+                "fa-indian-rupee-sign",
+                "fa-school",
+                "fa-book-open",
+                "fa-graduation-cap"
+            ];
+
+            items.forEach((item, index) => {
+                const box = document.createElement("div");
+                box.className = "benefit";
+
+                const icon = document.createElement("i");
+                icon.className = "fa-solid " + icons[index % icons.length];
+
+                const span = document.createElement("span");
+                span.textContent = item;
+
+                box.append(icon, span);
+                container.append(box);
+            });
+        }
+
+
+        // =====================================================
+        // RENDER ELIGIBILITY
+        // =====================================================
+
+        function renderEligibility(value) {
+            const container = byId("eligibilityList");
+
+            container.replaceChildren();
+
+            const items = asItems(value);
+
+            if (!items.length) {
+                const listItem = document.createElement("li");
+
+                listItem.textContent =
+                    "Eligibility criteria have not been provided. " +
+                    "Please check the official scheme website.";
+
+                container.append(listItem);
+                return;
+            }
+
+            items.forEach(item => {
+                const listItem = document.createElement("li");
+
+                const icon = document.createElement("i");
+                icon.className = "fa-solid fa-check";
+
+                const span = document.createElement("span");
+                span.textContent = item;
+
+                listItem.append(icon, span);
+                container.append(listItem);
+            });
+        }
+
+
+        // =====================================================
+        // RENDER REQUIRED DOCUMENTS
+        // =====================================================
+
+        function renderDocuments(value) {
+            const container = byId("documentsList");
+
+            container.replaceChildren();
+
+            const items = asItems(value);
+
+            if (!items.length) {
+                const paragraph = document.createElement("p");
+
+                paragraph.textContent =
+                    "Required documents have not been listed. " +
+                    "Please check the official scheme website.";
+
+                container.append(paragraph);
+                return;
+            }
+
+            items.forEach(item => {
+                const box = document.createElement("div");
+                box.className = "document";
+
+                const icon = document.createElement("i");
+                icon.className = "fa-solid fa-file-lines";
+
+                const span = document.createElement("span");
+                span.textContent = item;
+
+                box.append(icon, span);
+                container.append(box);
+            });
+        }
+
+
+        // =====================================================
+        // DETERMINE BENEFICIARY TEXT
+        // =====================================================
+
+        function beneficiaryText(category) {
+            const value = String(category || "").toLowerCase();
+
+            if (value.includes("unemployed")) {
+                return "Unemployed people who meet the criteria";
+            }
+
+            if (value.includes("education") || value.includes("student")) {
+                return "Eligible students";
+            }
+
+            if (value.includes("employment") || value.includes("job seeker")) {
+                return "Job seekers and eligible workers";
+            }
+
+            if (value.includes("entrepreneur") || value.includes("business")) {
+                return "Eligible entrepreneurs and business owners";
+            }
+
+            if (value.includes("internship")) {
+                return "Eligible internship applicants";
+            }
+
+            if (value.includes("farm")) {
+                return "Eligible farmers";
+            }
+
+            if (value.includes("women")) {
+                return "Eligible women";
+            }
+
+            if (value.includes("health")) {
+                return "Eligible individuals and families";
+            }
+
+            return "People who meet the scheme's eligibility criteria";
+        }
+
+
+        // =====================================================
+        // VALIDATE APPLICATION URL
+        // =====================================================
+
+        function validHttpUrl(value) {
+            if (!value) {
+                return null;
+            }
+
+            try {
+                const url = new URL(String(value));
+
+                if (["http:", "https:"].includes(url.protocol)) {
+                    return url.href;
+                }
+
+                return null;
+            } catch (_) {
+                return null;
+            }
+        }
+
+
+        // =====================================================
+        // APPLY NOW CLICK TRACKING
+        // =====================================================
+
+        async function handleApplyNow(event) {
+            event.preventDefault();
+
+            if (!currentScheme || !currentScheme.scheme_id) {
+                showStatus("Please select a scheme first.", true);
+                return;
+            }
+
+            if (applyClickInProgress) {
+                return;
+            }
+
+            const applicationUrl =
+                validHttpUrl(currentScheme.application_link);
+
+            if (!applicationUrl) {
+                showStatus(
+                    "An application link has not been provided for this scheme.",
+                    true
+                );
+                return;
+            }
+
+            /*
+             * Open a blank tab immediately while the click is still
+             * associated with the user's browser interaction.
+             */
+            const applicationTab = window.open("about:blank", "_blank");
+
+            if (!applicationTab) {
+                showStatus(
+                    "Please allow pop-ups to open the application website.",
+                    true
+                );
+                return;
+            }
+
+            /*
+             * Prevent the external website from accessing the original
+             * page through the newly opened tab.
+             */
+            try {
+                applicationTab.opener = null;
+            } catch (_) {
+                // Continue if the browser prevents this assignment.
+            }
+
+            const button = byId("applyLink");
+
+            applyClickInProgress = true;
+            button.style.pointerEvents = "none";
+            button.setAttribute("aria-busy", "true");
+
+            try {
+                const response = await fetch(
+                    `${API_BASE}/schemes/${encodeURIComponent(
+                        currentScheme.scheme_id
+                    )}/apply-click`,
+                    {
+                        method: "POST",
+                        credentials: "include",
+                        headers: {
+                            "Content-Type": "application/json"
+                        }
+                    }
+                );
+
+                const data = await response.json().catch(() => ({}));
+
+                if (!response.ok) {
+                    throw new Error(
+                        data.message ||
+                        "Unable to record the Apply Now click."
+                    );
+                }
+
+                /*
+                 * Redirect only after the backend confirms that the
+                 * click and notification have been recorded.
+                 */
+                applicationTab.location.replace(applicationUrl);
+
+                showStatus("Opening the application website.");
+            } catch (error) {
+                applicationTab.close();
+
+                console.error("Apply Now tracking error:", error);
+
+                showStatus(
+                    error.message ||
+                    "Unable to record the click. Please try again.",
+                    true
+                );
+            } finally {
+                applyClickInProgress = false;
+                button.style.pointerEvents = "";
+                button.removeAttribute("aria-busy");
+            }
+        }
+
+
+        // =====================================================
+        // RENDER SCHEME DETAILS USING EXISTING HTML ELEMENTS
+        // =====================================================
+
+        function renderScheme(scheme) {
+            currentScheme = scheme;
+
+            const schemeId = String(scheme.scheme_id);
+            const name = scheme.scheme_name || "Scheme Details";
+            const category = scheme.category || "General";
+
+            byId("schemeName").textContent = name;
+            byId("schemeCategory").textContent = category;
+
+            byId("schemeDescription").textContent =
+                scheme.description || "Description has not been provided.";
+
+            byId("schemeAbout").textContent =
+                scheme.description || "Description has not been provided.";
+
+            renderBenefits(scheme.benefits);
+            renderEligibility(scheme.eligibility_criteria);
+            renderDocuments(scheme.required_documents);
+
+            byId("schemeBeneficiaries").textContent =
+                beneficiaryText(category);
+
+            byId("financialSupport").textContent =
+                scheme.financial_support ||
+                "As per applicable scheme guidelines";
+
+            byId("schemeDeadline").textContent =
+                scheme.deadline || "Not specified";
+
+            // Configure the Apply Now button.
+            const applyButton = byId("applyLink");
+
+            applyButton.removeEventListener("click", handleApplyNow);
+            applyButton.href = "#";
+            applyButton.style.pointerEvents = "";
+            applyButton.removeAttribute("aria-busy");
+
+            const applicationUrl =
+                validHttpUrl(scheme.application_link);
+
+            if (applicationUrl) {
+                applyButton.href = applicationUrl;
+                applyButton.target = "_blank";
+                applyButton.rel = "noopener noreferrer";
+
+                applyButton.addEventListener(
+                    "click",
+                    handleApplyNow
+                );
+            } else {
+                applyButton.addEventListener("click", event => {
+                    event.preventDefault();
+
+                    showStatus(
+                        "An application link has not been provided for this scheme.",
+                        true
+                    );
+                });
+            }
+
+            // Configure the Save Scheme button.
+            const saveButton = byId("saveSchemeButton");
+
+            saveButton.dataset.schemeId = schemeId;
+            saveButton.disabled = false;
+            saveButton.innerHTML =
+                '<i class="fa-regular fa-bookmark"></i> Save Scheme';
+
+            byId("loadingMessage").style.display = "none";
+            byId("errorMessage").style.display = "none";
+            byId("schemeContent").style.display = "block";
+        }
+
+
+        // =====================================================
+        // LOAD ONE SCHEME FROM FLASK
+        // =====================================================
+
+        async function loadScheme(id) {
+            if (!id || !/^\d+$/.test(String(id))) {
+                byId("loadingMessage").style.display = "none";
+                byId("schemeContent").style.display = "none";
+
+                showStatus(
+                    "Choose a scheme from the search box to view its details."
+                );
+
+                return false;
+            }
+
+            byId("loadingMessage").textContent =
+                "Loading scheme details...";
+
+            byId("loadingMessage").style.display = "block";
+            byId("errorMessage").style.display = "none";
+
+            hideStatus();
+
+            try {
+                const response = await fetch(
+                    `${API_BASE}/schemes/${encodeURIComponent(id)}`,
+                    { credentials: "include" }
+                );
+
+                const data = await response.json().catch(() => ({}));
+
+                if (!response.ok) {
+                    throw new Error(
+                        data.message || "Unable to load scheme details."
+                    );
+                }
+
+                const scheme = data.scheme || data;
+
+                if (!scheme || !scheme.scheme_id) {
+                    throw new Error(
+                        "The API returned invalid scheme data."
+                    );
+                }
+
+                renderScheme(scheme);
+
+                activeSchemeId = String(scheme.scheme_id);
+
+                const url = new URL(window.location.href);
+
+                url.searchParams.set("id", activeSchemeId);
+
+                window.history.replaceState({}, "", url);
+
+                searchInput.value = scheme.scheme_name || "";
+
+                return true;
+            } catch (error) {
+                console.error("Error loading scheme:", error);
+
+                showError(
+                    error.message ||
+                    "Could not connect to Flask. Check that the backend is running."
+                );
+
+                return false;
+            } finally {
+                byId("loadingMessage").style.display = "none";
+            }
+        }
+
+
+        // =====================================================
+        // SEARCH RESULTS
+        // =====================================================
+
+        function closeSearchResults() {
+            searchResults.hidden = true;
+
+            searchInput.setAttribute("aria-expanded", "false");
+        }
+
+        function showSearchMessage(message) {
+            searchResults.replaceChildren();
+
+            const row = document.createElement("div");
+
+            row.className = "scheme-search-empty";
+            row.textContent = message;
+
+            searchResults.append(row);
+            searchResults.hidden = false;
+
+            searchInput.setAttribute("aria-expanded", "true");
+        }
+
+        function displaySearchResults(query) {
+            searchResults.replaceChildren();
+
+            const term = query.trim().toLocaleLowerCase();
+
+            if (!term) {
+                closeSearchResults();
+                return;
+            }
+
+            const matches = allSchemes
+                .filter(scheme =>
+                    String(scheme.scheme_name || "")
+                        .toLocaleLowerCase()
+                        .includes(term) ||
+                    String(scheme.category || "")
+                        .toLocaleLowerCase()
+                        .includes(term)
+                )
+                .slice(0, 12);
+
+            if (!matches.length) {
+                showSearchMessage(
+                    "No schemes found matching that name or category."
+                );
+
+                return;
+            }
+
+            matches.forEach(scheme => {
+                const button = document.createElement("button");
+
+                button.type = "button";
+                button.className = "scheme-search-result";
+                button.setAttribute("role", "option");
+
+                const title = document.createElement("strong");
+                title.textContent = scheme.scheme_name || "Unnamed scheme";
+
+                const category = document.createElement("span");
+                category.textContent =
+                    `Category: ${scheme.category || "General"}`;
+
+                button.append(title, category);
+
+                button.addEventListener("click", async () => {
+                    closeSearchResults();
+
+                    const success = await loadScheme(
+                        String(scheme.scheme_id)
+                    );
+
+                    if (success) {
+                        hideStatus();
+                    }
+                });
+
+                searchResults.append(button);
+            });
+
+            searchResults.hidden = false;
+
+            searchInput.setAttribute("aria-expanded", "true");
+        }
+
+
+        // =====================================================
+        // LOAD SCHEMES FOR SEARCH
+        // =====================================================
+
+        async function loadSchemesForSearch() {
+            if (allSchemes.length) {
+                return allSchemes;
+            }
+
+            if (searchLoadPromise) {
+                return searchLoadPromise;
+            }
+
+            searchLoadPromise = (async () => {
+                try {
+                    const response = await fetch(
+                        `${API_BASE}/schemes`,
+                        { credentials: "include" }
+                    );
+
+                    const data = await response.json().catch(() => ({}));
+
+                    if (!response.ok) {
+                        throw new Error(
+                            data.message ||
+                            `Request failed (${response.status})`
+                        );
+                    }
+
+                    allSchemes = Array.isArray(data.schemes)
+                        ? data.schemes
+                        : [];
+
+                    if (searchInput.value.trim()) {
+                        displaySearchResults(searchInput.value);
+                    }
+
+                    if (!allSchemes.length) {
+                        showSearchMessage(
+                            "No active schemes are available yet."
+                        );
+                    }
+
+                    return allSchemes;
+                } catch (error) {
+                    console.error("Could not load schemes:", error);
+
+                    showSearchMessage(
+                        "Unable to load schemes. Check that Flask is running " +
+                        "and /api/schemes returns database records."
+                    );
+
+                    return [];
+                } finally {
+                    searchLoadPromise = null;
+                }
+            })();
+
+            return searchLoadPromise;
+        }
+
+
+        // =====================================================
+        // SEARCH EVENT LISTENERS
+        // =====================================================
+
+        searchInput.addEventListener("focus", async () => {
+            await loadSchemesForSearch();
+
+            if (searchInput.value.trim()) {
+                displaySearchResults(searchInput.value);
+            }
+        });
+
+        searchInput.addEventListener("input", async () => {
+            await loadSchemesForSearch();
+
+            displaySearchResults(searchInput.value);
+        });
+
+        searchInput.addEventListener("keydown", event => {
+            if (event.key === "Escape") {
+                closeSearchResults();
+            }
+
+            if (event.key === "Enter") {
+                const firstResult =
+                    searchResults.querySelector(".scheme-search-result");
+
+                if (firstResult && !searchResults.hidden) {
+                    event.preventDefault();
+                    firstResult.click();
+                }
+            }
+        });
+
+        document.addEventListener("click", event => {
+            if (!byId("schemeSearchBox").contains(event.target)) {
+                closeSearchResults();
+            }
+        });
+
+
+        // =====================================================
+        // SAVE SCHEME
+        // =====================================================
+
+        byId("saveSchemeButton").addEventListener(
+            "click",
+            async () => {
+                const button = byId("saveSchemeButton");
+                const schemeId = button.dataset.schemeId;
+
+                if (!schemeId) {
+                    showStatus("Please select a scheme first.", true);
+                    return;
+                }
+
+                button.disabled = true;
+
+                try {
+                    const response = await fetch(
+                        `${API_BASE}/saved-schemes`,
+                        {
+                            method: "POST",
+                            credentials: "include",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                scheme_id: Number(schemeId)
+                            })
+                        }
+                    );
+
+                    const data = await response.json().catch(() => ({}));
+
+                    if (!response.ok) {
+                        throw new Error(
+                            data.message ||
+                            (
+                                response.status === 401
+                                    ? "Please log in to save this scheme."
+                                    : "Unable to save this scheme."
+                            )
+                        );
+                    }
+
+                    showStatus(
+                        data.message || "Scheme saved successfully."
+                    );
+
+                    button.innerHTML =
+                        '<i class="fa-solid fa-bookmark"></i> Saved';
+                } catch (error) {
+                    showStatus(
+                        error.message || "Could not save this scheme.",
+                        true
+                    );
+                } finally {
+                    button.disabled = false;
+                }
+            }
+        );
+
+
+        // =====================================================
+        // INITIALIZE PAGE
+        // =====================================================
+
+        async function initializePage() {
+            loadSchemesForSearch();
+
+            if (activeSchemeId) {
+                await loadScheme(activeSchemeId);
+            } else {
+                byId("loadingMessage").style.display = "none";
+
+                showStatus(
+                    "Choose a scheme from the search box to view its details."
+                );
+            }
+        }
+
+        initializePage();
+    </script>
+</body>
+</html>

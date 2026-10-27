@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Scheme Finder - Create Account</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    background: #f3f8fc;
+    color: #123f70;
+    min-height: 100vh;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header {
+    height: 98px;
+    background: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 55px;
+
+    border-bottom: 1px solid #e5edf5;
+}
+
+
+/* LEFT BRAND */
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+}
+
+.emblem {
+    width: 55px;
+    height: 65px;
+
+    object-fit: contain;
+}
+
+.brand-logo {
+    width: 60px;
+    height: 60px;
+
+    background: linear-gradient(
+        135deg,
+        #35a4e8,
+        #1674c8
+    );
+
+    border-radius: 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+
+    font-size: 28px;
+
+    transform: rotate(-10deg);
+}
+
+.brand-text h1 {
+    font-size: 31px;
+    line-height: 1;
+
+    color: #164675;
+
+    font-weight: 700;
+}
+
+.brand-text p {
+    font-size: 15px;
+
+    color: #6b89a5;
+
+    margin-top: 6px;
+}
+
+
+/* RIGHT GOVERNMENT */
+
+.govt {
+    display: flex;
+    align-items: center;
+
+    gap: 18px;
+}
+
+.govt-title {
+    text-align: right;
+
+    padding-right: 18px;
+
+    border-right: 1px solid #d8e2eb;
+}
+
+.govt-title p {
+    font-size: 17px;
+
+    color: #164675;
+
+    line-height: 1.45;
+}
+
+.govt-emblem {
+    width: 52px;
+    height: 62px;
+
+    object-fit: contain;
+}
+
+.govt-name {
+    font-size: 14px;
+
+    font-weight: 600;
+
+    color: #123f70;
+}
+
+
+/* =====================================================
+   BACKGROUND
+===================================================== */
+
+.page {
+    min-height: calc(100vh - 98px);
+
+    padding: 42px 20px;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.page::before {
+    content: "";
+
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    left: -240px;
+    top: 130px;
+
+    border-radius: 50%;
+
+    background: rgba(38, 139, 216, 0.08);
+}
+
+.page::after {
+    content: "";
+
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+
+    right: -100px;
+    top: 110px;
+
+    border-radius: 50%;
+
+    background: rgba(38, 139, 216, 0.08);
+}
+
+
+/* =====================================================
+   REGISTER CONTAINER
+===================================================== */
+
+.register-container {
+    width: 850px;
+    max-width: 100%;
+
+    margin: 0 auto;
+
+    background: white;
+
+    border: 1px solid #cbddec;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 10px 35px rgba(43, 91, 132, 0.10);
+
+    position: relative;
+
+    z-index: 2;
+
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   TOP SECTION
+===================================================== */
+
+.register-top {
+    text-align: center;
+
+    padding: 30px 35px 20px;
+
+    border-bottom: 1px solid #edf2f7;
+}
+
+.register-icon {
+    width: 62px;
+    height: 62px;
+
+    margin: 0 auto 13px;
+
+    border-radius: 50%;
+
+    background: #e7f2ff;
+
+    color: #1672d4;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 24px;
+}
+
+.register-top h2 {
+    font-size: 26px;
+
+    color: #164675;
+
+    font-weight: 600;
+}
+
+.register-top p {
+    font-size: 12px;
+
+    color: #7590a8;
+
+    margin-top: 5px;
+}
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.form {
+    padding: 28px 45px 35px;
+}
+
+
+/* =====================================================
+   SECTION TITLE
+===================================================== */
+
+.section-title {
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+
+    margin-bottom: 17px;
+}
+
+.section-title i {
+    color: #1976d2;
+
+    font-size: 14px;
+}
+
+.section-title h3 {
+    font-size: 14px;
+
+    color: #174675;
+
+    font-weight: 600;
+}
+
+
+/* =====================================================
+   FORM GRID
+===================================================== */
+
+.form-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 17px 22px;
+
+    margin-bottom: 27px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    font-size: 10px;
+
+    color: #173f67;
+
+    font-weight: 600;
+
+    margin-bottom: 7px;
+}
+
+.required {
+    color: #e53935;
+}
+
+
+/* =====================================================
+   INPUT
+===================================================== */
+
+.input-box {
+    height: 43px;
+
+    border: 1px solid #cbdbea;
+
+    border-radius: 7px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 12px;
+
+    background: #fcfdff;
+
+    transition: 0.2s;
+}
+
+.input-box:focus-within {
+    border-color: #3b91dc;
+
+    box-shadow:
+        0 0 0 3px rgba(36, 126, 210, 0.08);
+
+    background: white;
+}
+
+.input-box i {
+    width: 25px;
+
+    color: #7191ad;
+
+    font-size: 13px;
+}
+
+.input-box input,
+.input-box select {
+    width: 100%;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    color: #42637f;
+
+    font-size: 11px;
+}
+
+.input-box input::placeholder {
+    color: #9aafc1;
+}
+
+
+/* =====================================================
+   PASSWORD EYE
+===================================================== */
+
+.password-eye {
+    cursor: pointer;
+
+    width: auto !important;
+
+    color: #7c96ad !important;
+}
+
+
+/* =====================================================
+   PASSWORD STRENGTH
+===================================================== */
+
+.password-strength {
+    margin-top: 5px;
+
+    font-size: 8px;
+
+    color: #879daf;
+}
+
+
+/* =====================================================
+   TERMS
+===================================================== */
+
+.terms {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 8px;
+
+    margin-bottom: 20px;
+}
+
+.terms input {
+    margin-top: 2px;
+
+    accent-color: #1976d2;
+}
+
+.terms label {
+    font-size: 9px;
+
+    color: #6e879e;
+
+    line-height: 1.5;
+}
+
+.terms a {
+    color: #1976d2;
+
+    text-decoration: none;
+
+    font-weight: 500;
+}
+
+
+/* =====================================================
+   CREATE ACCOUNT BUTTON
+===================================================== */
+
+.create-btn {
+    width: 100%;
+
+    height: 47px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: linear-gradient(
+        90deg,
+        #286dcc,
+        #258fe3
+    );
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 12px rgba(34, 119, 207, 0.18);
+
+    transition: 0.2s;
+}
+
+.create-btn:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 7px 16px rgba(34, 119, 207, 0.25);
+}
+
+.create-btn i {
+    margin-left: 7px;
+}
+
+
+/* =====================================================
+   LOGIN LINK
+===================================================== */
+
+.login-link {
+    text-align: center;
+
+    margin-top: 20px;
+
+    font-size: 10px;
+
+    color: #7890a5;
+}
+
+.login-link a {
+    color: #096bc5;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    margin-left: 4px;
+}
+
+
+/* =====================================================
+   FOOTER NOTE
+===================================================== */
+
+.security-note {
+    margin-top: 18px;
+
+    padding: 11px 15px;
+
+    background: #f2f8ff;
+
+    border-radius: 7px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    font-size: 9px;
+
+    color: #67839d;
+}
+
+.security-note i {
+    color: #1976d2;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width: 800px) {
+
+    .header {
+        padding: 0 20px;
+    }
+
+    .brand-text h1 {
+        font-size: 23px;
+    }
+
+    .brand-text p {
+        font-size: 10px;
+    }
+
+    .emblem {
+        width: 40px;
+    }
+
+    .brand-logo {
+        width: 45px;
+        height: 45px;
+        font-size: 21px;
+    }
+
+    .govt {
+        display: none;
+    }
+
+    .form {
+        padding: 25px;
+    }
+
+}
+
+
+@media(max-width: 600px) {
+
+    .page {
+        padding: 25px 12px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full {
+        grid-column: auto;
+    }
+
+    .register-top {
+        padding: 25px 20px 18px;
+    }
+
+    .register-top h2 {
+        font-size: 22px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+
+    <!-- LEFT BRAND -->
+
+    <div class="brand">
+
+        <!-- Government Emblem -->
+
+        <img
+            class="emblem"
+            src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg"
+            alt="Government of India Emblem"
+        >
+
+
+        <!-- Scheme Finder Logo -->
+
+        <div class="brand-logo">
+            <i class="fa-solid fa-layer-group"></i>
+        </div>
+
+
+        <div class="brand-text">
+
+            <h1>
+                Scheme Finder
+            </h1>
+
+            <p>
+                Government Schemes for a Brighter Future
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- RIGHT GOVERNMENT -->
+
+    <div class="govt">
+
+        <div class="govt-title">
+
+            <p>
+                A Unified Access Portal for<br>
+                Central Government Schemes
+            </p>
+
+        </div>
+
+
+        <img
+            class="govt-emblem"
+            src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg"
+            alt="Government of India"
+        >
+
+        <span class="govt-name">
+            Government of India
+        </span>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     PAGE
+===================================================== -->
+
+<main class="page">
+
+
+    <div class="register-container">
+
+
+        <!-- =================================================
+             REGISTER HEADER
+        ================================================== -->
+
+        <div class="register-top">
+
+            <div class="register-icon">
+
+                <i class="fa-solid fa-user-plus"></i>
+
+            </div>
+
+            <h2>
+                Create Account
+            </h2>
+
+            <p>
+                Register to discover government schemes made for you.
+            </p>
+
+        </div>
+
+
+
+        <!-- =================================================
+             FORM
+        ================================================== -->
+
+        <form
+            class="form"
+            id="adminRegisterForm"
+        >
+
+
+            <!-- PERSONAL INFORMATION -->
+
+            <div class="section-title">
+
+                <i class="fa-solid fa-user"></i>
+
+                <h3>
+                    Personal Information
+                </h3>
+
+            </div>
+
+
+            <div class="form-grid">
+
+
+                <!-- Full Name -->
+
+                <div class="form-group">
+
+                    <label>
+                        Full Name
+                        <span class="required">*</span>
+                    </label>
+
+                    <div class="input-box">
+
+                        <i class="fa-regular fa-user"></i>
+
+                        <input
+                            type="text"
+                            id="fullName"
+                            name="fullname"
+                            placeholder="Enter your full name"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- Date of Birth -->
+
+                <div class="form-group">
+
+                    <label>
+                        Date of Birth
+                        <span class="required">*</span>
+                    </label>
+
+                    <div class="input-box">
+
+                        <i class="fa-regular fa-calendar"></i>
+
+                        <input
+                            type="date"
+                            id="dob"
+                            name="dob"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- Gender -->
+
+                <div class="form-group">
+
+                    <label>
+                        Gender
+                        <span class="required">*</span>
+                    </label>
+
+                    <div class="input-box">
+
+                        <i class="fa-solid fa-venus-mars"></i>
+
+                        <select id="gender" name="gender" required>
+
+                            <option value="">
+                                Select gender
+                            </option>
+
+                            <option>
+                                Male
+                            </option>
+
+                            <option>
+                                Female
+                            </option>
+
+                            <option>
+                                other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- State -->
+
+                <div class="form-group">
+
+                    <label>
+                        State
+                        <span class="required">*</span>
+                    </label>
+
+                    <div class="input-box">
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                        <select id="state" name="state" required>
+
+                            <option value="">
+                                Select your state
+                            </option>
+
+                            <option>
+                                Andhra Pradesh
+                            </option>
+
+                            <option>
+                                Telangana
+                            </option>
+
+                            <option>
+                                Karnataka
+                            </option>
+
+                            <option>
+                                Tamil Nadu
+                            </option>
+
+                            <option>
+                                Maharashtra
+                            </option>
+
+                            <option>
+                                Delhi
+                            </option>
+
+                            <option>
+                                Kerala
+                            </option>
+
+                            <option>
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- CONTACT INFORMATION -->
+
+            <div class="section-title">
+
+                <i class="fa-solid fa-address-book"></i>
+
+                <h3>
+                    Contact Information
+                </h3>
+
+            </div>
+
+
+            <div class="form-grid">
+
+
+                <!-- Mobile -->
+
+                <div class="form-group">
+
+                    <label>
+                        Mobile Number
+                        <span class="required">*</span>
+                    </label>
+
+                    <div class="input-box">
+
+                        <i class="fa-solid fa-mobile-screen"></i>
+
+                        <input
+                            type="tel"
+                            id="mobile"
+                            name="mobile"
+                            maxlength="10"
+                            placeholder="Enter 10-digit mobile number"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- Email -->
+
+                <div class="form-group">
+
+                    <label>
+                        Email Address
+                        <span class="required">*</span>
+                    </label>
+
+                    <div class="input-box">
+
+                        <i class="fa-regular fa-envelope"></i>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your email address"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ACCOUNT INFORMATION -->
+
+            <div class="section-title">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                <h3>
+                    Account Security
+                </h3>
+
+            </div>
+
+
+            <div class="form-grid">
+
+
+                <!-- Username -->
+
+                <div class="form-group">
+
+                    <label>
+                        Username
+                        <span class="required">*</span>
+                    </label>
+
+                    <div class="input-box">
+
+                        <i class="fa-solid fa-at"></i>
+
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            placeholder="Create a username"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- Password -->
+
+                <div class="form-group">
+
+                    <label>
+                        Password
+                        <span class="required">*</span>
+                    </label>
+
+                    <div class="input-box">
+
+                        <i class="fa-solid fa-lock"></i>
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Create a password"
+                            required
+                        >
+
+                        <i
+                            class="fa-regular fa-eye password-eye"
+                            onclick="togglePassword('password', this)"
+                        ></i>
+
+                    </div>
+
+                    <span class="password-strength">
+                        Use at least 8 characters with letters and numbers.
+                    </span>
+
+                </div>
+
+
+                <!-- Confirm Password -->
+
+                <div class="form-group">
+
+                    <label>
+                        Confirm Password
+                        <span class="required">*</span>
+                    </label>
+
+                    <div class="input-box">
+
+                        <i class="fa-solid fa-lock"></i>
+
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            placeholder="Confirm your password"
+                            required
+                        >
+
+                        <i
+                            class="fa-regular fa-eye password-eye"
+                            onclick="togglePassword('confirmPassword', this)"
+                        ></i>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <!-- Admin Invitation Code -->
+
+            <div class="form-group">
+
+                <label>
+                    Admin Invitation Code
+                    <span class="required">*</span>
+                </label>
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                    <input
+                        type="password"
+                        id="inviteCode"
+                        name="inviteCode"
+                        placeholder="Enter admin invitation code"
+                        autocomplete="off"
+                        required
+                    >
+
+                </div>
+
+            </div>
+            
+            <br>
+
+            <!-- TERMS -->
+
+            <div class="terms">
+
+                <input
+                    type="checkbox"
+                    id="terms"
+                    name="terms"
+                    required
+                >
+
+                <label for="terms">
+
+                    I agree to the
+                    <a href="#">
+                        Terms & Conditions
+                    </a>
+                    and
+                    <a href="#">
+                        Privacy Policy
+                    </a>
+                    of Scheme Finder.
+
+                </label>
+
+            </div>
+
+
+
+            <!-- CREATE ACCOUNT -->
+
+            <button
+                type="submit"
+                class="create-btn"
+            >
+
+                Create Account
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </button>
+
+
+
+            <!-- LOGIN -->
+
+            <div class="login-link">
+
+                Already have an account?
+
+                <a href="admin_login.html">
+                    Login
+                </a>
+
+            </div>
+
+
+
+            <!-- SECURITY -->
+
+            <div class="security-note">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                Your information is securely protected.
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+</main>
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const adminForm = document.getElementById("adminRegisterForm");
+    const mobileInput = document.getElementById("mobile");
+
+    if (!adminForm) {
+        console.error("Form with ID 'adminRegisterForm' was not found.");
+        return;
+    }
+
+    // Allow only 10 digits in the mobile number field.
+    if (mobileInput) {
+        mobileInput.addEventListener("input", function () {
+            this.value = this.value.replace(/\D/g, "").slice(0, 10);
+        });
+    }
+
+    // Handle admin registration.
+    adminForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const fullName =
+            document.getElementById("fullName").value.trim();
+
+        const dob =
+            document.getElementById("dob").value;
+
+        const gender =
+            document.getElementById("gender").value;
+
+        const state =
+            document.getElementById("state").value;
+
+        const mobile =
+            document.getElementById("mobile").value.trim();
+
+        const email =
+            document.getElementById("email").value.trim();
+
+        const username =
+            document.getElementById("username").value.trim();
+
+        const password =
+            document.getElementById("password").value;
+
+        const confirmPassword =
+            document.getElementById("confirmPassword").value;
+
+        const invitationCode =
+            document.getElementById("inviteCode").value.trim();
+
+        const terms =
+            document.getElementById("terms").checked;
+
+        // Frontend validation.
+        if (
+            !fullName || !dob || !gender || !state ||
+            !mobile || !email || !username ||
+            !password || !confirmPassword || !invitationCode
+        ) {
+            alert("Please fill in all required fields.");
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            alert("Passwords do not match.");
+            return;
+        }
+
+        if (password.length < 8) {
+            alert("Password must contain at least 8 characters.");
+            return;
+        }
+
+        if (!/^[0-9]{10}$/.test(mobile)) {
+            alert("Enter a valid 10-digit mobile number.");
+            return;
+        }
+
+        if (!terms) {
+            alert("Please accept the Terms & Conditions.");
+            return;
+        }
+
+        const submitButton = adminForm.querySelector(
+            'button[type="submit"], input[type="submit"]'
+        );
+
+        try {
+            console.log("Submitting admin registration...");
+
+            if (submitButton) {
+                submitButton.disabled = true;
+            }
+
+            const response = await fetch(
+                "http://127.0.0.1:5000/api/admin/register",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        full_name: fullName,
+                        date_of_birth: dob,
+                        gender: gender,
+                        state: state,
+                        mobile_number: mobile,
+                        email: email,
+                        username: username,
+                        password: password,
+                        confirm_password: confirmPassword,
+                        invitation_code: invitationCode
+                    })
+                }
+            );
+
+            // Read and log the server response.
+            const result = await response.json();
+
+            console.log("HTTP status:", response.status);
+            console.log("Server response:", result);
+
+            if (!response.ok) {
+                alert(
+                    result.message ||
+                    "Admin registration failed. Please try again."
+                );
+                return;
+            }
+
+            alert(
+                result.message ||
+                "Admin registered successfully!"
+            );
+
+            adminForm.reset();
+
+            // Redirect only after successful registration.
+            window.location.href = "admin_login.html";
+
+        } catch (error) {
+            console.error("Admin registration error:", error);
+
+            alert(
+                "Cannot connect to the Flask backend. " +
+                "Check whether Flask is running on port 5000."
+            );
+
+        } finally {
+            if (submitButton) {
+                submitButton.disabled = false;
+            }
+        }
+    });
+
+});
+</script>
+
+</body>
+</html>

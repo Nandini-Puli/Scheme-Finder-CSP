@@ -1,0 +1,2341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Scheme Finder - Manage Users</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+/* =====================================================
+    RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    background: #f4f8fc;
+    color: #163b68;
+}
+
+button,
+input,
+select {
+    font-family: inherit;
+}
+
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    width: 260px;
+    height: 100vh;
+
+    background: linear-gradient(
+        180deg,
+        #064b91,
+        #0755a5,
+        #0866c4
+    );
+
+    color: white;
+
+    z-index: 1000;
+
+    transition: 0.3s ease;
+
+    display: flex;
+    flex-direction: column;
+
+    box-shadow: 4px 0 18px rgba(0,0,0,0.08);
+}
+
+.sidebar.closed {
+    width: 0;
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   SIDEBAR HEADER
+===================================================== */
+
+.sidebar-header {
+    height: 95px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 18px;
+
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+.sidebar-logo {
+    width: 42px;
+    height: 42px;
+
+    background: white;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 10px;
+
+    color: #0755a5;
+
+    flex-shrink: 0;
+}
+
+.sidebar-logo i {
+    font-size: 20px;
+}
+
+.logo-text h2 {
+    font-size: 17px;
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+.logo-text p {
+    font-size: 8px;
+
+    opacity: 0.85;
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   SIDEBAR MENU
+===================================================== */
+
+.sidebar-menu {
+    padding: 20px 12px;
+
+    flex: 1;
+}
+
+.sidebar-menu a {
+    display: flex;
+    align-items: center;
+
+    text-decoration: none;
+
+    color: rgba(255,255,255,0.9);
+
+    padding: 13px 15px;
+
+    margin-bottom: 5px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+
+    transition: 0.25s;
+}
+
+.sidebar-menu a i {
+    width: 28px;
+
+    font-size: 15px;
+}
+
+.sidebar-menu a:hover {
+    background: rgba(255,255,255,0.13);
+
+    color: white;
+}
+
+.sidebar-menu a.active {
+    background: white;
+
+    color: #0755a5;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.08);
+}
+
+
+/* =====================================================
+   SIDEBAR FOOTER
+===================================================== */
+
+.sidebar-footer {
+    padding: 15px;
+
+    text-align: center;
+
+    font-size: 9px;
+
+    opacity: 0.8;
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.main {
+    margin-left: 260px;
+
+    min-height: 100vh;
+
+    transition: 0.3s ease;
+}
+
+.main.full {
+    margin-left: 0;
+}
+
+
+/* =====================================================
+   TOP HEADER
+===================================================== */
+
+.top-header {
+    height: 72px;
+
+    background: white;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 28px;
+
+    border-bottom: 1px solid #e5edf5;
+
+    position: sticky;
+    top: 0;
+
+    z-index: 500;
+}
+
+
+/* =====================================================
+   THREE LINE BUTTON
+===================================================== */
+
+.menu-btn {
+    width: 42px;
+    height: 42px;
+
+    border: none;
+
+    background: #f1f6fc;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 5px;
+
+    margin-right: 20px;
+}
+
+.menu-btn span {
+    width: 20px;
+    height: 2px;
+
+    background: #0755a5;
+
+    border-radius: 5px;
+}
+
+
+/* =====================================================
+   HEADER SEARCH
+===================================================== */
+
+.header-search {
+    width: 350px;
+    height: 40px;
+
+    border: 1px solid #d7e3ef;
+
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 13px;
+
+    background: #f9fbfd;
+}
+
+.header-search i {
+    color: #8ca4bd;
+
+    margin-right: 9px;
+}
+
+.header-search input {
+    border: none;
+
+    outline: none;
+
+    width: 100%;
+
+    background: transparent;
+
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   HEADER RIGHT
+===================================================== */
+
+.header-right {
+    margin-left: auto;
+
+    display: flex;
+    align-items: center;
+
+    gap: 20px;
+}
+
+.notification {
+    position: relative;
+
+    width: 38px;
+    height: 38px;
+
+    border-radius: 50%;
+
+    background: #f1f6fc;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #0755a5;
+}
+
+.badge {
+    position: absolute;
+
+    top: -2px;
+    right: -1px;
+
+    width: 16px;
+    height: 16px;
+
+    border-radius: 50%;
+
+    background: #ef4444;
+
+    color: white;
+
+    font-size: 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-profile {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+}
+
+.admin-avatar {
+    width: 38px;
+    height: 38px;
+
+    background: #e7f1ff;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #0755a5;
+}
+
+.admin-info strong {
+    display: block;
+
+    font-size: 12px;
+
+    color: #163b68;
+}
+
+.admin-info span {
+    font-size: 9px;
+
+    color: #7d94aa;
+}
+
+.admin-name-link {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.admin-name-link:hover {
+    color: #2563eb;
+}
+
+.admin-name-link:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 3px;
+    border-radius: 3px;
+}
+
+
+/* =====================================================
+   CONTENT
+===================================================== */
+
+.content {
+    padding: 30px;
+}
+
+
+/* =====================================================
+   PAGE TITLE
+===================================================== */
+
+.page-title {
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    margin-bottom: 25px;
+}
+
+.page-title h1 {
+    font-size: 24px;
+
+    color: #123f70;
+
+    font-weight: 600;
+}
+
+.page-title p {
+    font-size: 12px;
+
+    color: #7890a8;
+
+    margin-top: 4px;
+}
+
+
+/* =====================================================
+   USER SUMMARY
+===================================================== */
+
+.summary-cards {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 15px;
+
+    margin-bottom: 20px;
+}
+
+.summary-card {
+    background: white;
+
+    border: 1px solid #e3edf6;
+
+    border-radius: 10px;
+
+    padding: 16px 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    box-shadow:
+        0 3px 12px rgba(40,75,110,0.04);
+}
+
+.summary-icon {
+    width: 42px;
+    height: 42px;
+
+    border-radius: 9px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 12px;
+}
+
+.summary-icon.blue {
+    background: #e7f2ff;
+    color: #1672d4;
+}
+
+.summary-icon.green {
+    background: #e7f9f0;
+    color: #13a66a;
+}
+
+.summary-icon.red {
+    background: #fff0f0;
+    color: #e04b4b;
+}
+
+.summary-info span {
+    display: block;
+
+    font-size: 9px;
+
+    color: #8096aa;
+}
+
+.summary-info strong {
+    display: block;
+
+    font-size: 20px;
+
+    color: #164675;
+
+    margin-top: 2px;
+}
+
+
+/* =====================================================
+   TABLE CARD
+===================================================== */
+
+.table-card {
+    background: white;
+
+    border: 1px solid #e3edf6;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 3px 12px rgba(40,75,110,0.05);
+
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   FILTERS
+===================================================== */
+
+.filters {
+    padding: 18px 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    border-bottom: 1px solid #edf2f7;
+}
+
+.filter-search {
+    width: 350px;
+    height: 40px;
+
+    border: 1px solid #d7e3ef;
+
+    border-radius: 7px;
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 0 12px;
+
+    background: #fbfdff;
+}
+
+.filter-search i {
+    color: #8ba2b9;
+
+    margin-right: 8px;
+
+    font-size: 12px;
+}
+
+.filter-search input {
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    width: 100%;
+
+    font-size: 11px;
+
+    color: #45647e;
+}
+
+.filter-select {
+    height: 40px;
+
+    min-width: 150px;
+
+    border: 1px solid #d7e3ef;
+
+    border-radius: 7px;
+
+    padding: 0 12px;
+
+    color: #52718c;
+
+    font-size: 11px;
+
+    outline: none;
+
+    background: white;
+
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   TABLE
+===================================================== */
+
+.table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 950px;
+}
+
+thead {
+    background: #f5f9fd;
+}
+
+th {
+    text-align: left;
+
+    padding: 14px 16px;
+
+    font-size: 10px;
+
+    color: #52708d;
+
+    font-weight: 600;
+
+    border-bottom: 1px solid #e4edf5;
+}
+
+td {
+    padding: 14px 16px;
+
+    font-size: 10px;
+
+    color: #526f89;
+
+    border-bottom: 1px solid #edf2f6;
+
+    vertical-align: middle;
+}
+
+tbody tr:hover {
+    background: #fafcff;
+}
+
+
+/* =====================================================
+   USER INFO
+===================================================== */
+
+.user-cell {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    min-width: 190px;
+}
+
+.user-avatar {
+    width: 36px;
+    height: 36px;
+
+    border-radius: 50%;
+
+    background: #e7f2ff;
+
+    color: #176fc8;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+.user-details strong {
+    display: block;
+
+    color: #234e75;
+
+    font-size: 10px;
+
+    font-weight: 600;
+}
+
+.user-details span {
+    display: block;
+
+    color: #94a6b7;
+
+    font-size: 8px;
+
+    margin-top: 2px;
+}
+
+
+/* =====================================================
+   USER STATUS
+===================================================== */
+
+.status {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    font-size: 8px;
+}
+
+.status::before {
+    content: "";
+
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: currentColor;
+}
+
+.status.active {
+    background: #e7f8ef;
+
+    color: #14965c;
+}
+
+.status.inactive {
+    background: #fff0f0;
+
+    color: #e04b4b;
+}
+
+
+/* =====================================================
+   ACTION BUTTONS
+===================================================== */
+
+.actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+}
+
+.action-btn {
+    width: 29px;
+    height: 29px;
+
+    border: 1px solid #dce7f0;
+
+    background: white;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 10px;
+
+    transition: 0.2s;
+}
+
+.view-btn {
+    color: #2875bd;
+}
+
+.edit-btn {
+    color: #e58b18;
+}
+
+.delete-btn {
+    color: #e04d4d;
+}
+
+.action-btn:hover {
+    background: #f2f7fc;
+}
+
+
+/* =====================================================
+   PAGINATION
+===================================================== */
+
+.table-footer {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 16px 20px;
+}
+
+.showing {
+    font-size: 9px;
+
+    color: #8ca0b2;
+}
+
+.pagination {
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
+}
+
+.page-btn {
+    width: 29px;
+    height: 29px;
+
+    border: 1px solid #dce7f0;
+
+    background: white;
+
+    border-radius: 5px;
+
+    color: #607e98;
+
+    font-size: 9px;
+
+    cursor: pointer;
+}
+
+.page-btn:hover {
+    background: #edf5ff;
+}
+
+.page-btn.active {
+    background: #1672d4;
+
+    border-color: #1672d4;
+
+    color: white;
+}
+
+
+/* =====================================================
+   USER DETAILS MODAL
+===================================================== */
+
+.modal {
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(14,48,79,0.45);
+
+    z-index: 2000;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-box {
+    width: 580px;
+
+    max-width: 100%;
+
+    background: white;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 15px 50px rgba(0,0,0,0.2);
+
+    overflow: hidden;
+}
+
+.modal-header {
+    padding: 18px 22px;
+
+    border-bottom: 1px solid #e8eef4;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+.modal-header h2 {
+    font-size: 17px;
+
+    color: #164675;
+}
+
+.close-btn {
+    width: 30px;
+    height: 30px;
+
+    border: none;
+
+    background: #f2f6fa;
+
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    color: #617b91;
+}
+
+.modal-body {
+    padding: 25px;
+}
+
+
+/* =====================================================
+   PROFILE TOP
+===================================================== */
+
+.profile-top {
+    display: flex;
+
+    align-items: center;
+
+    padding-bottom: 20px;
+
+    border-bottom: 1px solid #edf2f6;
+
+    margin-bottom: 20px;
+}
+
+.large-avatar {
+    width: 65px;
+    height: 65px;
+
+    background: #e7f2ff;
+
+    color: #176fc8;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 20px;
+
+    font-weight: 600;
+
+    margin-right: 15px;
+}
+
+.profile-name h3 {
+    color: #174675;
+
+    font-size: 17px;
+}
+
+.profile-name span {
+    color: #8498aa;
+
+    font-size: 10px;
+}
+
+
+/* =====================================================
+   USER DETAILS
+===================================================== */
+
+.details-grid {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 18px;
+}
+
+.detail-box {
+    background: #f8fbfe;
+
+    border: 1px solid #e6eef5;
+
+    border-radius: 8px;
+
+    padding: 12px;
+}
+
+.detail-box label {
+    display: block;
+
+    font-size: 8px;
+
+    color: #8a9eaf;
+
+    margin-bottom: 4px;
+}
+
+.detail-box strong {
+    font-size: 10px;
+
+    color: #345a7b;
+
+    font-weight: 500;
+}
+
+
+/* =====================================================
+   EDIT FORM
+===================================================== */
+
+.edit-form {
+    display: none;
+}
+
+.edit-form.show {
+    display: block;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+
+    font-size: 10px;
+
+    color: #234d73;
+
+    font-weight: 600;
+
+    margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+
+    border: 1px solid #d7e3ef;
+
+    border-radius: 7px;
+
+    padding: 10px 11px;
+
+    font-size: 10px;
+
+    outline: none;
+
+    color: #526f89;
+
+    background: #fbfdff;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #4c9be8;
+
+    background: white;
+}
+
+
+/* =====================================================
+   MODAL FOOTER
+===================================================== */
+
+.modal-footer {
+    padding: 16px 22px;
+
+    border-top: 1px solid #e8eef4;
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+}
+
+.cancel-btn {
+    padding: 10px 17px;
+
+    border: 1px solid #d7e3ef;
+
+    background: white;
+
+    color: #58738c;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    font-size: 10px;
+}
+
+.save-btn {
+    padding: 10px 18px;
+
+    border: none;
+
+    background: #1976d2;
+
+    color: white;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    font-size: 10px;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:1000px) {
+
+    .summary-cards {
+        grid-template-columns:
+            repeat(3, 1fr);
+    }
+
+    .filters {
+        flex-wrap: wrap;
+    }
+
+}
+
+@media(max-width:750px) {
+
+    .sidebar {
+        width: 260px;
+    }
+
+    .main {
+        margin-left: 0;
+    }
+
+    .header-search {
+        display: none;
+    }
+
+    .content {
+        padding: 20px;
+    }
+
+    .page-title {
+        flex-direction: column;
+
+        gap: 12px;
+    }
+
+    .admin-info {
+        display: none;
+    }
+
+    .summary-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .filters {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    .filter-search,
+    .filter-select {
+        width: 100%;
+    }
+
+    .table-footer {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 12px;
+    }
+
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-header">
+
+        <div class="sidebar-logo">
+            <i class="fa-solid fa-landmark"></i>
+        </div>
+
+        <div class="logo-text">
+            <h2>Scheme Finder</h2>
+            <p>Government Schemes</p>
+        </div>
+
+    </div>
+
+
+    <nav class="sidebar-menu">
+
+        <a href="admin_dashboard.html">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Dashboard</span>
+        </a>
+
+        <a href="admin_schemes.html">
+            <i class="fa-solid fa-layer-group"></i>
+            <span>Schemes</span>
+        </a>
+
+        <a href="admin_users.html" class="active">
+            <i class="fa-solid fa-users"></i>
+            <span>Users</span>
+        </a>
+
+        <a href="admin_applications.html">
+            <i class="fa-solid fa-file-lines"></i>
+            <span>Applications</span>
+        </a>
+
+        <a href="admin_alerts.html">
+            <i class="fa-solid fa-bell"></i>
+            <span>Alerts</span>
+        </a>
+
+        <a href="admin_reports.html">
+            <i class="fa-solid fa-chart-pie"></i>
+            <span>Reports</span>
+        </a>
+
+        <a href="admin_settings.html">
+            <i class="fa-solid fa-gear"></i>
+            <span>Settings</span>
+        </a>
+
+        <a href="admin_logout.html">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Logout</span>
+        </a>
+
+    </nav>
+
+
+    <div class="sidebar-footer">
+
+        Government of India<br>
+        Scheme Finder Admin Portal
+
+    </div>
+
+</aside>
+
+
+<!-- =====================================================
+    MAIN
+===================================================== -->
+
+<main class="main" id="main">
+
+
+    <!-- =================================================
+        TOP HEADER
+    ================================================== -->
+
+    <header class="top-header">
+
+
+        <!-- Three Lines -->
+
+        <button class="menu-btn" id="menuBtn">
+
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </button>
+
+
+        <!-- Search -->
+
+        <div class="header-search">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="text"
+                id="headerSearch"
+                placeholder="Search schemes, users, applications..."
+            >
+
+        </div>
+
+
+        <!-- Right -->
+
+        <div class="header-right">
+            
+            <div class="notification"
+                role="link"
+                tabindex="0"
+                title="View notifications"
+                style="cursor:pointer;"
+                onclick="window.location.href='admin_alerts.html'"
+                onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.location.href='admin_alerts.html';}">
+
+                <i class="fa-regular fa-bell"></i>
+
+                <span class="badge" id="unreadBadge" style="display:none;">0</span>
+            </div>
+
+
+
+            <div class="admin-profile">
+
+                <div class="admin-avatar">
+
+                    <i class="fa-solid fa-user-shield"></i>
+
+                </div>
+
+                <div class="admin-info">
+
+                    <a href="admin_settings.html" class="admin-name-link">
+                        <strong id="adminName">Admin</strong>
+                    </a>
+
+                    <span>Administrator</span>
+
+                </div>
+
+                <i
+                    class="fa-solid fa-chevron-down"
+                    style="font-size:9px;color:#8095aa;"
+                ></i>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =================================================
+        CONTENT
+    ================================================== -->
+
+    <section class="content">
+
+
+        <!-- PAGE TITLE -->
+
+        <div class="page-title">
+
+            <div>
+
+                <h1>Manage Users</h1>
+
+                <p>
+                    View and manage all registered users
+                    on the Scheme Finder portal.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+            SUMMARY CARDS
+        ================================================== -->
+
+        <div class="summary-cards">
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon blue">
+
+                    <i class="fa-solid fa-users"></i>
+
+                </div>
+
+                <div class="summary-info">
+
+                    <span>Total Users</span>
+
+                    <strong id="totalUsers">0</strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon green">
+
+                    <i class="fa-solid fa-user-check"></i>
+
+                </div>
+
+                <div class="summary-info">
+
+                    <span>Active Users</span>
+
+                    <strong id="activeUsers">0</strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon red">
+
+                    <i class="fa-solid fa-user-slash"></i>
+
+                </div>
+
+                <div class="summary-info">
+
+                    <span>Inactive Users</span>
+
+                    <strong id="inactiveUsers">0</strong>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =================================================
+            TABLE CARD
+        ================================================== -->
+
+        <div class="table-card">
+
+
+            <!-- FILTERS -->
+
+            <div class="filters">
+
+
+                <div class="filter-search">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input
+                        type="text"
+                        id="userSearch"
+                        placeholder="Search users..."
+                        onkeyup="filterUsers()"
+                    >
+
+                </div>
+
+
+                <select
+                    class="filter-select"
+                    id="statusFilter"
+                    onchange="filterUsers()"
+                >
+
+                    <option value="all">
+                        All Status
+                    </option>
+
+                    <option value="Active">
+                        Active
+                    </option>
+
+                    <option value="Inactive">
+                        Inactive
+                    </option>
+
+                </select>
+
+
+                <select class="filter-select" id="categoryFilter">
+                    <option value="all">All Users</option>
+                    <option value="Education">Education</option>
+                    <option value="Unemployed">Unemployed</option>
+                    <option value="Entrepreneurship">Entrepreneurship</option>
+                    <option value="Internship">Internship</option>
+                    <option value="Other">Other</option>
+                </select>
+
+            </div>
+
+
+            <!-- =================================================
+                TABLE
+            ================================================== -->
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>User ID</th>
+
+                            <th>User</th>
+
+                            <th>Mobile / Email</th>
+
+                            <th>Registration Date</th>
+
+                            <th>Schemes Viewed</th>
+
+                            <th>Applications</th>
+
+                            <th>Status</th>
+
+                            <th>Actions</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="userTable">
+                        <tr>
+                            <td colspan="8">Loading users...</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <!-- =================================================
+                FOOTER
+            ================================================== -->
+
+            <div class="table-footer">
+
+                <div
+                    class="showing"
+                    id="showingText"
+                >
+                    Showing 1–5 of 2,450 users
+                </div>
+
+
+                
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- =====================================================
+    USER DETAILS MODAL
+===================================================== -->
+
+<div
+    class="modal"
+    id="userModal"
+>
+
+    <div class="modal-box">
+
+
+        <div class="modal-header">
+
+            <h2>
+                User Details
+            </h2>
+
+            <button
+                class="close-btn"
+                onclick="closeModal()"
+            >
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+        <div class="modal-body">
+
+
+            <!-- Profile -->
+
+            <div class="profile-top">
+
+                <div
+                    class="large-avatar"
+                    id="modalAvatar"
+                >
+                    SP
+                </div>
+
+                <div class="profile-name">
+
+                    <h3 id="modalName">
+                        Sneha P
+                    </h3>
+
+                    <span id="modalRole">
+                        Student
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- Details -->
+
+            <div class="details-grid">
+
+
+                <div class="detail-box">
+
+                    <label>
+                        USER ID
+                    </label>
+
+                    <strong id="modalId">
+                        U001
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <label>
+                        STATUS
+                    </label>
+
+                    <strong id="modalStatus">
+                        Active
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <label>
+                        MOBILE NUMBER
+                    </label>
+
+                    <strong id="modalMobile">
+                        +91 9876543210
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <label>
+                        EMAIL
+                    </label>
+
+                    <strong id="modalEmail">
+                        sneha@gmail.com
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <label>
+                        REGISTRATION DATE
+                    </label>
+
+                    <strong id="modalDate">
+                        12 Aug 2026
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <label>
+                        SCHEMES VIEWED
+                    </label>
+
+                    <strong id="modalViewed">
+                        8
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <label>
+                        APPLICATIONS
+                    </label>
+
+                    <strong id="modalApplications">
+                        2
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <label>
+                        ACCOUNT TYPE
+                    </label>
+
+                    <strong>
+                        Citizen
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <div class="modal-footer">
+
+            <button
+                class="cancel-btn"
+                onclick="closeModal()"
+            >
+                Close
+            </button>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+    JAVASCRIPT
+===================================================== -->
+
+<script>
+
+
+/* =====================================================
+    SIDEBAR TOGGLE
+===================================================== */
+
+const menuBtn = document.getElementById("menuBtn");
+const sidebar = document.getElementById("sidebar");
+const main = document.getElementById("main");
+
+menuBtn?.addEventListener("click", function () {
+    sidebar?.classList.toggle("closed");
+    main?.classList.toggle("full");
+});
+
+
+/* =====================================================
+    API CONFIGURATION
+===================================================== */
+
+const API_BASE = "http://127.0.0.1:5000";
+let users = [];
+
+
+/* =====================================================
+    SAFE TEXT HELPERS
+===================================================== */
+
+function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[char]);
+}
+
+function formatDate(value) {
+    if (!value) return "—";
+
+    const date = new Date(value);
+
+    if (Number.isNaN(date.getTime())) {
+        return escapeHTML(value);
+    }
+
+    return date.toLocaleDateString("en-IN", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric"
+    });
+}
+
+function getInitials(name) {
+    return String(name || "U")
+        .trim()
+        .split(/\s+/)
+        .map(part => part[0] || "")
+        .join("")
+        .slice(0, 2)
+        .toUpperCase();
+}
+
+
+/* =====================================================
+    LOAD USERS FROM FLASK BACKEND
+===================================================== */
+
+async function loadUsers() {
+    const tbody = document.getElementById("userTable");
+
+    if (!tbody) {
+        console.error(
+            'Missing <tbody id="userTable"> in the users table.'
+        );
+        return;
+    }
+
+    tbody.innerHTML = `
+        <tr>
+            <td colspan="8">Loading users...</td>
+        </tr>
+    `;
+
+    try {
+        const response = await fetch(
+            `${API_BASE}/api/admin/users`,
+            {
+                method: "GET",
+                credentials: "include",
+                headers: {
+                    "Accept": "application/json"
+                }
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(
+                data.message || "Unable to load users."
+            );
+        }
+
+        users = Array.isArray(data.users)
+            ? data.users
+            : [];
+
+        document.getElementById("totalUsers").textContent =
+            data.total_users ?? users.length;
+
+        document.getElementById("activeUsers").textContent =
+            data.active_users ?? 0;
+
+        document.getElementById("inactiveUsers").textContent =
+            data.inactive_users ?? users.length;
+
+        document.getElementById("adminName").textContent =
+            data.admin_name || "Admin";
+
+        
+        const badge = document.getElementById("unreadBadge");
+        const unreadCount = Math.max(
+            0,
+            Number(data.unread_notifications ?? 0) || 0
+        );
+
+        if (badge) {
+            badge.textContent = unreadCount > 99
+            ? "99+"
+            : String(unreadCount);
+
+            badge.style.display = unreadCount > 0 ? "flex" : "none";
+        }
+
+
+        renderUsers();
+
+    } catch (error) {
+        console.error("Failed to load users:", error);
+
+        users = [];
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="8">
+                    ${escapeHTML(error.message)}
+                </td>
+            </tr>
+        `;
+
+        document.getElementById("showingText").textContent =
+            "Unable to load users";
+    }
+}
+
+
+
+async function loadAdminNotificationBadge() {
+    const badge = document.getElementById("unreadBadge");
+    if (!badge) return;
+
+    try {
+        const response = await fetch(
+            `${API_BASE}/api/admin/alerts`,
+            { credentials: "include" }
+        );
+
+        if (!response.ok) {
+            throw new Error("Unable to load notifications.");
+        }
+
+        const data = await response.json();
+        const alerts = Array.isArray(data)
+            ? data
+            : (data.alerts || data.notifications || []);
+
+        const unreadCount = alerts.filter(alert =>
+            alert.is_read === false ||
+            alert.is_read === 0 ||
+            alert.is_read === "0"
+        ).length;
+
+        badge.textContent = unreadCount > 99
+            ? "99+"
+            : String(unreadCount);
+
+        badge.style.display =
+            unreadCount > 0 ? "flex" : "none";
+
+    } catch (error) {
+        console.error("Notification badge error:", error);
+    }
+}
+
+
+/* =====================================================
+    SEARCH AND FILTER USERS
+===================================================== */
+
+function filterUsers() {
+    renderUsers();
+}
+
+function renderUsers() {
+    const tbody = document.getElementById("userTable");
+
+    if (!tbody) return;
+
+    const search = (
+        document.getElementById("userSearch")?.value || ""
+    ).trim().toLowerCase();
+
+    const statusFilter = (
+        document.getElementById("statusFilter")?.value || "all"
+    ).toLowerCase();
+
+    const categoryFilter = (
+        document.getElementById("categoryFilter")?.value || "all"
+    ).toLowerCase();
+
+    const filteredUsers = users.filter(user => {
+        const name = String(
+            user.full_name || ""
+        ).toLowerCase();
+
+        const category = String(
+            user.category || user.occupation || ""
+        ).toLowerCase();
+
+        const status = String(
+            user.status || "Inactive"
+        ).toLowerCase();
+
+        const matchesSearch =
+            name.includes(search) ||
+            category.includes(search);
+
+        const matchesStatus =
+            statusFilter === "all" ||
+            status === statusFilter;
+
+        const matchesCategory =
+            categoryFilter === "all" ||
+            category === categoryFilter;
+
+        return (
+            matchesSearch &&
+            matchesStatus &&
+            matchesCategory
+        );
+    });
+
+    if (filteredUsers.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="8">No users found.</td>
+            </tr>
+        `;
+    } else {
+        tbody.innerHTML = filteredUsers.map(user => {
+            const id = Number(user.user_id);
+
+            const name = escapeHTML(
+                user.full_name || "—"
+            );
+
+            const category = escapeHTML(
+                user.category || user.occupation || "—"
+            );
+
+            const mobile = escapeHTML(
+                user.mobile_number || user.contact || "—"
+            );
+
+            const email = escapeHTML(
+                user.email || "—"
+            );
+
+            const status = String(
+                user.status || "Inactive"
+            );
+
+            const isActive =
+                status.toLowerCase() === "active";
+
+            const initials = escapeHTML(
+                getInitials(user.full_name)
+            );
+
+            return `
+                <tr>
+                    <td>${id}</td>
+
+                    <td>
+                        <div class="user-cell">
+                            <div class="user-avatar">
+                                ${initials}
+                            </div>
+
+                            <div class="user-details">
+                                <strong>${name}</strong>
+                                <span>${category}</span>
+                            </div>
+                        </div>
+                    </td>
+
+                    <td>
+                        ${mobile}<br>${email}
+                    </td>
+
+                    <td>
+                        ${formatDate(user.created_at)}
+                    </td>
+
+                    <td>
+                        ${Number(user.schemes_viewed || 0)}
+                    </td>
+
+                    <td>
+                        ${Number(user.applications || 0)}
+                    </td>
+
+                    <td>
+                        <span class="status ${
+                            isActive ? "active" : "inactive"
+                        }">
+                            ${escapeHTML(status)}
+                        </span>
+                    </td>
+
+                    <td>
+                        <div class="actions">
+                            <button
+                                type="button"
+                                class="action-btn view-btn"
+                                title="View details"
+                                onclick="viewUserById(${id})">
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+
+                            <button
+                                type="button"
+                                class="action-btn delete-btn"
+                                title="Delete user"
+                                onclick="deleteUserById(${id})">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `;
+        }).join("");
+    }
+
+    document.getElementById("showingText").textContent =
+        `Showing ${filteredUsers.length} of ${users.length} users`;
+}
+
+
+/* =====================================================
+    VIEW USER DETAILS
+===================================================== */
+
+function viewUserById(userId) {
+    const user = users.find(
+        item => Number(item.user_id) === Number(userId)
+    );
+
+    if (!user) {
+        alert("User details not found.");
+        return;
+    }
+
+    document.getElementById("modalName").textContent =
+        user.full_name || "—";
+
+    document.getElementById("modalRole").textContent =
+        user.category || user.occupation || "—";
+
+    document.getElementById("modalId").textContent =
+        user.user_id ?? "—";
+
+    document.getElementById("modalStatus").textContent =
+        user.status || "Inactive";
+
+    document.getElementById("modalMobile").textContent =
+        user.mobile_number || user.contact || "—";
+
+    document.getElementById("modalEmail").textContent =
+        user.email || "—";
+
+    document.getElementById("modalDate").textContent =
+        formatDate(user.created_at);
+
+    document.getElementById("modalViewed").textContent =
+        Number(user.schemes_viewed || 0);
+
+    document.getElementById("modalApplications").textContent =
+        Number(user.applications || 0);
+
+    document.getElementById("modalAvatar").textContent =
+        getInitials(user.full_name);
+
+    document.getElementById("userModal").classList.add("show");
+}
+
+
+/* =====================================================
+    CLOSE USER DETAILS MODAL
+===================================================== */
+
+function closeModal() {
+    document.getElementById("userModal")
+        ?.classList.remove("show");
+}
+
+
+/* =====================================================
+    DELETE USER THROUGH FLASK BACKEND
+===================================================== */
+
+async function deleteUserById(userId) {
+    const user = users.find(
+        item => Number(item.user_id) === Number(userId)
+    );
+
+    if (!user) {
+        alert("User not found.");
+        return;
+    }
+
+    const confirmed = confirm(
+        `Delete user "${user.full_name}" permanently? ` +
+        "This action cannot be undone."
+    );
+
+    if (!confirmed) return;
+
+    try {
+        const response = await fetch(
+            `${API_BASE}/api/admin/users/${userId}`,
+            {
+                method: "DELETE",
+                credentials: "include",
+                headers: {
+                    "Accept": "application/json"
+                }
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(
+                data.message || "Unable to delete user."
+            );
+        }
+
+        closeModal();
+
+        await loadUsers();
+
+        alert(
+            data.message || "User deleted successfully."
+        );
+
+    } catch (error) {
+        console.error("Delete user failed:", error);
+        alert(error.message);
+    }
+}
+
+
+/* =====================================================
+    SEARCH AND FILTER EVENT LISTENERS
+===================================================== */
+
+document.getElementById("userSearch")
+    ?.addEventListener("input", filterUsers);
+
+document.getElementById("statusFilter")
+    ?.addEventListener("change", filterUsers);
+
+document.getElementById("categoryFilter")
+    ?.addEventListener("change", filterUsers);
+
+
+/* =====================================================
+    CLOSE MODAL WHEN CLICKING OUTSIDE
+===================================================== */
+
+document.getElementById("userModal")
+    ?.addEventListener("click", function (event) {
+        if (event.target === this) {
+            closeModal();
+        }
+    });
+
+
+/* =====================================================
+    INITIAL LOAD
+===================================================== */
+
+loadUsers();
+loadAdminNotificationBadge();
+
+
+</script>
+<script src="../js/admin_logout.js"></script>
+</body>
+</html>

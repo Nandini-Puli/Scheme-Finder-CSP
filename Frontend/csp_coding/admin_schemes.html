@@ -1,0 +1,2426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Scheme Finder - Manage Schemes</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    background: #f4f8fc;
+    color: #163b68;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+}
+
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    width: 260px;
+    height: 100vh;
+
+    background: linear-gradient(
+        180deg,
+        #064b91,
+        #0755a5,
+        #0866c4
+    );
+
+    color: white;
+    z-index: 1000;
+
+    transition: 0.3s ease;
+
+    display: flex;
+    flex-direction: column;
+
+    box-shadow: 4px 0 18px rgba(0,0,0,0.08);
+}
+
+.sidebar.closed {
+    width: 0;
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   SIDEBAR HEADER
+===================================================== */
+
+.sidebar-header {
+    height: 95px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 18px;
+
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+.sidebar-logo {
+    width: 42px;
+    height: 42px;
+
+    background: white;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 10px;
+
+    color: #0755a5;
+
+    flex-shrink: 0;
+}
+
+.sidebar-logo i {
+    font-size: 20px;
+}
+
+.logo-text h2 {
+    font-size: 17px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.logo-text p {
+    font-size: 8px;
+    opacity: 0.85;
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   SIDEBAR MENU
+===================================================== */
+
+.sidebar-menu {
+    padding: 20px 12px;
+    flex: 1;
+}
+
+.sidebar-menu a {
+    display: flex;
+    align-items: center;
+
+    text-decoration: none;
+
+    color: rgba(255,255,255,0.9);
+
+    padding: 13px 15px;
+
+    margin-bottom: 5px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+
+    transition: 0.25s;
+}
+
+.sidebar-menu a i {
+    width: 28px;
+    font-size: 15px;
+}
+
+.sidebar-menu a:hover {
+    background: rgba(255,255,255,0.13);
+    color: white;
+}
+
+.sidebar-menu a.active {
+    background: white;
+    color: #0755a5;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+
+/* =====================================================
+   SIDEBAR FOOTER
+===================================================== */
+
+.sidebar-footer {
+    padding: 15px;
+
+    text-align: center;
+
+    font-size: 9px;
+
+    opacity: 0.8;
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.main {
+    margin-left: 260px;
+
+    min-height: 100vh;
+
+    transition: 0.3s ease;
+}
+
+.main.full {
+    margin-left: 0;
+}
+
+
+/* =====================================================
+   TOP HEADER
+===================================================== */
+
+.top-header {
+    height: 72px;
+
+    background: white;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 28px;
+
+    border-bottom: 1px solid #e5edf5;
+
+    position: sticky;
+    top: 0;
+
+    z-index: 500;
+}
+
+
+/* =====================================================
+   MENU BUTTON
+===================================================== */
+
+.menu-btn {
+    width: 42px;
+    height: 42px;
+
+    border: none;
+
+    background: #f1f6fc;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 5px;
+
+    margin-right: 20px;
+}
+
+.menu-btn span {
+    width: 20px;
+    height: 2px;
+
+    background: #0755a5;
+
+    border-radius: 5px;
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+.header-search {
+    width: 350px;
+    height: 40px;
+
+    border: 1px solid #d7e3ef;
+
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 13px;
+
+    background: #f9fbfd;
+}
+
+.header-search i {
+    color: #8ca4bd;
+
+    margin-right: 9px;
+}
+
+.header-search input {
+    border: none;
+    outline: none;
+
+    width: 100%;
+
+    background: transparent;
+
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   HEADER RIGHT
+===================================================== */
+
+.header-right {
+    margin-left: auto;
+
+    display: flex;
+    align-items: center;
+
+    gap: 20px;
+}
+
+.notification {
+    position: relative;
+
+    width: 38px;
+    height: 38px;
+
+    border-radius: 50%;
+
+    background: #f1f6fc;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #0755a5;
+}
+
+.badge {
+    position: absolute;
+
+    top: -2px;
+    right: -1px;
+
+    width: 16px;
+    height: 16px;
+
+    border-radius: 50%;
+
+    background: #ef4444;
+
+    color: white;
+
+    font-size: 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-profile {
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+}
+
+.admin-avatar {
+    width: 38px;
+    height: 38px;
+
+    background: #e7f1ff;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #0755a5;
+}
+
+.admin-info strong {
+    display: block;
+
+    font-size: 12px;
+
+    color: #163b68;
+}
+
+.admin-info span {
+    font-size: 9px;
+
+    color: #7d94aa;
+}
+
+
+/* =====================================================
+   CONTENT
+===================================================== */
+
+.content {
+    padding: 30px;
+}
+
+.admin-name-link {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.admin-name-link:hover {
+    color: #2563eb;
+}
+
+.admin-name-link:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 3px;
+    border-radius: 3px;
+}
+
+
+/* =====================================================
+   PAGE TITLE
+===================================================== */
+
+.page-title {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    margin-bottom: 25px;
+}
+
+.page-title h1 {
+    font-size: 24px;
+
+    color: #123f70;
+
+    font-weight: 600;
+}
+
+.page-title p {
+    font-size: 12px;
+
+    color: #7890a8;
+
+    margin-top: 4px;
+}
+
+
+/* =====================================================
+   ADD SCHEME BUTTON
+===================================================== */
+
+.add-btn {
+    border: none;
+
+    background: linear-gradient(
+        90deg,
+        #176ed0,
+        #258de5
+    );
+
+    color: white;
+
+    padding: 11px 18px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-size: 11px;
+
+    font-weight: 500;
+
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    box-shadow: 0 4px 10px rgba(31,116,211,0.18);
+
+    transition: 0.2s;
+}
+
+.add-btn:hover {
+    transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   MAIN CARD
+===================================================== */
+
+.table-card {
+    background: white;
+
+    border: 1px solid #e3edf6;
+
+    border-radius: 12px;
+
+    box-shadow: 0 3px 12px rgba(40,75,110,0.05);
+
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   FILTER SECTION
+===================================================== */
+
+.filters {
+    padding: 18px 20px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    border-bottom: 1px solid #edf2f7;
+
+    background: #ffffff;
+}
+
+.filter-search {
+    width: 300px;
+    height: 40px;
+
+    border: 1px solid #d7e3ef;
+
+    border-radius: 7px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 12px;
+
+    background: #fbfdff;
+}
+
+.filter-search i {
+    color: #8ba2b9;
+
+    margin-right: 8px;
+
+    font-size: 12px;
+}
+
+.filter-search input {
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    width: 100%;
+
+    font-size: 11px;
+
+    color: #45647e;
+}
+
+.filter-select {
+    height: 40px;
+
+    min-width: 155px;
+
+    border: 1px solid #d7e3ef;
+
+    border-radius: 7px;
+
+    padding: 0 12px;
+
+    color: #52718c;
+
+    font-size: 11px;
+
+    outline: none;
+
+    background: white;
+
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   TABLE
+===================================================== */
+
+.table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 900px;
+}
+
+thead {
+    background: #f5f9fd;
+}
+
+th {
+    text-align: left;
+
+    padding: 14px 16px;
+
+    font-size: 10px;
+
+    color: #52708d;
+
+    font-weight: 600;
+
+    border-bottom: 1px solid #e4edf5;
+}
+
+td {
+    padding: 15px 16px;
+
+    font-size: 10px;
+
+    color: #526f89;
+
+    border-bottom: 1px solid #edf2f6;
+
+    vertical-align: middle;
+}
+
+tbody tr:hover {
+    background: #fafcff;
+}
+
+
+/* =====================================================
+   SCHEME NAME
+===================================================== */
+
+.scheme-cell {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    min-width: 220px;
+}
+
+.scheme-icon {
+    width: 35px;
+    height: 35px;
+
+    background: #eaf4ff;
+
+    color: #1472d1;
+
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+}
+
+.scheme-details strong {
+    display: block;
+
+    color: #234e75;
+
+    font-size: 10px;
+
+    font-weight: 600;
+}
+
+.scheme-details span {
+    display: block;
+
+    color: #94a6b7;
+
+    font-size: 8px;
+
+    margin-top: 2px;
+}
+
+
+/* =====================================================
+   CATEGORY
+===================================================== */
+
+.category {
+    padding: 5px 9px;
+
+    background: #edf5ff;
+
+    color: #2875bd;
+
+    border-radius: 20px;
+
+    font-size: 8px;
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+.status {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    font-size: 8px;
+}
+
+.status::before {
+    content: "";
+
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: currentColor;
+}
+
+.status.active {
+    background: #e7f8ef;
+
+    color: #14965c;
+}
+
+.status.inactive {
+    background: #fff0f0;
+
+    color: #e04b4b;
+}
+
+
+/* =====================================================
+   ACTION BUTTONS
+===================================================== */
+
+.actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+}
+
+.action-btn {
+    width: 29px;
+    height: 29px;
+
+    border: 1px solid #dce7f0;
+
+    background: white;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 10px;
+
+    transition: 0.2s;
+}
+
+.view-btn {
+    color: #2875bd;
+}
+
+.edit-btn {
+    color: #e58b18;
+}
+
+.delete-btn {
+    color: #e04d4d;
+}
+
+.action-btn:hover {
+    background: #f2f7fc;
+}
+
+
+/* =====================================================
+   PAGINATION
+===================================================== */
+
+.table-footer {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 16px 20px;
+}
+
+.showing {
+    font-size: 9px;
+
+    color: #8ca0b2;
+}
+
+.pagination {
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
+}
+
+.page-btn {
+    width: 29px;
+    height: 29px;
+
+    border: 1px solid #dce7f0;
+
+    background: white;
+
+    border-radius: 5px;
+
+    color: #607e98;
+
+    font-size: 9px;
+
+    cursor: pointer;
+}
+
+.page-btn:hover {
+    background: #edf5ff;
+}
+
+.page-btn.active {
+    background: #1672d4;
+
+    border-color: #1672d4;
+
+    color: white;
+}
+
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+.modal {
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(14,48,79,0.45);
+
+    z-index: 2000;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-box {
+    width: 650px;
+
+    max-width: 100%;
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    background: white;
+
+    border-radius: 12px;
+
+    box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+}
+
+.modal-header {
+    padding: 18px 22px;
+
+    border-bottom: 1px solid #e8eef4;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+.modal-header h2 {
+    font-size: 17px;
+
+    color: #164675;
+}
+
+.close-btn {
+    width: 30px;
+    height: 30px;
+
+    border: none;
+
+    background: #f2f6fa;
+
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    color: #617b91;
+}
+
+.modal-body {
+    padding: 22px;
+}
+
+.form-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 16px;
+}
+
+.form-group {
+    display: flex;
+
+    flex-direction: column;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    font-size: 10px;
+
+    color: #234d73;
+
+    font-weight: 600;
+
+    margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+
+    border: 1px solid #d7e3ef;
+
+    border-radius: 7px;
+
+    outline: none;
+
+    padding: 10px 11px;
+
+    font-size: 10px;
+
+    color: #526f89;
+
+    background: #fbfdff;
+}
+
+.form-group textarea {
+    height: 80px;
+
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #4c9be8;
+
+    background: white;
+}
+
+.modal-footer {
+    padding: 16px 22px;
+
+    border-top: 1px solid #e8eef4;
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+}
+
+.cancel-btn {
+    padding: 10px 17px;
+
+    border: 1px solid #d7e3ef;
+
+    background: white;
+
+    color: #58738c;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    font-size: 10px;
+}
+
+.save-btn {
+    padding: 10px 18px;
+
+    border: none;
+
+    background: #1976d2;
+
+    color: white;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    font-size: 10px;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width: 900px) {
+
+    .filters {
+        flex-wrap: wrap;
+    }
+
+    .filter-search {
+        width: 100%;
+    }
+
+}
+
+@media(max-width: 750px) {
+
+    .sidebar {
+        width: 260px;
+    }
+
+    .main {
+        margin-left: 0;
+    }
+
+    .header-search {
+        display: none;
+    }
+
+    .content {
+        padding: 20px;
+    }
+
+    .page-title {
+        flex-direction: column;
+
+        gap: 15px;
+    }
+
+    .admin-info {
+        display: none;
+    }
+
+    .filters {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .filter-select {
+        width: 100%;
+    }
+
+    .table-footer {
+        flex-direction: column;
+
+        gap: 12px;
+
+        align-items: flex-start;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full {
+        grid-column: auto;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-header">
+
+        <div class="sidebar-logo">
+            <i class="fa-solid fa-landmark"></i>
+        </div>
+
+        <div class="logo-text">
+            <h2>Scheme Finder</h2>
+            <p>Government Schemes</p>
+        </div>
+
+    </div>
+
+
+    <nav class="sidebar-menu">
+
+        <a href="admin_dashboard.html">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Dashboard</span>
+        </a>
+
+        <a href="admin_schemes.html" class="active">
+            <i class="fa-solid fa-layer-group"></i>
+            <span>Schemes</span>
+        </a>
+
+        <a href="admin_users.html">
+            <i class="fa-solid fa-users"></i>
+            <span>Users</span>
+        </a>
+
+        <a href="admin_applications.html">
+            <i class="fa-solid fa-file-lines"></i>
+            <span>Applications</span>
+        </a>
+
+        <a href="admin_alerts.html">
+            <i class="fa-solid fa-bell"></i>
+            <span>Alerts</span>
+        </a>
+
+        <a href="admin_reports.html">
+            <i class="fa-solid fa-chart-pie"></i>
+            <span>Reports</span>
+        </a>
+
+        <a href="admin_settings.html">
+            <i class="fa-solid fa-gear"></i>
+            <span>Settings</span>
+        </a>
+
+        <a href="admin_logout.html">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Logout</span>
+        </a>
+
+    </nav>
+
+
+    <div class="sidebar-footer">
+
+        Government of India<br>
+        Scheme Finder Admin Portal
+
+    </div>
+
+</aside>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main" id="main">
+
+
+    <!-- =================================================
+         HEADER
+    ================================================== -->
+
+    <header class="top-header">
+
+
+        <!-- Three lines -->
+
+        <button class="menu-btn" id="menuBtn">
+
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </button>
+
+
+        <!-- Header Search -->
+
+        <div class="header-search">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="text"
+                id="schemeSearch"
+                placeholder="Search schemes ...."
+            >
+
+        </div>
+
+
+        <!-- Header Right -->
+
+        <div class="header-right">
+
+
+            <div class="notification"
+                role="link"
+                tabindex="0"
+                title="View notifications"
+                style="cursor:pointer;"
+                onclick="window.location.href='admin_alerts.html'"
+                onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.location.href='admin_alerts.html';}">
+
+                <i class="fa-regular fa-bell"></i>
+
+                <span class="badge" id="adminNotificationBadge" style="display:none;">
+                    0
+                </span>
+
+            </div>
+
+
+            <div class="admin-profile" role="link" tabindex="0" title="Open Admin Settings" style="cursor:pointer;" onclick="window.location.href='admin_settings.html'" onkeydown="if(event.key==='Enter' || event.key===' '){event.preventDefault();window.location.href='admin_settings.html';}">
+
+                <div class="admin-avatar">
+
+                    <i class="fa-solid fa-user-shield"></i>
+
+                </div>
+
+                <div class="admin-info">
+
+                    <a href="admin_settings.html" class="admin-name-link">
+                        <strong id="adminName">Admin</strong>
+                    </a>
+
+                    <span>Administrator</span>
+
+                </div>
+
+                <i
+                    class="fa-solid fa-chevron-down"
+                    style="font-size:9px;color:#8095aa;"
+                ></i>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =================================================
+         CONTENT
+    ================================================== -->
+
+    <section class="content">
+
+
+        <!-- Page Title -->
+
+        <div class="page-title">
+
+            <div>
+
+                <h1>Manage Schemes</h1>
+
+                <p>
+                    View and manage all government schemes available
+                    on the Scheme Finder portal.
+                </p>
+
+            </div>
+
+
+            <button
+                class="add-btn"
+                onclick="openAddModal()"
+            >
+
+                <i class="fa-solid fa-plus"></i>
+
+                Add New Scheme
+
+            </button>
+
+        </div>
+
+
+        <!-- =================================================
+             TABLE CARD
+        ================================================== -->
+
+        <div class="table-card">
+
+
+            <!-- Filters -->
+
+            <div class="filters">
+
+
+                <div class="filter-search">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input
+                        type="text"
+                        id="schemeSearch"
+                        placeholder="Search schemes ...."
+                        oninput="filterFromHeaderSearch()"
+                    >
+
+                </div>
+
+
+                <select
+                    class="filter-select"
+                    id="categoryFilter"
+                    onchange="filterSchemes()"
+                >
+
+                    <option value="all">
+                        All Categories
+                    </option>
+
+                    <option value="Education">
+                        Education
+                    </option>
+
+                    <option value="Unemployed">
+                        Unemployed
+                    </option>
+
+                    <option value="Entrepreneurship">
+                        Entrepreneurship
+                    </option>
+
+                    <option value="Internship">
+                        Internship
+                    </option>
+
+                    <option value="other">
+                        Other
+                    </option>
+
+                </select>
+
+
+                <select
+                    class="filter-select"
+                    id="statusFilter"
+                    onchange="filterSchemes()"
+                >
+
+                    <option value="all">
+                        All Status
+                    </option>
+
+                    <option value="Active">
+                        Active
+                    </option>
+
+                    <option value="Inactive">
+                        Inactive
+                    </option>
+
+                </select>
+
+
+            </div>
+
+
+            <!-- =================================================
+                TABLE
+            ================================================== -->
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>ID</th>
+
+                            <th>Scheme Name</th>
+
+                            <th>Category</th>
+
+                            <th>Status</th>
+
+                            <th>Last Updated</th>
+
+                            <th>Actions</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="schemeTable"></tbody>
+
+                </table>
+
+            </div>
+
+
+            <!-- =================================================
+                FOOTER
+            ================================================== -->
+
+            <div class="table-footer">
+
+                <div class="showing" id="showingText">
+                    Loading schemes...
+                </div>
+
+
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- =====================================================
+     ADD / EDIT SCHEME MODAL
+===================================================== -->
+
+<div class="modal" id="schemeModal">
+
+    <div class="modal-box">
+
+
+        <div class="modal-header">
+
+            <h2 id="modalTitle">
+                Add New Scheme
+            </h2>
+
+            <button
+                class="close-btn"
+                onclick="closeModal()"
+            >
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </div>
+
+
+        <div class="modal-body">
+
+            <div class="form-grid">
+
+
+                <div class="form-group">
+
+                    <label>
+                        Scheme Name *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="schemeName"
+                        placeholder="Enter scheme name"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Category *
+                    </label>
+
+                    <select id="schemeCategory">
+
+                        <option value="">
+                            Select Category
+                        </option>
+
+                        <option value="Education">
+                            Education
+                        </option>
+
+                        <option value="Unemployed">
+                            Unemployed
+                        </option>
+
+                        <option value="Entrepreneurship">
+                            Entrepreneurship
+                        </option>
+
+                        <option value="Internship">
+                            Internship
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label>
+                        Description *
+                    </label>
+
+                    <textarea
+                        id="schemeDescription"
+                        placeholder="Enter scheme description"
+                    ></textarea>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Eligibility Criteria
+                    </label>
+
+                    <textarea
+                        id="schemeEligibility"
+                        placeholder="Enter eligibility criteria"
+                    ></textarea>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Benefits
+                    </label>
+
+                    <textarea
+                        id="schemeBenefits"
+                        placeholder="Enter scheme benefits"
+                    ></textarea>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Required Documents
+                    </label>
+
+                    <textarea
+                        id="schemeDocuments"
+                        placeholder="Enter required documents"
+                    ></textarea>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Application Link
+                    </label>
+
+                    <input
+                        type="url"
+                        id="schemeApplicationLink"
+                        placeholder="https://..."
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Status
+                    </label>
+
+                    <select id="schemeStatus">
+
+                        <option value="Active">
+                            Active
+                        </option>
+
+                        <option value="Inactive">
+                            Inactive
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Deadline
+                    </label>
+
+                    <input
+                        type="date"
+                        id="schemeDeadline"
+                    >
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <div class="modal-footer">
+
+            <button
+                class="cancel-btn"
+                onclick="closeModal()"
+            >
+                Cancel
+            </button>
+
+            <button
+                class="save-btn"
+                onclick="saveScheme()"
+            >
+                <i class="fa-solid fa-check"></i>
+                Save Scheme
+            </button>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+
+<script>
+/* =====================================================
+   SIDEBAR TOGGLE
+===================================================== */
+
+const menuBtn = document.getElementById("menuBtn");
+const sidebar = document.getElementById("sidebar");
+const main = document.getElementById("main");
+
+menuBtn.addEventListener("click", function () {
+    sidebar.classList.toggle("closed");
+    main.classList.toggle("full");
+});
+
+
+/* =====================================================
+   API CONFIGURATION AND STATE
+===================================================== */
+
+const API_BASE_URL = "http://127.0.0.1:5000";
+
+let schemes = [];
+let savingScheme = false;
+let editingSchemeId = null;
+
+
+/* =====================================================
+   HELPER FUNCTIONS
+===================================================== */
+
+function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    }[char]));
+}
+
+
+function normalizeScheme(item) {
+    return {
+        id: item.scheme_id ?? item.id,
+        name: item.scheme_name ?? item.name ?? "",
+        category: item.category ?? "",
+        description: item.description ?? "",
+        eligibility: item.eligibility_criteria ?? item.eligibility ?? "",
+        benefits: item.benefits ?? "",
+        documents: item.required_documents ?? item.documents ?? "",
+        link: item.application_link ?? item.application_url ?? "",
+        status: item.status ?? "Active",
+        deadline: item.deadline ?? "",
+        updated: item.updated_at ?? item.created_at ?? ""
+    };
+}
+
+
+function formatDate(value) {
+    if (!value) return "—";
+
+    const date = new Date(value);
+
+    return Number.isNaN(date.getTime())
+        ? escapeHTML(value)
+        : date.toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        });
+}
+
+
+function categoryIcon(category) {
+    const text = String(category || "").toLowerCase();
+
+    if (text.includes("educat") || text.includes("scholar")) {
+        return "fa-graduation-cap";
+    }
+
+    if (text.includes("agri") || text.includes("farm")) {
+        return "fa-seedling";
+    }
+
+    if (text.includes("employ") || text.includes("unemploy")) {
+        return "fa-briefcase";
+    }
+
+    if (text.includes("intern")) {
+        return "fa-user-graduate";
+    }
+
+    if (text.includes("entrepren")) {
+        return "fa-lightbulb";
+    }
+
+    return "fa-landmark";
+}
+
+
+/* =====================================================
+   ADMIN HEADER: FULL NAME AND NOTIFICATION COUNT
+===================================================== */
+
+async function loadAdminHeader() {
+    try {
+        const response = await fetch(
+            `${API_BASE_URL}/api/admin/header`,
+            {
+                method: "GET",
+                credentials: "include",
+                headers: {
+                    "Accept": "application/json"
+                }
+            }
+        );
+
+        const data = await response.json().catch(() => ({}));
+
+        if (response.status === 401 || response.status === 403) {
+            console.warn("Admin login required to load header details.");
+            return;
+        }
+
+        if (!response.ok) {
+            throw new Error(
+                data.message || "Unable to load admin header."
+            );
+        }
+
+        const nameElement = document.getElementById("adminName");
+        const badgeElement = document.getElementById(
+            "adminNotificationBadge"
+        );
+
+        if (nameElement && data.full_name) {
+            nameElement.textContent = data.full_name;
+        }
+
+        if (badgeElement) {
+            const count = Math.max(
+                0,
+                Number(data.unread_notifications ?? data.unread_count ?? 0) || 0
+            );
+
+            badgeElement.textContent = count > 99 ? "99+" : String(count);
+            badgeElement.style.display = count > 0 ? "flex" : "none";
+
+            badgeElement.setAttribute(
+                "aria-label",
+                `${count} unread notifications`
+            );
+        }
+    } catch (error) {
+        console.error("Admin header loading failed:", error);
+    }
+}
+
+
+/* =====================================================
+   LOAD SCHEMES FROM FLASK BACKEND
+===================================================== */
+
+async function loadSchemes() {
+    const tbody = document.getElementById("schemeTable");
+    const showing = document.getElementById("showingText");
+
+    tbody.innerHTML =
+        '<tr><td colspan="6">Loading schemes...</td></tr>';
+
+    showing.textContent = "Loading schemes...";
+
+    try {
+        const response = await fetch(
+            `${API_BASE_URL}/api/admin/schemes`,
+            {
+                method: "GET",
+                credentials: "include",
+                headers: {
+                    "Accept": "application/json"
+                }
+            }
+        );
+
+        const data = await response.json().catch(() => ({}));
+
+        if (response.status === 401 || response.status === 403) {
+            throw new Error(
+                "Admin login required. Please log in again."
+            );
+        }
+
+        if (!response.ok) {
+            throw new Error(
+                data.message || "Unable to load schemes."
+            );
+        }
+
+        const rows = Array.isArray(data)
+            ? data
+            : (data.schemes || data.data || []);
+
+        schemes = rows.map(normalizeScheme);
+
+        renderSchemes();
+
+    } catch (error) {
+        console.error("Load schemes failed:", error);
+
+        tbody.innerHTML =
+            '<tr><td colspan="6">Unable to load schemes. Check the backend connection and try again.</td></tr>';
+
+        showing.textContent = "Schemes could not be loaded";
+    }
+}
+
+
+/* =====================================================
+   RENDER AND FILTER SCHEMES
+===================================================== */
+
+function renderSchemes() {
+    const tbody = document.getElementById("schemeTable");
+
+    if (!tbody) {
+        console.error('Missing HTML element: #schemeTable');
+        return;
+    }
+
+    const searchInput = document.getElementById("schemeSearch");
+    const categoryInput = document.getElementById("categoryFilter");
+    const statusInput = document.getElementById("statusFilter");
+
+    const search = (searchInput?.value ?? "")
+        .trim()
+        .toLowerCase();
+
+    const category = (categoryInput?.value ?? "all")
+        .toLowerCase();
+
+    const status = (statusInput?.value ?? "all")
+        .toLowerCase();
+
+    const filtered = schemes.filter(scheme => {
+        const searchable = [
+            scheme.id,
+            scheme.name,
+            scheme.category,
+            scheme.description,
+            scheme.eligibility,
+            scheme.benefits,
+            scheme.documents,
+            scheme.link,
+            scheme.status,
+            scheme.deadline
+        ].join(" ").toLowerCase();
+
+        return searchable.includes(search) &&
+            (
+                category === "all" ||
+                String(scheme.category).toLowerCase() === category
+            ) &&
+            (
+                status === "all" ||
+                String(scheme.status).toLowerCase() === status
+            );
+    });
+
+    if (!filtered.length) {
+        tbody.innerHTML =
+            '<tr><td colspan="6">No schemes found.</td></tr>';
+    } else {
+        tbody.innerHTML = filtered.map(scheme => {
+            const active =
+                String(scheme.status).toLowerCase() === "active";
+
+            const id = JSON.stringify(String(scheme.id ?? ""));
+
+            return `
+                <tr>
+                    <td>${escapeHTML(scheme.id ?? "—")}</td>
+
+                    <td>
+                        <div class="scheme-cell">
+                            <div class="scheme-icon">
+                                <i class="fa-solid ${categoryIcon(scheme.category)}"></i>
+                            </div>
+
+                            <div class="scheme-details">
+                                <strong>${escapeHTML(scheme.name)}</strong>
+                                <span>${escapeHTML(scheme.description)}</span>
+                            </div>
+                        </div>
+                    </td>
+
+                    <td>
+                        <span class="category">
+                            ${escapeHTML(scheme.category || "Other")}
+                        </span>
+                    </td>
+
+                    <td>
+                        <span class="status ${active ? "active" : "inactive"}">
+                            ${escapeHTML(scheme.status)}
+                        </span>
+                    </td>
+
+                    <td>${formatDate(scheme.updated)}</td>
+
+                    <td>
+                        <div class="actions">
+                            <button
+                                class="action-btn view-btn"
+                                title="View"
+                                onclick='viewSchemeById(${id})'
+                            >
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+
+                            <button
+                                class="action-btn edit-btn"
+                                title="Edit status"
+                                onclick='editSchemeById(${id})'
+                            >
+                                <i class="fa-solid fa-pen"></i>
+                            </button>
+
+                            <button
+                                class="action-btn delete-btn"
+                                title="Delete"
+                                onclick='deleteSchemeById(${id})'
+                            >
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `;
+        }).join("");
+    }
+
+    document.getElementById("showingText").textContent =
+        `Showing ${filtered.length} of ${schemes.length} schemes`;
+}
+
+
+function filterSchemes() {
+    renderSchemes();
+}
+
+
+/* =====================================================
+   HEADER SEARCH BAR
+===================================================== */
+
+function filterFromHeaderSearch() {
+    const headerSearch = document.getElementById(
+        "headerSchemeSearch"
+    );
+
+    if (!headerSearch) return;
+
+    document.getElementById("schemeSearch").value =
+        headerSearch.value;
+
+    renderSchemes();
+}
+
+
+/* =====================================================
+   RESET SCHEME FORM
+===================================================== */
+
+function resetSchemeForm() {
+    document.getElementById("schemeName").value = "";
+    document.getElementById("schemeCategory").value = "";
+    document.getElementById("schemeDescription").value = "";
+    document.getElementById("schemeEligibility").value = "";
+    document.getElementById("schemeBenefits").value = "";
+    document.getElementById("schemeDocuments").value = "";
+    document.getElementById("schemeApplicationLink").value = "";
+    document.getElementById("schemeStatus").value = "Active";
+    document.getElementById("schemeDeadline").value = "";
+
+    [
+        "schemeName",
+        "schemeCategory",
+        "schemeDescription",
+        "schemeEligibility",
+        "schemeBenefits",
+        "schemeDocuments",
+        "schemeApplicationLink",
+        "schemeDeadline",
+        "schemeStatus"
+    ].forEach(id => {
+        document.getElementById(id).disabled = false;
+    });
+}
+
+
+/* =====================================================
+   OPEN ADD SCHEME MODAL
+===================================================== */
+
+function openAddModal() {
+    editingSchemeId = null;
+
+    resetSchemeForm();
+
+    document.getElementById("modalTitle").innerText =
+        "Add New Scheme";
+
+    document.querySelector(".save-btn").innerHTML =
+        '<i class="fa-solid fa-check"></i> Save Scheme';
+
+    document.getElementById("schemeModal").classList.add("show");
+}
+
+
+/* =====================================================
+   CLOSE MODAL
+===================================================== */
+
+function closeModal() {
+    document.getElementById("schemeModal").classList.remove("show");
+
+    editingSchemeId = null;
+
+    resetSchemeForm();
+
+    document.getElementById("modalTitle").innerText =
+        "Add New Scheme";
+
+    document.querySelector(".save-btn").innerHTML =
+        '<i class="fa-solid fa-check"></i> Save Scheme';
+}
+
+
+/* =====================================================
+   VIEW SCHEME
+===================================================== */
+
+function viewSchemeById(id) {
+    const scheme = schemes.find(
+        item => String(item.id) === String(id)
+    );
+
+    if (!scheme) {
+        alert("Scheme not found.");
+        return;
+    }
+
+    alert(
+        `Scheme: ${scheme.name}\n` +
+        `Category: ${scheme.category}\n` +
+        `Status: ${scheme.status}\n\n` +
+        `Description: ${scheme.description || "—"}\n` +
+        `Eligibility: ${scheme.eligibility || "—"}\n` +
+        `Benefits: ${scheme.benefits || "—"}\n` +
+        `Documents: ${scheme.documents || "—"}\n` +
+        `Application Link: ${scheme.link || "—"}\n` +
+        `Deadline: ${scheme.deadline || "—"}`
+    );
+}
+
+
+/* =====================================================
+   EDIT SCHEME STATUS
+===================================================== */
+
+function editSchemeById(id) {
+    const scheme = schemes.find(
+        item => String(item.id) === String(id)
+    );
+
+    if (!scheme) {
+        alert("Scheme not found.");
+        return;
+    }
+
+    editingSchemeId = scheme.id;
+
+    document.getElementById("modalTitle").innerText =
+        "Edit Scheme Status";
+
+    document.getElementById("schemeName").value = scheme.name;
+    document.getElementById("schemeCategory").value = scheme.category;
+    document.getElementById("schemeDescription").value =
+        scheme.description;
+    document.getElementById("schemeEligibility").value =
+        scheme.eligibility;
+    document.getElementById("schemeBenefits").value =
+        scheme.benefits;
+    document.getElementById("schemeDocuments").value =
+        scheme.documents;
+    document.getElementById("schemeApplicationLink").value =
+        scheme.link;
+    document.getElementById("schemeStatus").value =
+        scheme.status;
+
+    document.getElementById("schemeDeadline").value =
+        String(scheme.deadline || "").slice(0, 10);
+
+    // Only status can be changed in edit mode.
+    [
+        "schemeName",
+        "schemeCategory",
+        "schemeDescription",
+        "schemeEligibility",
+        "schemeBenefits",
+        "schemeDocuments",
+        "schemeApplicationLink",
+        "schemeDeadline"
+    ].forEach(id => {
+        document.getElementById(id).disabled = true;
+    });
+
+    document.getElementById("schemeStatus").disabled = false;
+
+    document.querySelector(".save-btn").innerHTML =
+        '<i class="fa-solid fa-check"></i> Update Status';
+
+    document.getElementById("schemeModal").classList.add("show");
+}
+
+
+/* =====================================================
+   ADD SCHEME OR UPDATE STATUS
+===================================================== */
+
+async function saveScheme() {
+    if (savingScheme) return;
+
+    const isEditing = editingSchemeId !== null;
+
+    const payload = isEditing
+        ? {
+            status: document.getElementById("schemeStatus").value
+        }
+        : {
+            scheme_name: document.getElementById("schemeName").value.trim(),
+            category: document.getElementById("schemeCategory").value,
+            description: document.getElementById("schemeDescription").value.trim(),
+            eligibility_criteria: document.getElementById("schemeEligibility").value.trim(),
+            benefits: document.getElementById("schemeBenefits").value.trim(),
+            required_documents: document.getElementById("schemeDocuments").value.trim(),
+            application_link: document.getElementById("schemeApplicationLink").value.trim(),
+            status: document.getElementById("schemeStatus").value,
+            deadline: document.getElementById("schemeDeadline").value || null
+        };
+
+    if (!isEditing) {
+        if (!payload.scheme_name) {
+            alert("Please enter the scheme name.");
+            return;
+        }
+
+        if (!payload.category) {
+            alert("Please select a category.");
+            return;
+        }
+
+        if (!payload.description) {
+            alert("Please enter the scheme description.");
+            return;
+        }
+
+        if (
+            payload.application_link &&
+            !/^https?:\/\/.+/i.test(payload.application_link)
+        ) {
+            alert(
+                "Please enter a valid application link starting with http:// or https://."
+            );
+            return;
+        }
+    }
+
+    savingScheme = true;
+
+    const saveButton = document.querySelector(".save-btn");
+    saveButton.disabled = true;
+
+    try {
+        const url = isEditing
+            ? `${API_BASE_URL}/api/admin/schemes/${encodeURIComponent(editingSchemeId)}`
+            : `${API_BASE_URL}/api/admin/schemes`;
+
+        const response = await fetch(url, {
+            method: isEditing ? "PUT" : "POST",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await response.json().catch(() => ({}));
+
+        if (response.status === 401 || response.status === 403) {
+            throw new Error(
+                "Admin login required. Please log in again."
+            );
+        }
+
+        if (!response.ok) {
+            throw new Error(
+                data.message ||
+                (isEditing
+                    ? "Failed to update scheme status."
+                    : "Failed to save scheme.")
+            );
+        }
+
+        closeModal();
+
+        await loadSchemes();
+
+        alert(
+            data.message ||
+            (isEditing
+                ? "Scheme status updated successfully!"
+                : "Scheme saved successfully!")
+        );
+
+    } catch (error) {
+        console.error("Save scheme failed:", error);
+        alert(error.message || "Unable to save scheme.");
+    } finally {
+        savingScheme = false;
+        saveButton.disabled = false;
+    }
+}
+
+
+/* =====================================================
+   PERMANENTLY DELETE SCHEME
+===================================================== */
+
+async function deleteSchemeById(id) {
+    const scheme = schemes.find(
+        item => String(item.id) === String(id)
+    );
+
+    const schemeName = scheme?.name || "this scheme";
+
+    const confirmed = confirm(
+        `Are you sure you want to permanently delete the scheme "${schemeName}"? This action cannot be undone.`
+    );
+
+    if (!confirmed) return;
+
+    try {
+        const response = await fetch(
+            `${API_BASE_URL}/api/admin/schemes/${encodeURIComponent(id)}`,
+            {
+                method: "DELETE",
+                credentials: "include",
+                headers: {
+                    "Accept": "application/json"
+                }
+            }
+        );
+
+        const data = await response.json().catch(() => ({}));
+
+        if (response.status === 401 || response.status === 403) {
+            throw new Error(
+                "Admin login required. Please log in again."
+            );
+        }
+
+        if (!response.ok) {
+            throw new Error(
+                data.message || "Could not delete the scheme."
+            );
+        }
+
+        await loadSchemes();
+
+        alert(data.message || "Scheme permanently deleted.");
+
+    } catch (error) {
+        console.error("Delete scheme failed:", error);
+        alert(error.message || "Could not delete the scheme.");
+    }
+}
+
+
+/* =====================================================
+   COMPATIBILITY FUNCTIONS
+===================================================== */
+
+function viewScheme(name) {
+    const scheme = schemes.find(
+        item => item.name === name
+    );
+
+    if (scheme) viewSchemeById(scheme.id);
+}
+
+
+function editScheme(name) {
+    const scheme = schemes.find(
+        item => item.name === name
+    );
+
+    if (scheme) editSchemeById(scheme.id);
+}
+
+
+/* =====================================================
+   CLOSE MODAL WHEN CLICKING OUTSIDE
+===================================================== */
+
+document.getElementById("schemeModal").addEventListener(
+    "click",
+    function (event) {
+        if (event.target === this) {
+            closeModal();
+        }
+    }
+);
+
+
+/* =====================================================
+   INITIALIZE PAGE
+===================================================== */
+
+document.addEventListener("DOMContentLoaded", function () {
+    loadSchemes();
+    loadAdminHeader();
+});
+</script>
+<script src="../js/admin_logout.js"></script>
+</body>
+</html>

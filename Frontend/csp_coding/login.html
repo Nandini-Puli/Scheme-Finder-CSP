@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scheme Finder - User Login</title>
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    rgba(237, 248, 255, 0.94),
+                    rgba(247, 252, 255, 0.97)
+                ),
+                url("https://images.unsplash.com/photo-1575505586569-646b2ca898fc?auto=format&fit=crop&w=2000&q=80");
+
+            background-size: cover;
+            background-position: center;
+
+            color: #123f78;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .header {
+            height: 102px;
+
+            background: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 48px;
+
+            border-bottom: 1px solid #e4edf6;
+        }
+
+
+        /* =========================
+           LEFT BRAND
+        ========================= */
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+
+        /* EMBLEM OF INDIA */
+
+        .ashoka {
+            width: 55px;
+            height: 65px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ashoka img {
+            width: 48px;
+            height: 58px;
+
+            object-fit: contain;
+        }
+
+
+        /* LEAF LOGO */
+
+        .leaf-logo {
+            width: 45px;
+            height: 45px;
+
+            background: linear-gradient(
+                135deg,
+                #52b7ed,
+                #1976d2
+            );
+
+            border-radius: 5px 30px 5px 30px;
+
+            transform: rotate(-12deg);
+
+            position: relative;
+        }
+
+        .leaf-logo::after {
+            content: "";
+
+            position: absolute;
+
+            width: 4px;
+            height: 38px;
+
+            background: white;
+
+            left: 20px;
+            top: 5px;
+
+            transform: rotate(35deg);
+        }
+
+
+        /* BRAND TEXT */
+
+        .brand-text h1 {
+            color: #12447f;
+
+            font-size: 30px;
+
+            font-weight: 700;
+
+            letter-spacing: -0.5px;
+        }
+
+        .brand-text p {
+            color: #6c839e;
+
+            font-size: 15px;
+
+            margin-top: 3px;
+        }
+
+
+        /* =========================
+           RIGHT HEADER
+        ========================= */
+
+        .government {
+            display: flex;
+
+            align-items: center;
+
+            gap: 18px;
+        }
+
+
+        .portal-title {
+            text-align: right;
+
+            color: #1b4b82;
+
+            font-size: 15px;
+
+            line-height: 1.45;
+        }
+
+
+        .vertical-line {
+            width: 1px;
+
+            height: 43px;
+
+            background: #b8c9db;
+        }
+
+
+        .gov-logo {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+
+        /* GOVERNMENT EMBLEM */
+
+        .gov-symbol {
+            width: 48px;
+            height: 55px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gov-symbol img {
+            width: 42px;
+            height: 52px;
+
+            object-fit: contain;
+        }
+
+
+        .gov-text {
+            color: #183e6d;
+
+            font-size: 13px;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .main {
+            min-height: calc(100vh - 102px);
+
+            padding: 56px 8% 30px;
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+
+        /* BACKGROUND DECORATION */
+
+        .main::before {
+            content: "";
+
+            position: absolute;
+
+            width: 250px;
+            height: 250px;
+
+            left: -90px;
+            bottom: 10px;
+
+            background: rgba(83, 174, 236, 0.12);
+
+            border-radius: 50%;
+        }
+
+        .main::after {
+            content: "";
+
+            position: absolute;
+
+            width: 250px;
+            height: 250px;
+
+            right: -80px;
+            top: 100px;
+
+            background: rgba(65, 154, 225, 0.08);
+
+            border-radius: 50%;
+        }
+
+
+        /* =========================
+           LOGIN CONTAINER
+        ========================= */
+
+        .login-container {
+            max-width: 1150px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 45px;
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+
+        /* =========================
+           LOGIN CARD
+        ========================= */
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.97);
+
+            border: 1px solid #c9ddeb;
+
+            border-radius: 13px;
+
+            padding: 38px 36px 32px;
+
+            min-height: 640px;
+
+            box-shadow:
+                0 10px 30px rgba(40, 108, 166, 0.10);
+        }
+
+
+        /* =========================
+           CARD HEADER
+        ========================= */
+
+        .card-header {
+            display: flex;
+
+            align-items: center;
+
+            gap: 18px;
+
+            margin-bottom: 35px;
+        }
+
+
+        .card-icon {
+            width: 78px;
+            height: 78px;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 37px;
+        }
+
+
+        .user-icon {
+            background: #e7f3ff;
+
+            color: #1768c8;
+        }
+
+
+        .admin-icon {
+            background: #f0edff;
+
+            color: #1d269d;
+        }
+
+
+        .card-header h2 {
+            font-size: 28px;
+
+            color: #123f78;
+
+            margin-bottom: 6px;
+        }
+
+
+        .card-header p {
+            font-size: 14px;
+
+            color: #617c99;
+
+            line-height: 1.5;
+
+            max-width: 430px;
+        }
+
+
+        /* =========================
+           FORM
+        ========================= */
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+
+        .form-group label {
+            display: block;
+
+            font-size: 14px;
+
+            color: #143e72;
+
+            font-weight: bold;
+
+            margin-bottom: 10px;
+        }
+
+
+        .input-box {
+            height: 49px;
+
+            border: 1px solid #ccd9e5;
+
+            border-radius: 9px;
+
+            display: flex;
+
+            align-items: center;
+
+            padding: 0 15px;
+
+            background: white;
+        }
+
+
+        .input-icon {
+            font-size: 21px;
+
+            color: #6c849f;
+
+            width: 35px;
+        }
+
+
+        .input-box input {
+            width: 100%;
+
+            height: 100%;
+
+            border: none;
+
+            outline: none;
+
+            font-size: 14px;
+
+            color: #355777;
+        }
+
+
+        .input-box input::placeholder {
+            color: #9aabbd;
+        }
+
+
+        .eye {
+            color: #637d99;
+
+            font-size: 19px;
+
+            cursor: pointer;
+        }
+
+
+        /* =========================
+           REMEMBER + FORGOT
+        ========================= */
+
+        .options {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-top: -2px;
+
+            margin-bottom: 24px;
+        }
+
+
+        .remember {
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            color: #415f7d;
+
+            font-size: 13px;
+        }
+
+
+        .remember input {
+            width: 21px;
+            height: 21px;
+
+            accent-color: #1769dc;
+        }
+
+
+        .forgot {
+            color: #0968ce;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            text-decoration: none;
+        }
+
+
+        /* =========================
+           LOGIN BUTTON
+        ========================= */
+
+        .login-button {
+            width: 100%;
+
+            height: 49px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background: linear-gradient(
+                90deg,
+                #286acb,
+                #238be9
+            );
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 4px 10px rgba(26, 106, 204, 0.18);
+        }
+
+
+        .login-button:hover {
+            background: linear-gradient(
+                90deg,
+                #1e5db7,
+                #147edb
+            );
+        }
+
+
+        .arrow {
+            font-size: 23px;
+
+            margin-left: 8px;
+        }
+
+
+        /* =========================
+           REGISTER AREA
+        ========================= */
+
+        .register-area {
+            display: flex;
+
+            align-items: center;
+
+            margin: 30px 0;
+
+            color: #526d89;
+
+            font-size: 13px;
+        }
+
+
+        .register-area::before,
+        .register-area::after {
+            content: "";
+
+            flex: 1;
+
+            height: 1px;
+
+            background: #dbe4ed;
+        }
+
+
+        .register-area span {
+            padding: 0 18px;
+
+            white-space: nowrap;
+        }
+
+
+        .register-area a {
+            color: #0870d8;
+
+            font-weight: bold;
+
+            margin-left: 5px;
+
+            text-decoration: none;
+        }
+
+
+        /* =========================
+           INFORMATION BOX
+        ========================= */
+
+        .info-box {
+            min-height: 83px;
+
+            border-radius: 8px;
+
+            padding: 14px 17px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 16px;
+        }
+
+
+        .user-info {
+            background: #eef7ff;
+        }
+
+
+        .admin-info {
+            background: #f2efff;
+        }
+
+
+        .info-icon {
+            width: 48px;
+            height: 48px;
+
+            flex-shrink: 0;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 23px;
+        }
+
+
+        .user-info .info-icon {
+            color: #1769d7;
+
+            background: #e0efff;
+        }
+
+
+        .admin-info .info-icon {
+            color: #362aa7;
+
+            background: #e4ddff;
+        }
+
+
+        .info-box p {
+            color: #4f6c8a;
+
+            font-size: 12px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================
+           ADMIN CARD
+        ========================= */
+
+        .admin-card .options {
+            justify-content: flex-end;
+        }
+
+
+        .admin-card .login-button {
+            margin-top: 5px;
+        }
+
+        /* =========================
+           BOTTOM CATEGORIES
+        ========================= */
+
+        .bottom-content {
+            max-width: 800px;
+
+            margin: 50px auto 0;
+
+            position: relative;
+
+            z-index: 3;
+        }
+
+
+        .categories {
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            margin-bottom: 32px;
+        }
+
+
+        .category {
+            min-width: 115px;
+
+            text-align: center;
+
+            padding: 0 22px;
+
+            border-right: 1px solid #c8d8e7;
+        }
+
+
+        .category:last-child {
+            border-right: none;
+        }
+
+
+        .category-icon {
+            font-size: 23px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .category:nth-child(1) .category-icon {
+            color: #1769d9;
+        }
+
+
+        .category:nth-child(2) .category-icon {
+            color: #3ca86b;
+        }
+
+
+        .category:nth-child(3) .category-icon {
+            color: #e75c94;
+        }
+
+
+        .category:nth-child(4) .category-icon {
+            color: #df6868;
+        }
+
+
+        .category:nth-child(5) .category-icon {
+            color: #6844a7;
+        }
+
+
+        .category p {
+            color: #607c99;
+
+            font-size: 12px;
+        }
+
+
+        /* =========================
+           FOOTER TEXT
+        ========================= */
+
+        .footer-text {
+            text-align: center;
+
+            color: #24548a;
+
+            font-size: 12px;
+
+            font-weight: 500;
+        }
+
+
+        .footer-text span {
+            margin: 0 9px;
+
+            color: #93a9bd;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 1000px) {
+
+            .header {
+                padding: 0 25px;
+            }
+
+            .portal-title {
+                display: none;
+            }
+
+            .login-container {
+                gap: 20px;
+            }
+
+            .main {
+                padding: 40px 4%;
+            }
+        }
+
+
+        @media (max-width: 750px) {
+
+            .header {
+                height: auto;
+
+                padding: 18px 20px;
+
+                flex-direction: column;
+
+                gap: 15px;
+            }
+
+            .government {
+                display: none;
+            }
+
+            .login-container {
+                grid-template-columns: 1fr;
+            }
+
+            .login-card {
+                min-height: auto;
+            }
+
+            .bottom-content {
+                margin-top: 35px;
+            }
+
+            .categories {
+                flex-wrap: wrap;
+
+                gap: 20px;
+            }
+
+            .category {
+                border-right: none;
+            }
+        }
+
+
+        @media (max-width: 500px) {
+
+            .main {
+                padding: 25px 15px;
+            }
+
+            .login-card {
+                padding: 25px 20px;
+            }
+
+            .card-header {
+                align-items: flex-start;
+            }
+
+            .card-icon {
+                width: 60px;
+                height: 60px;
+
+                font-size: 28px;
+            }
+
+            .card-header h2 {
+                font-size: 23px;
+            }
+
+            .card-header p {
+                font-size: 12px;
+            }
+
+            .brand-text h1 {
+                font-size: 25px;
+            }
+
+            .brand-text p {
+                font-size: 11px;
+            }
+
+            .categories {
+                display: grid;
+
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+    
+
+        /* Single-login-page layout: preserve the original card styling. */
+        .login-container {
+            max-width: 575px;
+            grid-template-columns: 1fr;
+        }
+    
+    </style>
+</head>
+<body>
+<header class="header">
+
+
+        <!-- LEFT BRAND -->
+
+        <div class="brand">
+
+            <!-- OFFICIAL EMBLEM -->
+
+            <div class="ashoka">
+
+                <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg"
+                    alt="Emblem of India"
+                >
+
+            </div>
+
+
+            <!-- SCHEME FINDER LOGO -->
+
+            <div class="leaf-logo"></div>
+
+
+            <!-- BRAND TEXT -->
+
+            <div class="brand-text">
+
+                <h1>
+                    Scheme Finder
+                </h1>
+
+                <p>
+                    Government Schemes for a Brighter Future
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             RIGHT GOVERNMENT SECTION
+        ========================== -->
+
+        <div class="government">
+
+
+            <div class="portal-title">
+
+                A Unified Access Portal for<br>
+
+                Central Government Schemes
+
+            </div>
+
+
+            <div class="vertical-line"></div>
+
+
+            <div class="gov-logo">
+
+
+                <!-- OFFICIAL EMBLEM -->
+
+                <div class="gov-symbol">
+
+                    <img
+                        src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg"
+                        alt="Emblem of India"
+                    >
+
+                </div>
+
+
+                <div class="gov-text">
+
+                    Government of India
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </header>
+
+<main class="main">
+    <div class="login-container">
+<div class="login-card">
+    
+        <form id="loginForm">
+                <div class="card-header">
+
+
+                    <div class="card-icon user-icon">
+                        ♙
+                    </div>
+
+
+                    <div>
+
+                        <h2>
+                            User Login
+                        </h2>
+
+                        <p>
+                            Access your personalized schemes, track applications
+                            and manage your profile.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- EMAIL / MOBILE -->
+
+                <div class="form-group">
+
+                    <label>
+                        Email / Mobile Number
+                    </label>
+
+
+                    <div class="input-box">
+
+                        <span class="input-icon">
+                            ✉
+                        </span>
+
+
+                        <input
+                            type="text"
+                            id="identifier"
+                            name="contact"
+                            placeholder="Enter your username or mobile number"
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- PASSWORD -->
+
+                <div class="form-group">
+
+                    <label>
+                        Password
+                    </label>
+
+
+                    <div class="input-box">
+
+                        <span class="input-icon">
+                            🔒
+                        </span>
+
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                        >
+
+
+                        <span class="eye">
+                            ◉
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- OPTIONS -->
+
+                <div class="options">
+
+
+                    <label class="remember">
+
+                        <input type="checkbox">
+
+                        Remember me
+
+                    </label>
+
+
+                    <a href="forgetpwd.html" class="forgot">
+                        Forgot Password?
+                    </a>
+
+                </div>
+
+
+
+                <!-- LOGIN BUTTON -->
+
+                <button class="login-button" type="submit">
+
+                    Login
+
+                    <span class="arrow">
+                        →
+                    </span>
+
+                </button>
+
+    </form>
+
+                <!-- REGISTER -->
+
+                <div class="register-area">
+
+                    <span>
+
+                        Don't have an account?
+
+                        <a href="register.html">
+                            Register
+                        </a>
+
+                    </span>
+
+                </div>
+
+
+
+                <!-- USER INFORMATION -->
+
+                <div class="info-box user-info">
+
+
+                    <div class="info-icon">
+                        ♙
+                    </div>
+
+
+                    <p>
+
+                        For citizens, students, farmers, women, job seekers
+                        and all aspiring citizens.
+
+                    </p>
+
+                </div>
+
+            </div>
+    </div>
+
+<div class="bottom-content">
+
+
+            <div class="categories">
+
+
+                <div class="category">
+
+                    <div class="category-icon">
+                        📖
+                    </div>
+
+                    <p>
+                        Education
+                    </p>
+
+                </div>
+
+
+                <div class="category">
+
+                    <div class="category-icon">
+                        💼
+                    </div>
+
+                    <p>
+                        Employed
+                    </p>
+
+                </div>
+
+
+                <div class="category">
+
+                    <div class="category-icon">
+                        🔍
+                    </div>
+
+                    <p>
+                        Unemployed
+                    </p>
+
+                </div>
+
+
+                <div class="category">
+
+                    <div class="category-icon">
+                        🚀
+                    </div>
+
+                    <p>
+                        Entrepreneurship
+                    </p>
+
+                </div>
+
+
+                <div class="category">
+
+                    <div class="category-icon">
+                        🎓
+                    </div>
+
+                    <p>
+                        Internship
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- FOOTER -->
+
+            <div class="footer-text">
+
+                One Portal
+
+                <span>|</span>
+
+                Multiple Schemes
+
+                <span>|</span>
+
+                A Brighter Future
+
+            </div>
+
+
+        </div>
+</main>
+
+<script>
+document.getElementById("loginForm").addEventListener(
+    "submit",
+    async function (event) {
+        event.preventDefault();
+
+        const identifier =
+            document.getElementById("identifier").value.trim();
+
+        const password =
+            document.getElementById("password").value;
+
+        try {
+            const response = await fetch(
+                "http://127.0.0.1:5000/api/auth/login",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    credentials: "include",
+                    body: JSON.stringify({
+                        identifier: identifier,
+                        password: password
+                    })
+                }
+            );
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                alert(result.message || "Login failed.");
+                return;
+            }
+
+            alert("Login successful!");
+
+            window.location.href = result.redirect;
+
+        } catch (error) {
+            console.error("Login error:", error);
+            alert("Cannot connect to the Flask server.");
+        }
+    }
+);
+</script>
+
+
+</body>
+</html>

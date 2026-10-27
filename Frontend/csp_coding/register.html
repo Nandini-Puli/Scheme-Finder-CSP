@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Scheme Finder - Register</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: #f5f9ff;
+            color: #173f73;
+        }
+
+        /* ================= HEADER ================= */
+
+        header {
+            width: 100%;
+            height: 82px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 55px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        /* LOGO */
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-section img {
+            width: 48px;
+            height: 58px;
+            object-fit: contain;
+        }
+
+        .logo-text h2 {
+            color: #0755a5;
+            font-size: 21px;
+            font-weight: 700;
+        }
+
+        .logo-text p {
+            color: #6b7280;
+            font-size: 10px;
+            margin-top: -2px;
+        }
+
+        /* NAVIGATION */
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 27px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #344d6e;
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #0878e8;
+        }
+
+        /* ================= LANGUAGE ================= */
+
+        .language {
+            height: 45px;
+            padding: 0 12px;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            border: 1px solid #d6e2ef;
+            border-radius: 25px;
+            background: white;
+            color: #173f73;
+            font-size: 14px;
+            white-space: nowrap;
+            transition: 0.2s;
+        }
+
+        .language:hover {
+            border-color: #0878e8;
+        }
+
+        .india-flag {
+            width: 30px;
+            height: 21px;
+            object-fit: cover;
+            display: block;
+            flex-shrink: 0;
+        }
+
+        .language select {
+            border: none;
+            outline: none;
+            background: transparent;
+            color: #173f73;
+            font-family: "Poppins", sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 2px 20px 2px 0;
+            appearance: auto;
+        }
+
+        .language select option {
+            background: white;
+            color: #173f73;
+            font-family: "Poppins", sans-serif;
+            font-size: 14px;
+        }
+
+        /* BUTTONS */
+
+        .login-btn,
+        .register-btn {
+            padding: 11px 21px;
+            border-radius: 7px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.3s;
+            margin-left: 10px;
+        }
+
+        .login-btn {
+            border: 1px solid #0878e8;
+            color: #0878e8;
+            background: white;
+        }
+
+        .login-btn:hover {
+            background: #eef6ff;
+        }
+
+        .register-btn {
+            background: #0878e8;
+            color: white;
+            border: 1px solid #0878e8;
+        }
+
+        .register-btn:hover {
+            background: #075fc0;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            min-height: 380px;
+            padding: 70px 70px;
+            background: linear-gradient(135deg,
+                    #eaf4ff,
+                    #ffffff);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .hero-content {
+            max-width: 680px;
+        }
+
+        .hero-content h1 {
+            font-size: 42px;
+            line-height: 1.25;
+            color: #123f73;
+            margin-bottom: 18px;
+        }
+
+        .hero-content h1 span {
+            color: #0878e8;
+        }
+
+        .hero-content p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #64748b;
+            margin-bottom: 28px;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            padding: 13px 25px;
+            background: #0878e8;
+            color: white;
+            text-decoration: none;
+            border-radius: 7px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .hero-btn:hover {
+            background: #075fc0;
+        }
+
+        /* HERO CARD */
+
+        .hero-card {
+            width: 350px;
+            padding: 28px;
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+        }
+
+        .hero-card h3 {
+            color: #173f73;
+            font-size: 19px;
+            margin-bottom: 18px;
+        }
+
+        .hero-card-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 13px 0;
+            border-bottom: 1px solid #edf1f5;
+            color: #50657d;
+            font-size: 14px;
+        }
+
+        .hero-card-item:last-child {
+            border-bottom: none;
+        }
+
+        .circle {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: #e8f3ff;
+            color: #0878e8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        /* ================= CATEGORIES ================= */
+
+        .categories {
+            padding: 55px 70px;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .section-title h2 {
+            font-size: 28px;
+            color: #173f73;
+        }
+
+        .section-title p {
+            color: #718096;
+            font-size: 14px;
+            margin-top: 7px;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+        }
+
+        .category-card {
+            padding: 25px 18px;
+            text-align: center;
+            background: #f8fbff;
+            border: 1px solid #e2ebf5;
+            border-radius: 12px;
+            transition: 0.3s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            border-color: #0878e8;
+            box-shadow: 0 8px 25px rgba(8, 120, 232, 0.12);
+        }
+
+        .category-icon {
+            width: 55px;
+            height: 55px;
+            margin: auto;
+            border-radius: 50%;
+            background: #e7f2ff;
+            color: #0878e8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 14px;
+        }
+
+        .category-card h3 {
+            font-size: 15px;
+            color: #173f73;
+            margin-bottom: 6px;
+        }
+
+        .category-card p {
+            font-size: 12px;
+            color: #718096;
+            line-height: 1.5;
+        }
+
+        /* ================= REGISTER ================= */
+
+        .register-section {
+            padding: 65px 20px;
+            background: #f5f9ff;
+        }
+
+        .register-card {
+            max-width: 850px;
+            margin: auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+        }
+
+        .register-heading {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .register-heading h2 {
+            color: #173f73;
+            font-size: 27px;
+        }
+
+        .register-heading p {
+            color: #718096;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            color: #334e68;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 7px;
+        }
+
+        .form-group input,
+        .form-group select {
+            height: 45px;
+            padding: 0 13px;
+            border: 1px solid #d8e2ee;
+            border-radius: 7px;
+            outline: none;
+            color: #334e68;
+            font-size: 13px;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #0878e8;
+            box-shadow: 0 0 0 3px rgba(8, 120, 232, 0.08);
+        }
+
+        .create-account {
+            width: 100%;
+            height: 48px;
+            margin-top: 28px;
+            border: none;
+            border-radius: 7px;
+            background: #0878e8;
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .create-account:hover {
+            background: #075fc0;
+        }
+
+        .login-text {
+            text-align: center;
+            margin-top: 18px;
+            color: #718096;
+            font-size: 13px;
+        }
+
+        .login-text a {
+            color: #0878e8;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* ================= FEATURES ================= */
+
+        .features {
+            padding: 60px 70px;
+            background: white;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .feature-card {
+            padding: 28px;
+            border: 1px solid #e4ebf3;
+            border-radius: 12px;
+            background: white;
+        }
+
+        .feature-card h3 {
+            font-size: 17px;
+            color: #173f73;
+            margin-bottom: 9px;
+        }
+
+        .feature-card p {
+            font-size: 13px;
+            color: #718096;
+            line-height: 1.7;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: #e8f3ff;
+            color: #0878e8;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            background: #073b70;
+            color: white;
+            padding: 35px 70px 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .footer-section h3 {
+            font-size: 17px;
+            margin-bottom: 10px;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #cbd9e8;
+            font-size: 12px;
+            line-height: 1.8;
+            text-decoration: none;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            margin-top: 25px;
+            padding-top: 17px;
+            color: #b8cbe0;
+            font-size: 11px;
+        }
+
+
+        /* DOCUMENT UPLOAD MODAL */
+        .documents-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* MODAL CONTENT */
+        .documents-modal-content {
+            background: white;
+            width: 100%;
+            max-width: 550px;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        /* MODAL HEADING */
+        .documents-modal-title {
+            color: #173f73;
+            margin-bottom: 18px;
+        }
+
+        /* ADD ANOTHER DOCUMENT BUTTON */
+        .add-another-document-btn {
+            padding: 9px 14px;
+            margin-top: 12px;
+            border: 1px solid #0878e8;
+            border-radius: 7px;
+            background: white;
+            color: #0878e8;
+            cursor: pointer;
+        }
+
+        /* SAVE AND CANCEL BUTTONS CONTAINER */
+        .documents-modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        /* SAVE DOCUMENTS BUTTON */
+        .save-documents-btn {
+            flex: 1;
+            padding: 11px;
+            border: 0;
+            border-radius: 7px;
+            background: #0878e8;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* CANCEL BUTTON */
+        .close-documents-btn {
+            flex: 1;
+            padding: 11px;
+            border: 1px solid #d8e2ee;
+            border-radius: 7px;
+            background: white;
+            color: #334e68;
+            cursor: pointer;
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 1000px) {
+
+            header {
+                padding: 0 25px;
+            }
+
+            nav {
+                gap: 13px;
+            }
+
+            .hero {
+                padding: 55px 35px;
+            }
+
+            .category-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .features {
+                padding: 50px 35px;
+            }
+
+        }
+
+        @media (max-width: 750px) {
+
+            header {
+                height: auto;
+                padding: 15px 20px;
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            nav {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-card {
+                width: 100%;
+                max-width: 400px;
+            }
+
+            .category-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+            }
+
+        }
+
+        @media (max-width: 480px) {
+
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-content h1 {
+                font-size: 31px;
+            }
+
+            .register-card {
+                padding: 25px 18px;
+            }
+
+            .categories {
+                padding: 45px 20px;
+            }
+
+            footer {
+                padding: 30px 25px 20px;
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+    <!-- ================= HEADER ================= -->
+
+    <header>
+
+        <div class="logo-section">
+
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg"
+                alt="Government of India Emblem">
+
+            <div class="logo-text">
+
+                <h2>Scheme Finder</h2>
+
+                <p>Government Schemes for a Brighter Future</p>
+
+            </div>
+
+        </div>
+
+
+        <nav>
+
+            <a href="home.html">Home</a>
+
+            <a href="schemesssss.html">Schemes</a>
+
+            <a href="about us.html">About Us</a>
+
+            <a href="help.html">Help</a>
+
+
+            <a href="login.html" class="login-btn">
+                Login
+            </a>
+
+            <a href="register.html" class="register-btn">
+                Register
+            </a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <h1>
+                Government Schemes
+                <span>for Your Bright Future</span>
+            </h1>
+
+            <p>
+                Discover government schemes designed to support
+                education, employment, entrepreneurship, internships
+                and other opportunities for citizens.
+            </p>
+
+            <a href="schemes.html" class="hero-btn">
+                Explore Schemes →
+            </a>
+
+        </div>
+
+
+        <div class="hero-card">
+
+            <h3>Find the Right Scheme</h3>
+
+            <div class="hero-card-item">
+
+                <div class="circle">1</div>
+
+                <span>Choose your category</span>
+
+            </div>
+
+            <div class="hero-card-item">
+
+                <div class="circle">2</div>
+
+                <span>View eligible schemes</span>
+
+            </div>
+
+            <div class="hero-card-item">
+
+                <div class="circle">3</div>
+
+                <span>Check eligibility & documents</span>
+
+            </div>
+
+            <div class="hero-card-item">
+
+                <div class="circle">4</div>
+
+                <span>Apply through official portal</span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= CATEGORIES ================= -->
+
+    <section class="categories">
+
+        <div class="section-title">
+
+            <h2>Explore Scheme Categories</h2>
+
+            <p>
+                Find opportunities according to your needs
+            </p>
+
+        </div>
+
+
+        <div class="category-grid">
+
+
+            <div class="category-card">
+
+                <div class="category-icon">
+                    🎓
+                </div>
+
+                <h3>Education</h3>
+
+                <p>
+                    Scholarships, fee reimbursement and
+                    educational support.
+                </p>
+
+            </div>
+
+
+            <div class="category-card">
+
+                <div class="category-icon">
+                    💼
+                </div>
+
+                <h3>Employment</h3>
+
+                <p>
+                    Employment opportunities and
+                    skill development schemes.
+                </p>
+
+            </div>
+
+
+            <div class="category-card">
+
+                <div class="category-icon">
+                    🚀
+                </div>
+
+                <h3>Entrepreneurship</h3>
+
+                <p>
+                    Financial assistance and startup
+                    support for entrepreneurs.
+                </p>
+
+            </div>
+
+
+            <div class="category-card">
+
+                <div class="category-icon">
+                    🧑‍💻
+                </div>
+
+                <h3>Internships</h3>
+
+                <p>
+                    Internship and practical learning
+                    opportunities.
+                </p>
+
+            </div>
+
+
+            <div class="category-card">
+
+                <div class="category-icon">
+                    ⭐
+                </div>
+
+                <h3>Youth Opportunities</h3>
+
+                <p>
+                    Schemes and programs created
+                    for young citizens.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= REGISTER ================= -->
+
+    <section class="register-section">
+
+        <div class="register-card">
+
+            <div class="register-heading">
+
+                <h2>Create Your Account</h2>
+
+                <p>
+                    Register to discover government schemes
+                    made for you.
+                </p>
+
+            </div>
+
+
+            <form id="registerForm">
+
+
+                <div class="form-grid">
+
+
+                    <!-- FULL NAME -->
+
+                    <div class="form-group full">
+
+                        <label>
+                            Full Name <span style="color: red;">*</span>
+                        </label>
+
+                        <input type="text" id="fullName" name="full_name" placeholder="Enter your full name" required>
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Email / Mobile Number <span style="color: red;">*</span>
+                        </label>
+
+                        <input type="text" id="emailMobile" name="contact" placeholder="Enter email or mobile number"
+                            required>
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Password <span style="color: red;">*</span>
+                        </label>
+
+                        <input type="password" id="password" name="password" placeholder="Create a password" required>
+
+                    </div>
+
+
+                    <!-- CONFIRM PASSWORD -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Confirm Password <span style="color: red;">*</span>
+                        </label>
+
+                        <input type="password" id="confirmPassword" name="confirm_password"
+                            placeholder="Confirm your password" required>
+
+                    </div>
+
+
+                    <!-- DATE OF BIRTH -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Date of Birth <span style="color: red;">*</span>
+                        </label>
+
+                        <input type="date" id="dob" name="date_of_birth" required>
+
+                    </div>
+
+
+                    <!-- GENDER -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Gender <span style="color: red;">*</span>
+                        </label>
+
+                        <select id="gender" name="gender" required>
+
+                            <option value="">
+                                Select Gender
+                            </option>
+
+                            <option value="Male">
+                                Male
+                            </option>
+
+                            <option value="Female">
+                                Female
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <!--Category-->
+
+                    <div class="form-group">
+
+                    <label>
+                        Category <span style="color: red;">*</span>
+                    </label>
+
+                    <select id="occupation" name="occupation" required>
+
+                        <option value="">
+                            Select Category
+                        </option>
+
+                        <option value="Education">
+                            Education
+                        </option>
+
+                        <option value="Unemployed">
+                            Unemployed
+                        </option>
+
+                        <option value="Entrepreneurship">
+                            Entrepreneurship
+                        </option>
+
+                        <option value="Internship">
+                            Internship
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                    <!-- STATE -->
+
+                    <div class="form-group">
+
+                        <label>
+                            State <span style="color: red;">*</span>
+                        </label>
+
+                        <select id="state" name="state" required>
+
+                            <option value="">
+                                Select State
+                            </option>
+
+                            <option>
+                                Andhra Pradesh
+                            </option>
+
+                            <option>
+                                Telangana
+                            </option>
+
+                            <option>
+                                Karnataka
+                            </option>
+
+                            <option>
+                                Tamil Nadu
+                            </option>
+
+                            <option>
+                                Kerala
+                            </option>
+
+                            <option>
+                                Maharashtra
+                            </option>
+
+                            <option>
+                                Delhi
+                            </option>
+
+                            <option>
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- DOCUMENTS -->
+                    <div class="form-group full">
+                        <label>Documents</label>
+                        <button type="button" id="openDocumentsModal" class="create-account" style="margin-top: 0;">
+                            + Add Documents
+                        </button>
+                        <div id="documentSummary" style="margin-top: 10px; font-size: 13px;"></div>
+                    </div>
+
+
+
+                    <!-- DOCUMENT UPLOAD MODAL -->
+                    <div id="documentsModal" class="documents-modal">
+
+                        <div class="documents-modal-content">
+
+                            <h3 class="documents-modal-title">
+                                Add Documents
+                            </h3>
+
+                            <div id="documentEntries"></div>
+
+                            <button type="button" id="addAnotherDocument" class="add-another-document-btn">
+                                + Add Another Document
+                            </button>
+
+                            <div class="documents-modal-actions">
+
+                                <button type="button" id="saveDocuments" class="save-documents-btn">
+                                    Save Documents
+                                </button>
+
+                                <button type="button" id="closeDocumentsModal" class="close-documents-btn">
+                                    Cancel
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+
+                <button type="submit" class="create-account">
+
+                    Create Account →
+
+                </button>
+
+
+            </form>
+
+
+            <div class="login-text">
+
+                Already have an account?
+
+                <a href="login.html">
+                    Login
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= FEATURES ================= -->
+
+    <section class="features">
+
+        <div class="section-title">
+
+            <h2>Why Use Scheme Finder?</h2>
+
+            <p>
+                Everything you need to discover the right
+                government scheme in one place.
+            </p>
+
+        </div>
+
+
+        <div class="feature-grid">
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🔎
+                </div>
+
+                <h3>
+                    Easy Scheme Discovery
+                </h3>
+
+                <p>
+                    Search and explore government schemes
+                    based on your requirements and category.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    📋
+                </div>
+
+                <h3>
+                    Eligibility Information
+                </h3>
+
+                <p>
+                    Understand eligibility requirements,
+                    benefits and required documents.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🔗
+                </div>
+
+                <h3>
+                    Official Application Links
+                </h3>
+
+                <p>
+                    Access official application portals
+                    and apply for suitable government schemes.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <div class="footer-content">
+
+
+            <div class="footer-section">
+
+                <h3>
+                    Scheme Finder
+                </h3>
+
+                <p>
+                    A unified portal to discover
+                    government schemes and opportunities.
+                </p>
+
+            </div>
+
+
+            <div class="footer-section">
+
+                <h3>
+                    Quick Links
+                </h3>
+
+                <p>
+                    <a href="index.html">Home</a>
+                </p>
+
+                <p>
+                    <a href="schemes.html">Schemes</a>
+                </p>
+
+                <p>
+                    <a href="about.html">About Us</a>
+                </p>
+
+                <p>
+                    <a href="help.html">Help</a>
+                </p>
+
+            </div>
+
+
+            <div class="footer-section">
+
+                <h3>
+                    Support
+                </h3>
+
+                <p>
+                    Need help finding the right scheme?
+                </p>
+
+                <p>
+                    Explore our Help section.
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            © 2026 Scheme Finder | Government Schemes
+            Discovery Portal
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+        function changeLanguage() {
+            const selectedLanguage =
+                document.getElementById("languageSelect").value;
+
+            if (selectedLanguage !== "English") {
+                alert("Language selected: " + selectedLanguage);
+            }
+        }
+
+        const modal = document.getElementById("documentsModal");
+        const entries = document.getElementById("documentEntries");
+        const summary = document.getElementById("documentSummary");
+
+        let savedDocuments = [];
+
+        function createDocumentRow(name = "", file = null) {
+            const row = document.createElement("div");
+            row.existingFile = file;
+
+            row.style.cssText =
+                "border:1px solid #d8e2ee; padding:14px; border-radius:8px; " +
+                "margin-bottom:12px;";
+
+            const nameLabel = document.createElement("label");
+            nameLabel.textContent = "Name of the Document";
+            nameLabel.style.cssText =
+                "display:block; font-size:13px; font-weight:600; " +
+                "color:#334e68; margin-bottom:7px;";
+
+            const nameInput = document.createElement("input");
+            nameInput.type = "text";
+            nameInput.placeholder = "e.g. Income Certificate";
+            nameInput.value = name;
+            nameInput.className = "document-name";
+            nameInput.maxLength = 100;
+            nameInput.style.cssText =
+                "width:100%; height:42px; padding:0 10px; " +
+                "border:1px solid #d8e2ee; border-radius:7px; " +
+                "margin-bottom:12px;";
+
+            const fileLabel = document.createElement("label");
+            fileLabel.textContent = "Upload Document (PDF only)";
+            fileLabel.style.cssText =
+                "display:block; font-size:13px; font-weight:600; " +
+                "color:#334e68; margin-bottom:7px;";
+
+            const fileInput = document.createElement("input");
+            fileInput.type = "file";
+            fileInput.accept = ".pdf,application/pdf";
+            fileInput.className = "document-file";
+            fileInput.style.cssText =
+                "width:100%; padding:8px; border:1px solid #d8e2ee; " +
+                "border-radius:7px;";
+
+            if (file) {
+                // A browser does not allow assigning an existing file to an input.
+                // Saved entries therefore retain their file through savedDocuments.
+            }
+
+            const fileName = document.createElement("small");
+            if (file) {
+                fileName.textContent = "Selected: " + file.name;
+            }
+            fileName.style.cssText =
+                "display:block; margin-top:6px; color:#64748b;";
+
+            fileInput.addEventListener("change", () => {
+                const selectedFile = fileInput.files[0];
+
+                if (selectedFile && !selectedFile.name.toLowerCase().endsWith(".pdf")) {
+                    alert("Only PDF files are allowed.");
+                    fileInput.value = "";
+                    fileName.textContent = "";
+                    return;
+                }
+
+                if (selectedFile && selectedFile.size > 5 * 1024 * 1024) {
+                    alert("Each PDF must be 5 MB or smaller.");
+                    fileInput.value = "";
+                    fileName.textContent = "";
+                    return;
+                }
+
+                fileName.textContent = selectedFile
+                    ? "Selected: " + selectedFile.name
+                    : "";
+            });
+
+            const removeButton = document.createElement("button");
+            removeButton.type = "button";
+            removeButton.textContent = "Remove";
+            removeButton.style.cssText =
+                "margin-top:10px; padding:6px 10px; border:1px solid #d8e2ee; " +
+                "border-radius:6px; background:white; color:#b42318; cursor:pointer;";
+
+            removeButton.addEventListener("click", () => row.remove());
+
+            row.append(
+                nameLabel, nameInput,
+                fileLabel, fileInput,
+                fileName, removeButton
+            );
+
+            entries.appendChild(row);
+        }
+
+        document.getElementById("openDocumentsModal").addEventListener("click", () => {
+            entries.innerHTML = "";
+
+            if (savedDocuments.length) {
+                savedDocuments.forEach(doc => createDocumentRow(doc.name, doc.file));
+            } else {
+                createDocumentRow();
+            }
+
+            modal.style.display = "flex";
+        });
+
+        document.getElementById("addAnotherDocument").addEventListener("click", () => {
+            createDocumentRow();
+        });
+
+        document.getElementById("closeDocumentsModal").addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+
+        document.getElementById("saveDocuments").addEventListener("click", () => {
+            const rows = Array.from(entries.children);
+            const newDocuments = [];
+
+            for (const row of rows) {
+                const name = row.querySelector(".document-name").value.trim();
+                const file = row.querySelector(".document-file").files[0] || row.existingFile || null;
+
+                // Ignore completely empty rows.
+                if (!name && !file) continue;
+
+                if (!name || !file) {
+                    alert("Enter a document name and select its PDF.");
+                    return;
+                }
+
+                if (!file.name.toLowerCase().endsWith(".pdf")) {
+                    alert("Only PDF files are allowed.");
+                    return;
+                }
+
+                if (file.size > 5 * 1024 * 1024) {
+                    alert("Each PDF must be 5 MB or smaller.");
+                    return;
+                }
+
+                newDocuments.push({ name, file });
+            }
+
+            savedDocuments = newDocuments;
+
+            summary.textContent = savedDocuments.length
+                ? savedDocuments.length + " document(s) added: " +
+                savedDocuments.map(doc => doc.name + " (" + doc.file.name + ")").join(", ")
+                : "No documents added.";
+
+            modal.style.display = "none";
+        });
+
+        /* REGISTER FORM */
+        document.getElementById("registerForm").addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            const fullName = document.getElementById("fullName").value.trim();
+            const contact = document.getElementById("emailMobile").value.trim();
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+            const dateOfBirth = document.getElementById("dob").value;
+            const gender = document.getElementById("gender").value;
+            const occupation = document.getElementById("occupation").value.trim();
+            const state = document.getElementById("state").value;
+
+            if (password !== confirmPassword) {
+                alert("Password and Confirm Password do not match.");
+                return;
+            }
+
+            const formData = new FormData();
+
+            formData.append("full_name", fullName);
+            formData.append("contact", contact);
+            formData.append("password", password);
+            formData.append("confirm_password", confirmPassword);
+            formData.append("date_of_birth", dateOfBirth);
+            formData.append("gender", gender);
+            formData.append("category", occupation);
+            formData.append("state", state);
+
+            savedDocuments.forEach(doc => {
+                formData.append("document_names", doc.name);
+                formData.append("documents", doc.file);
+            });
+
+            try {
+                const response = await fetch(
+                    "http://127.0.0.1:5000/api/auth/register",
+                    {
+                        method: "POST",
+                        body: formData,
+                        credentials: "include"
+                    }
+                );
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert(result.message);
+                    window.location.href = "login.html";
+                } else {
+                    alert(result.message || "Registration failed.");
+                }
+            } catch (error) {
+                console.error("Registration error:", error);
+                alert("Cannot connect to the server. Please check whether Flask is running.");
+            }
+        });
+    </script>
+
+<script src="../js/user_notifications.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,2273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Scheme Finder - Admin Settings</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+/* =========================
+   RESET
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background: #f4f8fc;
+    color: #172b4d;
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    width: 260px;
+    height: 100vh;
+
+    background: linear-gradient(
+        180deg,
+        #064b91,
+        #0755a5,
+        #0866c4
+    );
+
+    color: white;
+    padding: 22px 15px;
+
+    z-index: 1000;
+}
+
+
+/* Sidebar Logo */
+
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 5px 10px 25px;
+
+    border-bottom: 1px solid rgba(255,255,255,0.18);
+}
+
+.sidebar-logo i {
+    font-size: 28px;
+}
+
+.sidebar-logo span {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+
+/* Sidebar Menu */
+
+.sidebar-menu {
+    margin-top: 25px;
+}
+
+.sidebar-menu a {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    text-decoration: none;
+    color: white;
+
+    padding: 13px 15px;
+    margin-bottom: 6px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    transition: 0.3s;
+}
+
+.sidebar-menu a i {
+    width: 20px;
+    text-align: center;
+}
+
+.sidebar-menu a:hover {
+    background: rgba(255,255,255,0.15);
+}
+
+.sidebar-menu a.active {
+    background: white;
+    color: #0755a5;
+    font-weight: 600;
+}
+
+
+/* Sidebar Bottom */
+
+.sidebar-bottom {
+    position: absolute;
+
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+
+    text-align: center;
+
+    font-size: 11px;
+
+    color: rgba(255,255,255,0.85);
+}
+
+.tricolor {
+    display: flex;
+
+    height: 3px;
+
+    margin-top: 8px;
+}
+
+.tricolor span {
+    flex: 1;
+}
+
+.orange {
+    background: #ff9933;
+}
+
+.white {
+    background: white;
+}
+
+.green {
+    background: #138808;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.main {
+    margin-left: 260px;
+    min-height: 100vh;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+    height: 72px;
+
+    background: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    padding: 0 28px;
+
+    border-bottom: 1px solid #e4eaf1;
+
+    position: sticky;
+    top: 0;
+
+    z-index: 900;
+}
+
+
+/* Search */
+
+.header-search {
+    display: flex;
+    align-items: center;
+
+    width: 360px;
+
+    background: #f5f8fc;
+
+    border: 1px solid #e3eaf2;
+
+    border-radius: 8px;
+
+    padding: 9px 14px;
+
+    margin-right: 30px;
+}
+
+.header-search i {
+    color: #8291a5;
+    margin-right: 9px;
+}
+
+.header-search input {
+    width: 100%;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    font-size: 13px;
+}
+
+
+/* Header Right */
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+.notification {
+    position: relative;
+
+    font-size: 19px;
+
+    color: #526579;
+
+    cursor: pointer;
+}
+
+.notification span {
+    position: absolute;
+
+    top: -8px;
+    right: -8px;
+
+    width: 17px;
+    height: 17px;
+
+    background: #e63946;
+
+    color: white;
+
+    border-radius: 50%;
+
+    font-size: 9px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* Admin Profile */
+
+.admin-profile {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.profile-circle {
+    width: 38px;
+    height: 38px;
+
+    border-radius: 50%;
+
+    background: #0755a5;
+
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-profile strong {
+    display: block;
+
+    color: #172b4d;
+
+    font-size: 12px;
+}
+
+.admin-profile small {
+    color: #7b899b;
+
+    font-size: 10px;
+}
+
+.admin-name-link {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.admin-name-link:hover {
+    color: #2563eb;
+}
+
+.admin-name-link:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 3px;
+    border-radius: 3px;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.content {
+    padding: 28px;
+}
+
+
+/* Page Heading */
+
+.page-heading {
+    margin-bottom: 25px;
+}
+
+.page-heading h1 {
+    font-size: 25px;
+    color: #12345b;
+}
+
+.page-heading p {
+    font-size: 13px;
+    color: #7b899b;
+    margin-top: 4px;
+}
+
+
+/* =========================
+   SETTINGS LAYOUT
+========================= */
+
+.settings-layout {
+    display: grid;
+
+    grid-template-columns: 230px 1fr;
+
+    gap: 22px;
+
+    align-items: start;
+}
+
+
+/* =========================
+   SETTINGS MENU
+========================= */
+
+.settings-menu {
+    background: white;
+
+    border: 1px solid #e2e9f1;
+
+    border-radius: 10px;
+
+    padding: 10px;
+
+    box-shadow: 0 3px 12px rgba(0,0,0,0.04);
+}
+
+.settings-menu button {
+    width: 100%;
+
+    border: none;
+
+    background: transparent;
+
+    text-align: left;
+
+    padding: 12px 13px;
+
+    border-radius: 7px;
+
+    color: #5f7084;
+
+    font-size: 12px;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 4px;
+}
+
+.settings-menu button i {
+    width: 18px;
+    text-align: center;
+}
+
+.settings-menu button:hover {
+    background: #f1f6fc;
+    color: #0755a5;
+}
+
+.settings-menu button.active {
+    background: #eaf2ff;
+    color: #0755a5;
+    font-weight: 600;
+}
+
+
+/* =========================
+   SETTINGS CONTENT
+========================= */
+
+.settings-content {
+    display: flex;
+    flex-direction: column;
+
+    gap: 20px;
+}
+
+.settings-card {
+    background: white;
+
+    border: 1px solid #e2e9f1;
+
+    border-radius: 10px;
+
+    padding: 22px;
+
+    box-shadow: 0 3px 12px rgba(0,0,0,0.04);
+}
+
+.settings-card-header {
+    padding-bottom: 15px;
+
+    margin-bottom: 20px;
+
+    border-bottom: 1px solid #edf1f5;
+}
+
+.settings-card-header h2 {
+    font-size: 16px;
+
+    color: #173b65;
+}
+
+.settings-card-header p {
+    font-size: 11px;
+
+    color: #8996a8;
+
+    margin-top: 4px;
+}
+
+
+/* =========================
+   PROFILE
+========================= */
+
+.profile-section {
+    display: flex;
+    align-items: center;
+
+    gap: 18px;
+
+    margin-bottom: 22px;
+}
+
+.large-profile {
+    width: 68px;
+    height: 68px;
+
+    border-radius: 50%;
+
+    background: #eaf2ff;
+
+    color: #0755a5;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 28px;
+}
+
+.profile-info h3 {
+    font-size: 15px;
+    color: #173b65;
+}
+
+.profile-info p {
+    font-size: 11px;
+    color: #7b899b;
+
+    margin-top: 3px;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.form-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 17px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+
+    gap: 6px;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    font-size: 11px;
+
+    color: #536579;
+
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+
+    padding: 10px 12px;
+
+    border: 1px solid #dce4ed;
+
+    border-radius: 7px;
+
+    outline: none;
+
+    font-size: 12px;
+
+    color: #34495e;
+
+    background: white;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #2582df;
+
+    box-shadow: 0 0 0 3px rgba(37,130,223,0.08);
+}
+
+
+/* Password Input */
+
+.password-box {
+    position: relative;
+}
+
+.password-box input {
+    padding-right: 40px;
+}
+
+.password-box i {
+    position: absolute;
+
+    right: 12px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #8996a8;
+
+    cursor: pointer;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.button-row {
+    display: flex;
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+.btn {
+    border: none;
+
+    padding: 9px 18px;
+
+    border-radius: 7px;
+
+    font-size: 11px;
+
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: #0755a5;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #064682;
+}
+
+.btn-secondary {
+    background: #eef3f8;
+    color: #526579;
+}
+
+
+/* =========================
+   TOGGLE SETTINGS
+========================= */
+
+.setting-row {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 14px 0;
+
+    border-bottom: 1px solid #edf1f5;
+}
+
+.setting-row:last-child {
+    border-bottom: none;
+}
+
+.setting-info h3 {
+    font-size: 12px;
+
+    color: #34495e;
+}
+
+.setting-info p {
+    font-size: 10px;
+
+    color: #8996a8;
+
+    margin-top: 3px;
+}
+
+
+/* Toggle */
+
+.toggle {
+    position: relative;
+
+    width: 42px;
+    height: 22px;
+}
+
+.toggle input {
+    display: none;
+}
+
+.slider {
+    position: absolute;
+
+    inset: 0;
+
+    background: #cbd5e1;
+
+    border-radius: 20px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.slider:before {
+    content: "";
+
+    position: absolute;
+
+    width: 16px;
+    height: 16px;
+
+    left: 3px;
+    top: 3px;
+
+    background: white;
+
+    border-radius: 50%;
+
+    transition: 0.3s;
+}
+
+.toggle input:checked + .slider {
+    background: #0755a5;
+}
+
+.toggle input:checked + .slider:before {
+    transform: translateX(20px);
+}
+
+
+/* =========================
+   SECURITY BOX
+========================= */
+
+.security-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 15px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e8edf3;
+
+    border-radius: 8px;
+
+    margin-bottom: 10px;
+}
+
+.security-icon {
+    width: 38px;
+    height: 38px;
+
+    border-radius: 8px;
+
+    background: #eaf2ff;
+
+    color: #0755a5;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.security-info {
+    flex: 1;
+}
+
+.security-info h3 {
+    font-size: 12px;
+    color: #34495e;
+}
+
+.security-info p {
+    font-size: 10px;
+    color: #8996a8;
+
+    margin-top: 3px;
+}
+
+
+/* =========================
+   DANGER ZONE
+========================= */
+
+.danger-zone {
+    border: 1px solid #f2caca;
+
+    background: #fffafa;
+}
+
+.danger-zone .settings-card-header h2 {
+    color: #b42318;
+}
+
+.delete-btn {
+    border: 1px solid #e5484d;
+
+    background: white;
+
+    color: #d92d35;
+
+    padding: 8px 14px;
+
+    border-radius: 7px;
+
+    font-size: 11px;
+
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    background: #fff0f0;
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+.toast {
+    position: fixed;
+
+    right: 25px;
+    bottom: 25px;
+
+    background: #173b65;
+
+    color: white;
+
+    padding: 12px 18px;
+
+    border-radius: 7px;
+
+    font-size: 12px;
+
+    display: none;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+
+    z-index: 2000;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1000px) {
+
+    .settings-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .settings-menu {
+        display: grid;
+
+        grid-template-columns: repeat(3, 1fr);
+
+        gap: 5px;
+    }
+
+    .settings-menu button {
+        margin: 0;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full {
+        grid-column: auto;
+    }
+}
+
+
+@media (max-width: 700px) {
+
+    .sidebar {
+        width: 210px;
+    }
+
+    .main {
+        margin-left: 210px;
+    }
+
+    .header-search {
+        display: none;
+    }
+
+    .settings-menu {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .content {
+        padding: 18px;
+    }
+
+    .header {
+        padding: 0 15px;
+    }
+
+    .admin-profile div:last-child {
+        display: none;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- ==================================================
+     SIDEBAR
+================================================== -->
+
+<aside class="sidebar">
+
+    <div class="sidebar-logo">
+
+        <i class="fa-solid fa-landmark"></i>
+
+        <span>Scheme Finder</span>
+
+    </div>
+
+
+    <div class="sidebar-menu">
+
+        <a href="admin_dashboard.html">
+
+            <i class="fa-solid fa-chart-line"></i>
+
+            <span>Dashboard</span>
+
+        </a>
+
+
+        <a href="admin_schemes.html">
+
+            <i class="fa-solid fa-file-lines"></i>
+
+            <span>Schemes</span>
+
+        </a>
+
+
+        <a href="admin_users.html">
+
+            <i class="fa-solid fa-users"></i>
+
+            <span>Users</span>
+
+        </a>
+
+
+        <a href="admin_applications.html">
+
+            <i class="fa-solid fa-clipboard-list"></i>
+
+            <span>Applications</span>
+
+        </a>
+
+
+        <a href="admin_alerts.html">
+
+            <i class="fa-solid fa-bell"></i>
+
+            <span>Alerts & Notifications</span>
+
+        </a>
+
+
+        <a href="admin_reports.html">
+
+            <i class="fa-solid fa-chart-pie"></i>
+
+            <span>Reports</span>
+
+        </a>
+
+
+        <a href="admin_settings.html" class="active">
+
+            <i class="fa-solid fa-gear"></i>
+
+            <span>Settings</span>
+
+        </a>
+
+
+        <a href="admin_logout.html">
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+            <span>Logout</span>
+
+        </a>
+
+    </div>
+
+
+    <div class="sidebar-bottom">
+
+        <div>Government of India</div>
+
+        <div>Scheme Finder Admin Portal</div>
+
+        <div class="tricolor">
+
+            <span class="orange"></span>
+
+            <span class="white"></span>
+
+            <span class="green"></span>
+
+        </div>
+
+    </div>
+
+</aside>
+
+
+
+<!-- ==================================================
+     MAIN
+================================================== -->
+
+<main class="main">
+
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+
+        <div class="header-search">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="text"
+                placeholder="Search settings..."
+            >
+
+        </div>
+
+
+        <div class="header-right">
+
+
+            <div class="notification"
+                role="link"
+                tabindex="0"
+                title="View notifications"
+                onclick="window.location.href='admin_alerts.html'"
+                onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.location.href='admin_alerts.html';}">
+
+                <i class="fa-regular fa-bell"></i>
+                <span id="adminNotificationBadge"
+                    style="display:none;">0</span>
+            </div>
+
+
+            <div class="admin-profile">
+
+                <div class="profile-circle">
+
+                    <i class="fa-solid fa-user"></i>
+
+                </div>
+
+
+                <div>
+
+                    <a href="admin_settings.html" class="admin-name-link">
+                        <strong id="headerAdminName">Admin</strong>
+                    </a>
+                    <small>Administrator</small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ==================================================
+         CONTENT
+    ================================================== -->
+
+    <section class="content">
+
+
+        <!-- PAGE HEADING -->
+
+        <div class="page-heading">
+
+            <h1>Admin Settings</h1>
+
+            <p>
+                Manage your administrator profile, security and portal preferences.
+            </p>
+
+        </div>
+
+
+
+        <!-- ==================================================
+             SETTINGS LAYOUT
+        ================================================== -->
+
+        <div class="settings-layout">
+
+
+            <!-- SETTINGS MENU -->
+
+            <div class="settings-menu">
+
+
+                <button class="active" data-section="accountSection">
+
+                    <i class="fa-solid fa-user"></i>
+
+                    Account
+
+                </button>
+
+
+                <button type="button"  data-section="securitySection">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    Security
+
+                </button>
+
+
+                <button type="button" data-section="notificationSection">
+
+                    <i class="fa-solid fa-bell"></i>
+
+                    Notifications
+
+                </button>
+
+
+                <button type="button" data-section="preferencesSection">
+
+                    <i class="fa-solid fa-sliders"></i>
+
+                    Preferences
+
+                </button>
+
+
+            </div>
+
+
+
+            <!-- SETTINGS CONTENT -->
+
+            <div class="settings-content">
+
+
+                <!-- ==================================================
+                    ACCOUNT
+                ================================================== -->
+
+                <div class="settings-card" id="accountSection">
+
+
+                    <div class="settings-card-header">
+
+                        <h2>Administrator Profile</h2>
+
+                        <p>
+                            Update your administrator account information.
+                        </p>
+
+                    </div>
+
+
+                    <div class="profile-section">
+
+
+                        <div class="large-profile">
+
+                            <i class="fa-solid fa-user"></i>
+
+                        </div>
+
+
+                        <div class="profile-info">
+
+                            <h3 id="profileAdminName">Admin</h3>
+
+                            <p>
+                                Administrator
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="form-grid">
+
+
+                        <div class="form-group">
+
+                            <label>First Name</label>
+
+                            <input
+                                type="text"
+                                value="Admin"
+                                id="firstName"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Last Name</label>
+
+                            <input
+                                type="text"
+                                value="User"
+                                id="lastName"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Email Address</label>
+
+                            <input
+                                type="email"
+                                value="admin@schemefinder.gov.in"
+                                id="adminEmail"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Phone Number</label>
+
+                            <input
+                                type="tel"
+                                value="+91 98765 43210"
+                                id="adminMobile"
+                            >
+
+                        </div>
+
+                        <div class="form-group">
+                            <label>Date of Birth</label>
+                            <input type="date" id="adminDob">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <select id="adminGender">
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group full">
+                            <label>State</label>
+                            <input type="text" id="adminState">
+                        </div>
+
+                    </div>
+
+
+                    <div class="button-row">
+
+                        <button class="btn btn-secondary">
+
+                            Cancel
+
+                        </button>
+
+
+                        <button
+                            class="btn btn-primary"
+                            onclick="saveSettings()"
+                        >
+
+                            <i class="fa-solid fa-check"></i>
+
+                            Save Changes
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ==================================================
+                     SECURITY
+                ================================================== -->
+
+                <div class="settings-card" id="securitySection">
+
+
+                    <div class="settings-card-header">
+
+                        <h2>Security</h2>
+
+                        <p>
+                            Manage your password and account security.
+                        </p>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+
+                        <div class="form-group full">
+
+                            <label>Current Password</label>
+
+                            <div class="password-box">
+
+                                <input
+                                    type="password"
+                                    id="currentPassword"
+                                    placeholder="Enter current password"
+                                >
+
+                                <i
+                                    class="fa-regular fa-eye"
+                                    onclick="togglePassword('currentPassword', this)"
+                                ></i>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>New Password</label>
+
+                            <div class="password-box">
+
+                                <input
+                                    type="password"
+                                    id="newPassword"
+                                    placeholder="Enter new password"
+                                >
+
+                                <i
+                                    class="fa-regular fa-eye"
+                                    onclick="togglePassword('newPassword', this)"
+                                ></i>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Confirm Password</label>
+
+                            <div class="password-box">
+
+                                <input
+                                    type="password"
+                                    id="confirmPassword"
+                                    placeholder="Confirm new password"
+                                >
+
+                                <i
+                                    class="fa-regular fa-eye"
+                                    onclick="togglePassword('confirmPassword', this)"
+                                ></i>
+
+                            </div>
+                            
+                        </div>
+
+                    </div>
+
+
+                    <div class="button-row">
+
+                        <button
+                            class="btn btn-primary"
+                            onclick="changePassword()"
+                        >
+
+                            <i class="fa-solid fa-key"></i>
+
+                            Change Password
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ==================================================
+                    NOTIFICATIONS
+                ================================================== -->
+
+                <div class="settings-card" id="notificationSection">
+
+
+                    <div class="settings-card-header">
+
+                        <h2>Notification Settings</h2>
+
+                        <p>
+                            Choose which notifications the administrator receives.
+                        </p>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <h3>New Application Alerts</h3>
+
+                            <p>
+                                Receive notifications when a new application is submitted.
+                            </p>
+
+                        </div>
+
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                id="newApplicationAlerts"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <h3>New User Registration</h3>
+
+                            <p>
+                                Get notified when a new user creates an account.
+                            </p>
+
+                        </div>
+
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                id="newUserAlerts"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <h3>Scheme Updates</h3>
+
+                            <p>
+                                Receive alerts about scheme changes and updates.
+                            </p>
+
+                        </div>
+
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                id="schemeUpdateAlerts"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <h3>System Notifications</h3>
+
+                            <p>
+                                Receive important system and maintenance alerts.
+                            </p>
+
+                        </div>
+
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                id="systemAlerts"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ==================================================
+                    DANGER ZONE
+                ================================================== -->
+
+                <div class="settings-card danger-zone">
+
+
+                    <div class="settings-card-header">
+
+                        <h2>Danger Zone</h2>
+
+                        <p>
+                            Actions that can affect your administrator account.
+                        </p>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <h3>Deactivate Administrator Account</h3>
+
+                            <p>
+                                Temporarily disable this administrator account.
+                            </p>
+
+                        </div>
+
+
+                        <button
+                            class="delete-btn"
+                            onclick="deactivateAccount()"
+                        >
+
+                            Deactivate
+
+                        </button>
+
+                    </div>
+
+                </div>
+                
+                <div class="settings-card" id="preferencesSection">
+                    <div class="settings-card-header">
+                        <h2>Preferences</h2>
+                        <p>Manage your portal display preferences.</p>
+                    </div>
+
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <h3>Compact View</h3>
+                            <p>Use a more compact display for the admin portal.</p>
+                        </div>
+
+                        <label class="toggle">
+                        <input type="checkbox" id="compactView">
+                        <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <h3>Confirm Before Leaving</h3>
+                            <p>Ask for confirmation before leaving a page with unsaved changes.</p>
+                        </div>
+
+                        <label class="toggle">
+                        <input type="checkbox" id="confirmBeforeLeaving" checked>
+                        <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="button-row">
+                        <button class="btn btn-primary" id="savePreferencesBtn">
+                            Save Preferences
+                        </button>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+
+<!-- TOAST -->
+
+<div class="toast" id="toast">
+    Settings saved successfully.
+</div>
+
+
+
+
+<script>
+"use strict";
+
+const API_BASE = "http://127.0.0.1:5000/api/admin/settings";
+
+const byId = (id) => document.getElementById(id);
+
+let originalProfile = null;
+let notificationPreferences = {};
+let preferences = {};
+let toastTimer = null;
+
+// --------------------------------------------------
+// API HELPER
+// --------------------------------------------------
+
+async function apiRequest(path, options = {}) {
+    const response = await fetch(`${API_BASE}${path}`, {
+        ...options,
+        credentials: "include",
+        headers: {
+            ...(options.body ? { "Content-Type": "application/json" } : {}),
+            ...(options.headers || {})
+        }
+    });
+
+    const contentType = response.headers.get("content-type") || "";
+    const result = contentType.includes("application/json")
+        ? await response.json()
+        : {};
+
+    if (response.status === 401 || response.status === 403) {
+        throw new Error(
+            result.message || "Admin session expired. Please log in again."
+        );
+    }
+
+    if (!response.ok) {
+        throw new Error(
+            result.message || `Request failed (${response.status}).`
+        );
+    }
+
+    return result;
+}
+
+// --------------------------------------------------
+// TOAST MESSAGE
+// --------------------------------------------------
+
+function showMessage(message) {
+    const toast = byId("toast");
+
+    if (!toast) {
+        alert(message);
+        return;
+    }
+
+    toast.textContent = message;
+    toast.style.display = "block";
+
+    if (toastTimer) clearTimeout(toastTimer);
+
+    toastTimer = setTimeout(() => {
+        toast.style.display = "none";
+    }, 3000);
+}
+
+// --------------------------------------------------
+// DATE NORMALIZATION
+// --------------------------------------------------
+
+function normalizeDate(value) {
+    if (value === null || value === undefined || value === "") {
+        return "";
+    }
+
+    const raw = String(value).trim();
+
+    // MySQL DATE or DATETIME: YYYY-MM-DD or YYYY-MM-DD HH:mm:ss
+    const isoMatch = raw.match(/^(\d{4})-(\d{2})-(\d{2})(?:$|[ T])/);
+
+    if (isoMatch) {
+        const year = Number(isoMatch[1]);
+        const month = Number(isoMatch[2]);
+        const day = Number(isoMatch[3]);
+
+        const check = new Date(Date.UTC(year, month - 1, day));
+
+        if (
+            check.getUTCFullYear() === year &&
+            check.getUTCMonth() === month - 1 &&
+            check.getUTCDate() === day
+        ) {
+            return `${isoMatch[1]}-${isoMatch[2]}-${isoMatch[3]}`;
+        }
+
+        return "";
+    }
+
+    // Handles date strings such as:
+    // Thu, 31 Mar 2005 00:00:00 GMT
+    const parsed = new Date(raw);
+
+    if (Number.isNaN(parsed.getTime())) {
+        console.error("Invalid date received from backend:", raw);
+        return "";
+    }
+
+    // Use UTC for date strings containing an explicit timezone.
+    if (/GMT|UTC|Z$|[+-]\d{2}:?\d{2}$/.test(raw)) {
+        return [
+            parsed.getUTCFullYear(),
+            String(parsed.getUTCMonth() + 1).padStart(2, "0"),
+            String(parsed.getUTCDate()).padStart(2, "0")
+        ].join("-");
+    }
+
+    return [
+        parsed.getFullYear(),
+        String(parsed.getMonth() + 1).padStart(2, "0"),
+        String(parsed.getDate()).padStart(2, "0")
+    ].join("-");
+}
+
+// --------------------------------------------------
+// SAFE FORM HELPERS
+// --------------------------------------------------
+
+function setValue(id, value) {
+    const element = byId(id);
+    if (!element) return;
+
+    if (element.type === "date") {
+        element.value = normalizeDate(value);
+        return;
+    }
+
+    element.value = value === null || value === undefined
+        ? ""
+        : String(value);
+}
+
+function setText(id, value) {
+    const element = byId(id);
+    if (element) {
+        element.textContent = value ?? "";
+    }
+}
+
+function setChecked(id, value) {
+    const element = byId(id);
+    if (element) {
+        element.checked = Boolean(value);
+    }
+}
+
+// --------------------------------------------------
+// LOAD ADMIN PROFILE
+// --------------------------------------------------
+
+async function loadAdminProfile() {
+    try {
+        const result = await apiRequest("/profile");
+        const admin = result.admin || result;
+
+        if (!admin || !admin.full_name) {
+            throw new Error("Admin profile data was not returned.");
+        }
+
+        originalProfile = { ...admin };
+
+        const fullName = String(admin.full_name).trim();
+        const nameParts = fullName.split(/\s+/);
+        const firstName = nameParts.shift() || "";
+        const lastName = nameParts.join(" ");
+
+        setValue("firstName", firstName);
+        setValue("lastName", lastName);
+        setValue("adminEmail", admin.email);
+        setValue("adminMobile", admin.mobile_number);
+
+        // Database/API column is date_of_birth, not dob.
+        setValue(
+            "adminDob",
+            admin.date_of_birth ?? admin.dob ?? ""
+        );
+
+        setValue("adminGender", admin.gender);
+        setValue("adminState", admin.state);
+
+        setText("headerAdminName", fullName);
+        setText("profileAdminName", fullName);
+        setText(
+            "profileAdminDescription",
+            admin.username || "System Administrator"
+        );
+        setText("headerAdminRole", "Administrator");
+
+    } catch (error) {
+        console.error("Unable to load admin profile:", error);
+        showMessage(error.message || "Unable to load admin profile.");
+    }
+}
+
+// --------------------------------------------------
+// SAVE ADMIN PROFILE
+// --------------------------------------------------
+
+async function saveSettings() {
+    const firstName = (byId("firstName")?.value || "").trim();
+    const lastName = (byId("lastName")?.value || "").trim();
+    const email = (byId("adminEmail")?.value || "").trim();
+    const mobile = (byId("adminMobile")?.value || "").trim();
+    const dateOfBirth = byId("adminDob")?.value || "";
+    const gender = byId("adminGender")?.value || "";
+    const state = (byId("adminState")?.value || "").trim();
+
+    if (!firstName) {
+        showMessage("Please enter the first name.");
+        return;
+    }
+
+    if (!email) {
+        showMessage("Please enter the email address.");
+        return;
+    }
+
+    if (!mobile) {
+        showMessage("Please enter the phone number.");
+        return;
+    }
+
+    if (dateOfBirth && !normalizeDate(dateOfBirth)) {
+        showMessage("Please enter a valid date of birth.");
+        return;
+    }
+
+    const fullName = [firstName, lastName].filter(Boolean).join(" ");
+
+    // Send the exact column/API field name expected by Flask.
+    const payload = {
+        full_name: fullName,
+        email,
+        mobile_number: mobile,
+        date_of_birth: dateOfBirth || null,
+        gender,
+        state
+    };
+
+    try {
+        const result = await apiRequest("/profile", {
+            method: "PUT",
+            body: JSON.stringify(payload)
+        });
+
+        originalProfile = {
+            ...(originalProfile || {}),
+            ...payload
+        };
+
+        setText("headerAdminName", fullName);
+        setText("profileAdminName", fullName);
+
+        showMessage(result.message || "Profile updated successfully.");
+
+    } catch (error) {
+        console.error("Unable to save profile:", error);
+        showMessage(error.message || "Unable to save profile.");
+    }
+}
+
+// --------------------------------------------------
+// SHOW / HIDE PASSWORD
+// --------------------------------------------------
+
+function togglePassword(id, icon) {
+    const input = byId(id);
+    if (!input) return;
+
+    const isPassword = input.type === "password";
+    input.type = isPassword ? "text" : "password";
+
+    if (icon) {
+        icon.classList.toggle("fa-eye", !isPassword);
+        icon.classList.toggle("fa-eye-slash", isPassword);
+    }
+}
+
+
+async function loadAdminNotificationBadge() {
+    const badge = byId("adminNotificationBadge");
+    if (!badge) return;
+
+    try {
+        const response = await fetch(
+            "http://127.0.0.1:5000/api/admin/alerts",
+            {
+                method: "GET",
+                credentials: "include"
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error("Unable to load notifications.");
+        }
+
+        const data = await response.json();
+        const alerts = Array.isArray(data)
+            ? data
+            : (data.alerts || data.notifications || []);
+
+        const unreadCount = alerts.filter(alert =>
+            alert.is_read === false ||
+            alert.is_read === 0 ||
+            alert.is_read === "0"
+        ).length;
+
+        badge.textContent = unreadCount > 99
+            ? "99+"
+            : String(unreadCount);
+
+        badge.style.display = unreadCount > 0 ? "flex" : "none";
+        badge.setAttribute(
+            "aria-label",
+            `${unreadCount} unread notifications`
+        );
+
+    } catch (error) {
+        console.error("Unable to load notification badge:", error);
+    }
+}
+
+// --------------------------------------------------
+// CHANGE ADMIN PASSWORD
+// --------------------------------------------------
+
+async function changePassword() {
+    const currentPassword = byId("currentPassword")?.value || "";
+    const newPassword = byId("newPassword")?.value || "";
+    const confirmPassword = byId("confirmPassword")?.value || "";
+
+    if (!currentPassword || !newPassword || !confirmPassword) {
+        showMessage("Please fill in all password fields.");
+        return;
+    }
+
+    if (newPassword.length < 8) {
+        showMessage("The new password must be at least 8 characters.");
+        return;
+    }
+
+    if (newPassword !== confirmPassword) {
+        showMessage("New password and confirmation do not match.");
+        return;
+    }
+
+    if (currentPassword === newPassword) {
+        showMessage("Choose a password different from your current password.");
+        return;
+    }
+
+    try {
+        const result = await apiRequest("/password", {
+            method: "PUT",
+            body: JSON.stringify({
+                current_password: currentPassword,
+                new_password: newPassword
+            })
+        });
+
+        setValue("currentPassword", "");
+        setValue("newPassword", "");
+        setValue("confirmPassword", "");
+
+        showMessage(result.message || "Password updated successfully.");
+
+    } catch (error) {
+        console.error("Unable to change password:", error);
+        showMessage(error.message || "Unable to change password.");
+    }
+}
+
+// --------------------------------------------------
+// LOAD NOTIFICATION AND GENERAL PREFERENCES
+// --------------------------------------------------
+
+async function loadNotificationPreferences() {
+    try {
+        const result = await apiRequest("/preferences");
+        const data = result.preferences || result;
+
+        notificationPreferences = data.notifications || {};
+        preferences = data.general || {};
+
+        setChecked(
+            "newApplicationAlerts",
+            notificationPreferences.new_applications ?? true
+        );
+
+        setChecked(
+            "newUserAlerts",
+            notificationPreferences.new_user_registration ?? true
+        );
+
+        setChecked(
+            "schemeUpdateAlerts",
+            notificationPreferences.scheme_updates ?? true
+        );
+
+        setChecked(
+            "systemAlerts",
+            notificationPreferences.system_notifications ?? true
+        );
+
+        setChecked("compactView", preferences.compact_view ?? false);
+
+        setChecked(
+            "confirmBeforeLeaving",
+            preferences.confirm_before_leaving ?? true
+        );
+
+    } catch (error) {
+        console.error("Unable to load preferences:", error);
+        showMessage(error.message || "Unable to load preferences.");
+    }
+}
+
+// --------------------------------------------------
+// SAVE NOTIFICATION AND GENERAL PREFERENCES
+// --------------------------------------------------
+
+async function savePreferences() {
+    const payload = {
+        notifications: {
+            new_applications:
+                byId("newApplicationAlerts")?.checked ?? true,
+            new_user_registration:
+                byId("newUserAlerts")?.checked ?? true,
+            scheme_updates:
+                byId("schemeUpdateAlerts")?.checked ?? true,
+            system_notifications:
+                byId("systemAlerts")?.checked ?? true
+        },
+        general: {
+            compact_view:
+                byId("compactView")?.checked ?? false,
+            confirm_before_leaving:
+                byId("confirmBeforeLeaving")?.checked ?? true
+        }
+    };
+
+    try {
+        const result = await apiRequest("/preferences", {
+            method: "PUT",
+            body: JSON.stringify(payload)
+        });
+
+        notificationPreferences = { ...payload.notifications };
+        preferences = { ...payload.general };
+
+        showMessage(result.message || "Preferences saved successfully.");
+
+    } catch (error) {
+        console.error("Unable to save preferences:", error);
+        showMessage(error.message || "Unable to save preferences.");
+    }
+}
+
+// --------------------------------------------------
+// DELETE ADMIN ACCOUNT
+// --------------------------------------------------
+
+async function deactivateAccount() {
+    const confirmed = confirm(
+        "Are you sure you want to permanently delete your administrator account? This action cannot be undone."
+    );
+
+    if (!confirmed) return;
+
+    try {
+        const result = await apiRequest("/account", {
+            method: "DELETE"
+        });
+
+        showMessage(result.message || "Account deleted successfully.");
+
+        setTimeout(() => {
+            window.location.href = "home.html";
+        }, 700);
+
+    } catch (error) {
+        console.error("Unable to delete admin account:", error);
+        showMessage(error.message || "Unable to delete admin account.");
+    }
+}
+
+// --------------------------------------------------
+// SETTINGS MENU SCROLLING
+// --------------------------------------------------
+
+function setupSettingsNavigation() {
+    const buttons = document.querySelectorAll(
+        ".settings-menu button[data-section]"
+    );
+
+    buttons.forEach((button) => {
+        button.addEventListener("click", (event) => {
+            event.preventDefault();
+
+            const sectionId = button.dataset.section;
+            const section = document.getElementById(sectionId);
+
+            if (!section) {
+                console.error(
+                    "Settings section not found:",
+                    sectionId
+                );
+                return;
+            }
+
+            // Highlight the selected navigation item
+            document.querySelectorAll(
+                ".settings-menu button[data-section]"
+            ).forEach((item) => {
+                item.classList.remove("active");
+            });
+
+            button.classList.add("active");
+
+            // Scroll the correct settings section into view
+            section.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+        });
+    });
+}
+
+async function loadAdminNotificationSettings() {
+    try {
+        const data = await settingsRequest("/admin/settings/notifications");
+
+        const settings = data.settings || data;
+
+        const applicationToggle = document.getElementById(
+            "newApplicationAlerts"
+        );
+        const registrationToggle = document.getElementById(
+            "newUserRegistration"
+        );
+
+        if (applicationToggle &&
+            settings.new_application_alerts !== undefined) {
+            applicationToggle.checked =
+                Boolean(settings.new_application_alerts);
+        }
+
+        if (registrationToggle &&
+            settings.new_user_registration !== undefined) {
+            registrationToggle.checked =
+                Boolean(settings.new_user_registration);
+        }
+    } catch (error) {
+        console.error("Could not load admin notification settings:", error);
+    }
+}
+
+async function saveAdminNotificationSetting(key, enabled) {
+    try {
+        await settingsRequest("/admin/settings/notifications", {
+            method: "PUT",
+            body: JSON.stringify({
+                setting_key: key,
+                setting_value: enabled
+            })
+        });
+    } catch (error) {
+        alert(error.message || "Unable to save notification settings.");
+        await loadAdminNotificationSettings();
+    }
+}
+
+// --------------------------------------------------
+// CONNECT BUTTONS
+// --------------------------------------------------
+
+function connectButtons() {
+    byId("saveProfileBtn")?.addEventListener("click", saveSettings);
+    byId("changePasswordBtn")?.addEventListener("click", changePassword);
+    byId("deactivateAccountBtn")?.addEventListener("click", deactivateAccount);
+    byId("savePreferencesBtn")?.addEventListener("click", savePreferences);
+}
+
+// --------------------------------------------------
+// INITIALIZE PAGE
+// --------------------------------------------------
+
+document.addEventListener("DOMContentLoaded", async () => {
+    setupSettingsNavigation();
+    connectButtons();
+
+    await Promise.all([
+        loadAdminProfile(),
+        loadNotificationPreferences(),
+        loadAdminNotificationBadge()
+    ]);
+});
+</script>
+<script src="../js/admin_logout.js"></script>
+
+
+</body>
+</html>

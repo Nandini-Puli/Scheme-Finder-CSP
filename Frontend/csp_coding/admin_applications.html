@@ -1,0 +1,2416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Scheme Finder - Applications</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+/* =====================================================
+    RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    background: #f4f8fc;
+    color: #163b68;
+}
+
+button,
+input,
+select {
+    font-family: inherit;
+}
+
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    width: 260px;
+    height: 100vh;
+
+    background: linear-gradient(
+        180deg,
+        #064b91,
+        #0755a5,
+        #0866c4
+    );
+
+    color: white;
+
+    z-index: 1000;
+
+    transition: 0.3s ease;
+
+    display: flex;
+    flex-direction: column;
+
+    box-shadow: 4px 0 18px rgba(0,0,0,0.08);
+}
+
+.sidebar.closed {
+    width: 0;
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   SIDEBAR HEADER
+===================================================== */
+
+.sidebar-header {
+    height: 95px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 18px;
+
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+.sidebar-logo {
+    width: 42px;
+    height: 42px;
+
+    background: white;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 10px;
+
+    color: #0755a5;
+
+    flex-shrink: 0;
+}
+
+.sidebar-logo i {
+    font-size: 20px;
+}
+
+.logo-text h2 {
+    font-size: 17px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.logo-text p {
+    font-size: 8px;
+    opacity: 0.85;
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   SIDEBAR MENU
+===================================================== */
+
+.sidebar-menu {
+    padding: 20px 12px;
+    flex: 1;
+}
+
+.sidebar-menu a {
+    display: flex;
+    align-items: center;
+
+    text-decoration: none;
+
+    color: rgba(255,255,255,0.9);
+
+    padding: 13px 15px;
+
+    margin-bottom: 5px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+
+    transition: 0.25s;
+}
+
+.sidebar-menu a i {
+    width: 28px;
+    font-size: 15px;
+}
+
+.sidebar-menu a:hover {
+    background: rgba(255,255,255,0.13);
+    color: white;
+}
+
+.sidebar-menu a.active {
+    background: white;
+    color: #0755a5;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.08);
+}
+
+
+/* =====================================================
+   SIDEBAR FOOTER
+===================================================== */
+
+.sidebar-footer {
+    padding: 15px;
+    text-align: center;
+    font-size: 9px;
+    opacity: 0.8;
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.main {
+    margin-left: 260px;
+    min-height: 100vh;
+    transition: 0.3s ease;
+}
+
+.main.full {
+    margin-left: 0;
+}
+
+
+/* =====================================================
+   TOP HEADER
+===================================================== */
+
+.top-header {
+    height: 72px;
+
+    background: white;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 28px;
+
+    border-bottom: 1px solid #e5edf5;
+
+    position: sticky;
+    top: 0;
+
+    z-index: 500;
+}
+
+
+/* =====================================================
+   THREE LINE BUTTON
+===================================================== */
+
+.menu-btn {
+    width: 42px;
+    height: 42px;
+
+    border: none;
+
+    background: #f1f6fc;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 5px;
+
+    margin-right: 20px;
+}
+
+.menu-btn span {
+    width: 20px;
+    height: 2px;
+
+    background: #0755a5;
+
+    border-radius: 5px;
+}
+
+
+/* =====================================================
+   HEADER SEARCH
+===================================================== */
+
+.header-search {
+    width: 350px;
+    height: 40px;
+
+    border: 1px solid #d7e3ef;
+
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 13px;
+
+    background: #f9fbfd;
+}
+
+.header-search i {
+    color: #8ca4bd;
+    margin-right: 9px;
+}
+
+.header-search input {
+    border: none;
+    outline: none;
+    width: 100%;
+    background: transparent;
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   HEADER RIGHT
+===================================================== */
+
+.header-right {
+    margin-left: auto;
+
+    display: flex;
+    align-items: center;
+
+    gap: 20px;
+}
+
+.notification {
+    position: relative;
+
+    width: 38px;
+    height: 38px;
+
+    border-radius: 50%;
+
+    background: #f1f6fc;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #0755a5;
+}
+
+.badge {
+    position: absolute;
+
+    top: -2px;
+    right: -1px;
+
+    width: 16px;
+    height: 16px;
+
+    border-radius: 50%;
+
+    background: #ef4444;
+
+    color: white;
+
+    font-size: 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-profile {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.admin-avatar {
+    width: 38px;
+    height: 38px;
+
+    background: #e7f1ff;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #0755a5;
+}
+
+.admin-info strong {
+    display: block;
+    font-size: 12px;
+    color: #163b68;
+}
+
+.admin-info span {
+    font-size: 9px;
+    color: #7d94aa;
+}
+
+
+/* =====================================================
+   CONTENT
+===================================================== */
+
+.content {
+    padding: 30px;
+}
+
+
+.admin-name-link {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.admin-name-link:hover {
+    color: #2563eb;
+}
+
+.admin-name-link:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 3px;
+    border-radius: 3px;
+}
+
+/* =====================================================
+   PAGE TITLE
+===================================================== */
+
+.page-title {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    margin-bottom: 25px;
+}
+
+.page-title h1 {
+    font-size: 24px;
+    color: #123f70;
+    font-weight: 600;
+}
+
+.page-title p {
+    font-size: 12px;
+    color: #7890a8;
+    margin-top: 4px;
+}
+
+
+/* =====================================================
+   SUMMARY CARDS
+===================================================== */
+
+.summary-cards {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 15px;
+
+    margin-bottom: 20px;
+}
+
+.summary-card {
+    background: white;
+
+    border: 1px solid #e3edf6;
+
+    border-radius: 10px;
+
+    padding: 16px 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    box-shadow:
+        0 3px 12px rgba(40,75,110,0.04);
+}
+
+.summary-icon {
+    width: 42px;
+    height: 42px;
+
+    border-radius: 9px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 12px;
+}
+
+.summary-icon.blue {
+    background: #e7f2ff;
+    color: #1672d4;
+}
+
+.summary-icon.orange {
+    background: #fff4df;
+    color: #e58b18;
+}
+
+.summary-icon.green {
+    background: #e7f9f0;
+    color: #13a66a;
+}
+
+.summary-icon.red {
+    background: #fff0f0;
+    color: #e04b4b;
+}
+
+.summary-info span {
+    display: block;
+
+    font-size: 9px;
+
+    color: #8096aa;
+}
+
+.summary-info strong {
+    display: block;
+
+    font-size: 20px;
+
+    color: #164675;
+
+    margin-top: 2px;
+}
+
+
+/* =====================================================
+   TABLE CARD
+===================================================== */
+
+.table-card {
+    background: white;
+
+    border: 1px solid #e3edf6;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 3px 12px rgba(40,75,110,0.05);
+
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   FILTERS
+===================================================== */
+
+.filters {
+    padding: 18px 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    border-bottom: 1px solid #edf2f7;
+}
+
+.filter-search {
+    width: 350px;
+    height: 40px;
+
+    border: 1px solid #d7e3ef;
+
+    border-radius: 7px;
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 0 12px;
+
+    background: #fbfdff;
+}
+
+.filter-search i {
+    color: #8ba2b9;
+    margin-right: 8px;
+    font-size: 12px;
+}
+
+.filter-search input {
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    width: 100%;
+
+    font-size: 11px;
+
+    color: #45647e;
+}
+
+.filter-select {
+    height: 40px;
+
+    min-width: 150px;
+
+    border: 1px solid #d7e3ef;
+
+    border-radius: 7px;
+
+    padding: 0 12px;
+
+    color: #52718c;
+
+    font-size: 11px;
+
+    outline: none;
+
+    background: white;
+
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   TABLE
+===================================================== */
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 1100px;
+}
+
+thead {
+    background: #f5f9fd;
+}
+
+th {
+    text-align: left;
+
+    padding: 14px 16px;
+
+    font-size: 10px;
+
+    color: #52708d;
+
+    font-weight: 600;
+
+    border-bottom: 1px solid #e4edf5;
+}
+
+td {
+    padding: 14px 16px;
+
+    font-size: 10px;
+
+    color: #526f89;
+
+    border-bottom: 1px solid #edf2f6;
+
+    vertical-align: middle;
+}
+
+tbody tr:hover {
+    background: #fafcff;
+}
+
+
+/* =====================================================
+   APPLICATION ID
+===================================================== */
+
+.application-id {
+    font-weight: 600;
+    color: #176fc8;
+}
+
+
+/* =====================================================
+   USER CELL
+===================================================== */
+
+.user-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    min-width: 170px;
+}
+
+.user-avatar {
+    width: 35px;
+    height: 35px;
+
+    border-radius: 50%;
+
+    background: #e7f2ff;
+
+    color: #176fc8;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 10px;
+
+    font-weight: 600;
+}
+
+.user-details strong {
+    display: block;
+
+    color: #234e75;
+
+    font-size: 10px;
+
+    font-weight: 600;
+}
+
+.user-details span {
+    display: block;
+
+    color: #94a6b7;
+
+    font-size: 8px;
+
+    margin-top: 2px;
+}
+
+
+/* =====================================================
+   SCHEME NAME
+===================================================== */
+
+.scheme-name {
+    font-size: 10px;
+    color: #315b7d;
+    font-weight: 500;
+    max-width: 190px;
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+.status {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    font-size: 8px;
+}
+
+.status::before {
+    content: "";
+
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: currentColor;
+}
+
+.status.pending {
+    background: #fff4df;
+    color: #d88711;
+}
+
+.status.approved {
+    background: #e7f8ef;
+    color: #14965c;
+}
+
+.status.rejected {
+    background: #fff0f0;
+    color: #e04b4b;
+}
+
+.status.review {
+    background: #eeeaff;
+    color: #7356d8;
+}
+
+
+/* =====================================================
+   ACTIONS
+===================================================== */
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.action-btn {
+    width: 29px;
+    height: 29px;
+
+    border: 1px solid #dce7f0;
+
+    background: white;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 10px;
+
+    transition: 0.2s;
+}
+
+.view-btn {
+    color: #2875bd;
+}
+
+.approve-btn {
+    color: #159b60;
+}
+
+.reject-btn {
+    color: #df4b4b;
+}
+
+.delete-btn {
+    color: #d94c4c;
+}
+
+.action-btn:hover {
+    background: #f2f7fc;
+}
+
+
+/* =====================================================
+   PAGINATION
+===================================================== */
+
+.table-footer {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 16px 20px;
+}
+
+.showing {
+    font-size: 9px;
+    color: #8ca0b2;
+}
+
+.pagination {
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
+}
+
+.page-btn {
+    width: 29px;
+    height: 29px;
+
+    border: 1px solid #dce7f0;
+
+    background: white;
+
+    border-radius: 5px;
+
+    color: #607e98;
+
+    font-size: 9px;
+
+    cursor: pointer;
+}
+
+.page-btn:hover {
+    background: #edf5ff;
+}
+
+.page-btn.active {
+    background: #1672d4;
+
+    border-color: #1672d4;
+
+    color: white;
+}
+
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+.modal {
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(14,48,79,0.45);
+
+    z-index: 2000;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-box {
+    width: 600px;
+
+    max-width: 100%;
+
+    background: white;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 15px 50px rgba(0,0,0,0.2);
+
+    overflow: hidden;
+}
+
+.modal-header {
+    padding: 18px 22px;
+
+    border-bottom: 1px solid #e8eef4;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+.modal-header h2 {
+    font-size: 17px;
+    color: #164675;
+}
+
+.close-btn {
+    width: 30px;
+    height: 30px;
+
+    border: none;
+
+    background: #f2f6fa;
+
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    color: #617b91;
+}
+
+.modal-body {
+    padding: 25px;
+}
+
+
+/* =====================================================
+   APPLICATION TOP
+===================================================== */
+
+.application-top {
+    display: flex;
+
+    align-items: center;
+
+    padding-bottom: 20px;
+
+    border-bottom: 1px solid #edf2f6;
+
+    margin-bottom: 20px;
+}
+
+.application-icon {
+    width: 58px;
+    height: 58px;
+
+    background: #e7f2ff;
+
+    color: #176fc8;
+
+    border-radius: 10px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 15px;
+
+    font-size: 20px;
+}
+
+.application-name h3 {
+    color: #174675;
+    font-size: 16px;
+}
+
+.application-name span {
+    color: #8498aa;
+    font-size: 9px;
+}
+
+
+/* =====================================================
+   DETAILS GRID
+===================================================== */
+
+.details-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 15px;
+}
+
+.detail-box {
+    background: #f8fbfe;
+
+    border: 1px solid #e6eef5;
+
+    border-radius: 8px;
+
+    padding: 12px;
+}
+
+.detail-box label {
+    display: block;
+
+    font-size: 8px;
+
+    color: #8a9eaf;
+
+    margin-bottom: 4px;
+}
+
+.detail-box strong {
+    font-size: 10px;
+
+    color: #345a7b;
+
+    font-weight: 500;
+}
+
+
+/* =====================================================
+   MODAL FOOTER
+===================================================== */
+
+.modal-footer {
+    padding: 16px 22px;
+
+    border-top: 1px solid #e8eef4;
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+}
+
+.close-modal {
+    padding: 10px 17px;
+
+    border: 1px solid #d7e3ef;
+
+    background: white;
+
+    color: #58738c;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    font-size: 10px;
+}
+
+.approve-large {
+    padding: 10px 17px;
+
+    border: none;
+
+    background: #159b60;
+
+    color: white;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    font-size: 10px;
+}
+
+/* Rejection scheme name */
+.rejection-scheme-name {
+    font-size: 12px;
+    margin-bottom: 15px;
+}
+
+/* Rejection reason label */
+.rejectionReason {
+    display: block;
+    font-size: 11px;
+    margin-bottom: 8px;
+}
+
+/* Rejection reason textarea */
+#rejectionReason {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d7e3ef;
+    border-radius: 7px;
+    font-family: inherit;
+    resize: vertical;
+}
+
+/* Rejection error message */
+.rejection-error {
+    color: #df4b4b;
+    font-size: 11px;
+    margin-top: 8px;
+}
+
+/* Confirm rejection button */
+.reject-confirm-btn {
+    background: #df4b4b;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:1050px) {
+
+    .summary-cards {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .filters {
+        flex-wrap: wrap;
+    }
+
+}
+
+@media(max-width:750px) {
+
+    .main {
+        margin-left: 0;
+    }
+
+    .header-search {
+        display: none;
+    }
+
+    .content {
+        padding: 20px;
+    }
+
+    .admin-info {
+        display: none;
+    }
+
+    .summary-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-search,
+    .filter-select {
+        width: 100%;
+    }
+
+    .table-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-header">
+
+        <div class="sidebar-logo">
+            <i class="fa-solid fa-landmark"></i>
+        </div>
+
+        <div class="logo-text">
+
+            <h2>Scheme Finder</h2>
+
+            <p>Government Schemes</p>
+
+        </div>
+
+    </div>
+
+
+    <nav class="sidebar-menu">
+
+        <a href="admin_dashboard.html">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Dashboard</span>
+        </a>
+
+        <a href="admin_schemes.html">
+            <i class="fa-solid fa-layer-group"></i>
+            <span>Schemes</span>
+        </a>
+
+        <a href="admin_users.html">
+            <i class="fa-solid fa-users"></i>
+            <span>Users</span>
+        </a>
+
+        <a href="admin_applications.html" class="active">
+            <i class="fa-solid fa-file-lines"></i>
+            <span>Applications</span>
+        </a>
+
+        <a href="admin_alerts.html">
+            <i class="fa-solid fa-bell"></i>
+            <span>Alerts</span>
+        </a>
+
+        <a href="admin_reports.html">
+            <i class="fa-solid fa-chart-pie"></i>
+            <span>Reports</span>
+        </a>
+
+        <a href="admin_settings.html">
+            <i class="fa-solid fa-gear"></i>
+            <span>Settings</span>
+        </a>
+
+        <a href="admin_logout.html">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Logout</span>
+        </a>
+
+    </nav>
+
+
+    <div class="sidebar-footer">
+
+        Government of India<br>
+        Scheme Finder Admin Portal
+
+    </div>
+
+</aside>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main" id="main">
+
+
+    <!-- TOP HEADER -->
+
+    <header class="top-header">
+
+
+        <button class="menu-btn" id="menuBtn">
+
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </button>
+
+
+        <div class="header-search">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="text"
+                placeholder="Search schemes, users, applications..."
+            >
+
+        </div>
+
+
+        <div class="header-right">
+
+
+            <div class="notification">
+
+                <i class="fa-regular fa-bell"></i>
+
+                <span class="badge" id="unreadBadge" style="display: none;">
+                    0
+                </span>
+
+            </div>
+
+
+            <div class="admin-profile">
+
+                <div class="admin-avatar">
+
+                    <i class="fa-solid fa-user-shield"></i>
+
+                </div>
+
+                <div class="admin-info">
+
+                    <a href="admin_settings.html" class="admin-name-link">
+                        <strong id="adminName">Admin</strong>
+                    </a>
+
+                    <span>Administrator</span>
+
+                </div>
+
+                <i
+                    class="fa-solid fa-chevron-down"
+                    style="font-size:9px;color:#8095aa;"
+                ></i>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =================================================
+         CONTENT
+    ================================================== -->
+
+    <section class="content">
+
+
+        <div class="page-title">
+
+            <div>
+
+                <h1>Manage Applications</h1>
+
+                <p>
+                    Review and manage scheme applications
+                    submitted by registered users.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             SUMMARY CARDS
+        ================================================== -->
+
+        <div class="summary-cards">
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon blue">
+
+                    <i class="fa-solid fa-file-lines"></i>
+
+                </div>
+
+                <div class="summary-info">
+
+                    <span>Total Applications</span>
+
+                    <strong id="totalApplications">0</strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon orange">
+
+                    <i class="fa-solid fa-clock"></i>
+
+                </div>
+
+                <div class="summary-info">
+
+                    <span>Pending Review</span>
+
+                    <strong id="pendingApplications">0</strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon green">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                </div>
+
+                <div class="summary-info">
+
+                    <span>Approved</span>
+
+                    <strong id="approvedApplications">0</strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon red">
+
+                    <i class="fa-solid fa-circle-xmark"></i>
+
+                </div>
+
+                <div class="summary-info">
+
+                    <span>Rejected</span>
+
+                    <strong id="rejectedApplications">0</strong>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =================================================
+             APPLICATION TABLE
+        ================================================== -->
+
+        <div class="table-card">
+
+
+            <div class="filters">
+
+
+                <div class="filter-search">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input
+                        type="text"
+                        id="applicationSearch"
+                        placeholder="Search application, user or scheme..."
+                        onkeyup="filterApplications()"
+                    >
+
+                </div>
+
+
+                <select
+                    class="filter-select"
+                    id="statusFilter"
+                    onchange="filterApplications()"
+                >
+
+                    <option value="all">
+                        All Status
+                    </option>
+
+                    <option value="Pending">
+                        Pending
+                    </option>
+
+                    <option value="Approved">
+                        Approved
+                    </option>
+
+                    <option value="Rejected">
+                        Rejected
+                    </option>
+
+                </select>
+
+
+                <select class="filter-select" id="schemeFilter"
+                    onchange="filterApplications()">
+
+                    <option>
+                        All Schemes
+                    </option>
+
+                    <option>
+                        PM-YASASVI
+                    </option>
+
+                    <option>
+                        PM Scholarship
+                    </option>
+
+                    <option>
+                        Education Support Scheme
+                    </option>
+
+                </select>
+
+
+            </div>
+
+
+            <!-- TABLE -->
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Application ID</th>
+
+                            <th>Applicant</th>
+
+                            <th>Scheme</th>
+
+                            <th>Applied Date</th>
+
+                            <th>Documents</th>
+
+                            <th>Status</th>
+
+                            <th>Actions</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="applicationTable">
+
+                        <tr>
+                            <td colspan="7">Loading applications...</td>
+                        </tr>
+                        
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <!-- FOOTER -->
+
+            <div class="table-footer">
+
+                <div
+                    class="showing"
+                    id="showingText"
+                >
+                    Showing 1–5 of 1,286 applications
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- =====================================================
+     APPLICATION MODAL
+===================================================== -->
+
+<div
+    class="modal"
+    id="applicationModal"
+>
+
+    <div class="modal-box">
+
+
+        <div class="modal-header">
+
+            <h2>
+                Application Details
+            </h2>
+
+            <button
+                class="close-btn"
+                onclick="closeModal()"
+            >
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+        <div class="modal-body">
+
+
+            <div class="application-top">
+
+                <div class="application-icon">
+
+                    <i class="fa-solid fa-file-circle-check"></i>
+
+                </div>
+
+                <div class="application-name">
+
+                    <h3 id="modalScheme">
+                        Scheme
+                    </h3>
+
+                    <span id="modalApplicant">
+                        Applicant
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="details-grid">
+
+
+                <div class="detail-box">
+
+                    <label>
+                        APPLICATION ID
+                    </label>
+
+                    <strong id="modalId">
+                        APP00125
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <label>
+                        APPLICANT
+                    </label>
+
+                    <strong id="modalApplicantName">
+                        user
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <label>
+                        SCHEME
+                    </label>
+
+                    <strong id="modalSchemeName">
+                        PM-YASASVI Scholarship Scheme
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <label>
+                        APPLIED DATE
+                    </label>
+
+                    <strong id="modalDate">
+                        15 Oct 2026
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <label>
+                        DOCUMENTS
+                    </label>
+
+                    <strong id="modalDocuments">
+                        5 / 5
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <label>
+                        APPLICATION STATUS
+                    </label>
+
+                    <strong id="modalStatus">
+                        Pending
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        
+        <div class="modal-footer">
+            <button class="close-modal" type="button"
+                onclick="closeModal()">
+                Close
+            </button>
+
+            <button class="approve-large" type="button"
+                id="approveModalBtn"
+                onclick="approveFromModal()">
+                <i class="fa-solid fa-check"></i>
+                    Approve Application
+            </button>
+
+            <button class="close-modal" type="button"
+                id="rejectModalBtn"
+                style="background:#df4b4b;color:white;border-color:#df4b4b;"
+                onclick="openRejectionModal()">
+                <i class="fa-solid fa-xmark"></i>
+                    Reject Application
+            </button>
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<div class="modal" id="rejectionModal">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h2>Reject Application</h2>
+
+            <button class="close-btn" type="button"
+                    onclick="closeRejectionModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            <p id="rejectionSchemeName" class="rejection-scheme-name">
+                Scheme
+            </p>
+
+            <label class="rejectionReason" for="rejectionReason">
+                Reason for rejection
+            </label>
+
+            <textarea
+                id="rejectionReason"
+                maxlength="4000"
+                rows="4"
+                placeholder="Explain briefly why this application is rejected..."
+            ></textarea>
+
+            <p id="rejectionError" class="rejection-error"></p>
+        </div>
+
+        <div class="modal-footer">
+            <button class="close-modal" type="button"
+                    onclick="closeRejectionModal()">
+                Cancel
+            </button>
+
+            <button class="approve-large reject-confirm-btn"
+                    type="button"
+                    id="confirmRejectBtn"
+                    onclick="submitRejection()">
+                Confirm Rejection
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+/* =====================================================
+   SIDEBAR TOGGLE
+===================================================== */
+
+
+const API_BASE = "http://127.0.0.1:5000";
+
+let applications = [];
+let selectedApplication = null;
+let isSaving = false;
+
+const $ = (id) => document.getElementById(id);
+
+function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[char]);
+}
+
+async function apiRequest(path, options = {}) {
+    const response = await fetch(`${API_BASE}${path}`, {
+        credentials: "include",
+        ...options,
+        headers: {
+            ...(options.body ? {
+                "Content-Type": "application/json"
+            } : {}),
+            ...(options.headers || {})
+        }
+    });
+
+    const data = await response.json().catch(() => ({}));
+
+    if (!response.ok || data.success === false) {
+        throw new Error(
+            data.message || `Request failed (${response.status})`
+        );
+    }
+
+    return data;
+}
+
+/* SIDEBAR */
+
+$("menuBtn").addEventListener("click", () => {
+    $("sidebar").classList.toggle("closed");
+    $("main").classList.toggle("full");
+});
+
+/* ADMIN HEADER */
+
+async function loadAdminHeader() {
+    const badge = document.getElementById("unreadBadge");
+
+    try {
+        const data = await apiRequest("/api/admin/header");
+
+        const name =
+            data.admin_name ||
+            data.full_name ||
+            data.admin?.full_name ||
+            data.admin?.admin_name;
+
+        const unread =
+            data.unread_notifications ??
+            data.unread_count ??
+            data.unread ??
+            data.data?.unread_notifications;
+
+        if (name) {
+            document.getElementById("adminName").textContent = name;
+        }
+
+        if (badge && unread !== undefined && unread !== null) {
+            const count = Math.max(0, Number(unread) || 0);
+
+            badge.textContent = count > 99 ? "99+" : String(count);
+            badge.style.display = count > 0 ? "flex" : "none";
+            badge.setAttribute("aria-label", `${count} unread notifications`);
+        }
+    } catch (error) {
+        console.error("Unable to load admin header:", error);
+    }
+}
+/* APPLICATION LOADING */
+
+async function loadApplications() {
+    const tbody = $("applicationTable");
+
+    tbody.innerHTML = `
+        <tr>
+            <td colspan="7">Loading applications...</td>
+        </tr>
+    `;
+
+    try {
+        const data = await apiRequest("/api/admin/applications");
+
+        applications = Array.isArray(data.applications)
+            ? data.applications
+            : [];
+
+        renderSummary(data);
+        populateSchemeFilter();
+        filterApplications();
+
+    } catch (error) {
+        console.error("Unable to load applications:", error);
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="7">
+                    ${escapeHTML(error.message)}
+                </td>
+            </tr>
+        `;
+
+        alert(
+            "Unable to load applications. Please check your admin login, Flask server, and database."
+        );
+    }
+}
+
+/* SUMMARY CARDS */
+
+function renderSummary(data) {
+    $("totalApplications").textContent =
+        Number(data.total_applications) || 0;
+
+    $("pendingApplications").textContent =
+        Number(data.pending) || 0;
+
+    $("approvedApplications").textContent =
+        Number(data.approved) || 0;
+
+    $("rejectedApplications").textContent =
+        Number(data.rejected) || 0;
+}
+
+/* SCHEME FILTER */
+
+function populateSchemeFilter() {
+    const select = $("schemeFilter");
+    const previousValue = select.value;
+
+    const schemes = [
+        ...new Set(
+            applications
+                .map(app => app.scheme_name)
+                .filter(Boolean)
+        )
+    ].sort((a, b) => a.localeCompare(b));
+
+    select.innerHTML = "";
+
+    const allOption = document.createElement("option");
+    allOption.value = "all";
+    allOption.textContent = "All Schemes";
+    select.appendChild(allOption);
+
+    schemes.forEach(name => {
+        const option = document.createElement("option");
+        option.value = name;
+        option.textContent = name;
+        select.appendChild(option);
+    });
+
+    if (schemes.includes(previousValue)) {
+        select.value = previousValue;
+    } else {
+        select.value = "all";
+    }
+}
+
+/* DATE FORMATTING */
+
+function formatDate(value) {
+    if (!value) return "—";
+
+    const date = new Date(value);
+
+    if (Number.isNaN(date.getTime())) {
+        return String(value);
+    }
+
+    return date.toLocaleDateString("en-IN", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric"
+    });
+}
+
+/* STATUS BADGES */
+
+function statusClass(status) {
+    switch (status) {
+        case "Approved":
+            return "approved";
+        case "Rejected":
+            return "rejected";
+        case "Pending":
+            return "pending";
+        default:
+            return "pending";
+    }
+}
+
+/* RENDER APPLICATION TABLE */
+
+function renderApplications(rows) {
+    const tbody = $("applicationTable");
+
+    if (!rows.length) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="7">No applications found.</td>
+            </tr>
+        `;
+
+        updateShowing(0);
+        return;
+    }
+
+    tbody.innerHTML = rows.map(app => {
+        const id = Number(app.apply_id);
+        const name = app.full_name || "Unknown User";
+        const scheme = app.scheme_name || "Unknown Scheme";
+        const status = app.status || "Pending";
+        const initials = name
+            .trim()
+            .split(/\s+/)
+            .slice(0, 2)
+            .map(part => part[0] || "")
+            .join("")
+            .toUpperCase();
+
+        let actionButtons = `
+            <button class="action-btn view-btn"
+                    title="View application"
+                    data-action="view"
+                    data-id="${id}">
+                <i class="fa-regular fa-eye"></i>
+            </button>
+        `;
+
+        if (status === "Pending") {
+            actionButtons += `
+                <button class="action-btn approve-btn"
+                        title="Approve"
+                        data-action="approve"
+                        data-id="${id}">
+                    <i class="fa-solid fa-check"></i>
+                </button>
+
+                <button class="action-btn reject-btn"
+                        title="Reject"
+                        data-action="reject"
+                        data-id="${id}">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            `;
+        }
+
+        return `
+            <tr>
+                <td class="application-id">
+                    APP${String(id).padStart(5, "0")}
+                </td>
+
+                <td>
+                    <div class="user-cell">
+                        <div class="user-avatar">
+                            ${escapeHTML(initials)}
+                        </div>
+                        <div class="user-details">
+                            <strong>${escapeHTML(name)}</strong>
+                            <span>U${String(app.user_id).padStart(3, "0")}</span>
+                        </div>
+                    </div>
+                </td>
+
+                <td>
+                    <div class="scheme-name">
+                        ${escapeHTML(scheme)}
+                    </div>
+                </td>
+
+                <td>${escapeHTML(formatDate(app.applied_at))}</td>
+
+                <td>${Number(app.documents_count) || 0}</td>
+
+                <td>
+                    <span class="status ${statusClass(status)}">
+                        ${escapeHTML(status)}
+                    </span>
+                </td>
+
+                <td>
+                    <div class="actions">
+                        ${actionButtons}
+                    </div>
+                </td>
+            </tr>
+        `;
+    }).join("");
+
+    updateShowing(rows.length);
+}
+
+/* FILTERS */
+
+function filterApplications() {
+    const search = $("applicationSearch").value
+        .trim()
+        .toLowerCase();
+
+    const selectedStatus = $("statusFilter").value;
+    const selectedScheme = $("schemeFilter").value;
+
+    const filtered = applications.filter(app => {
+        const searchable = [
+            app.apply_id,
+            app.user_id,
+            app.full_name,
+            app.scheme_name,
+            app.status,
+            app.applied_at
+        ].join(" ").toLowerCase();
+
+        const matchesSearch = searchable.includes(search);
+
+        const matchesStatus =
+            selectedStatus === "all" ||
+            (app.status || "Pending") === selectedStatus;
+
+        const matchesScheme =
+            selectedScheme === "all" ||
+            app.scheme_name === selectedScheme;
+
+        return matchesSearch && matchesStatus && matchesScheme;
+    });
+
+    renderApplications(filtered);
+}
+
+$("applicationSearch").addEventListener(
+    "input",
+    filterApplications
+);
+
+$("statusFilter").addEventListener(
+    "change",
+    filterApplications
+);
+
+$("schemeFilter").addEventListener(
+    "change",
+    filterApplications
+);
+
+function updateShowing(count) {
+    $("showingText").textContent =
+        `Showing ${count} of ${applications.length} applications`;
+}
+
+/* FIND APPLICATION */
+
+function findApplication(id) {
+    return applications.find(
+        app => Number(app.apply_id) === Number(id)
+    );
+}
+
+/* VIEW DETAILS */
+
+function viewApplicationById(id) {
+    const app = findApplication(id);
+    if (!app) return;
+
+    selectedApplication = app;
+
+    $("modalId").textContent =
+        `APP${String(app.apply_id).padStart(5, "0")}`;
+
+    $("modalApplicant").textContent =
+        `Applicant: ${app.full_name || "Unknown User"}`;
+
+    $("modalApplicantName").textContent =
+        app.full_name || "Unknown User";
+
+    $("modalScheme").textContent =
+        app.scheme_name || "Unknown Scheme";
+
+    $("modalSchemeName").textContent =
+        app.scheme_name || "Unknown Scheme";
+
+    $("modalDate").textContent =
+        formatDate(app.applied_at);
+
+    $("modalDocuments").textContent =
+        Number(app.documents_count) || 0;
+
+    $("modalStatus").textContent =
+        app.status || "Pending";
+
+    const isPending = (app.status || "Pending") === "Pending";
+
+    $("approveModalBtn").style.display =
+        isPending ? "" : "none";
+
+    $("rejectModalBtn").style.display =
+        isPending ? "" : "none";
+
+    $("applicationModal").classList.add("show");
+}
+
+function closeModal() {
+    $("applicationModal").classList.remove("show");
+}
+
+$("applicationModal").addEventListener("click", event => {
+    if (event.target === $("applicationModal")) {
+        closeModal();
+    }
+});
+
+/* APPROVE */
+
+async function approveFromModal() {
+    if (!selectedApplication || isSaving) return;
+
+    const confirmed = confirm(
+        "Are you sure you want to approve this application?"
+    );
+
+    if (!confirmed) return;
+
+    await updateStatus(selectedApplication.apply_id, "Approved");
+}
+
+/* REJECT */
+
+function openRejectionModal() {
+    if (!selectedApplication) return;
+
+    $("rejectionSchemeName").textContent =
+        `Scheme: ${selectedApplication.scheme_name}`;
+
+    $("rejectionReason").value = "";
+    $("rejectionError").textContent = "";
+
+    $("rejectionModal").classList.add("show");
+}
+
+function closeRejectionModal() {
+    $("rejectionModal").classList.remove("show");
+}
+
+async function submitRejection() {
+    if (!selectedApplication || isSaving) return;
+
+    const reason = $("rejectionReason").value.trim();
+
+    if (!reason) {
+        $("rejectionError").textContent =
+            "Please enter the reason for rejection.";
+        return;
+    }
+
+    await updateStatus(
+        selectedApplication.apply_id,
+        "Rejected",
+        reason
+    );
+}
+
+/* SAVE STATUS TO MYSQL */
+
+async function updateStatus(applyId, status, reason = "") {
+    if (isSaving) return;
+
+    isSaving = true;
+
+    const approveButton = $("approveModalBtn");
+    const rejectButton = $("confirmRejectBtn");
+
+    approveButton.disabled = true;
+    rejectButton.disabled = true;
+
+    try {
+        const body = { status };
+
+        if (status === "Rejected") {
+            body.rejection_reason = reason;
+        }
+
+        const data = await apiRequest(
+            `/api/admin/applications/${applyId}/status`,
+            {
+                method: "PUT",
+                body: JSON.stringify(body)
+            }
+        );
+
+        closeModal();
+        closeRejectionModal();
+
+        alert(data.message || `Application ${status.toLowerCase()}.`);
+
+        // Reload real data and database summary counts.
+        await loadApplications();
+
+        if (selectedApplication) {
+            selectedApplication = findApplication(applyId) || null;
+        }
+
+    } catch (error) {
+        console.error("Status update failed:", error);
+
+        if (status === "Rejected") {
+            $("rejectionError").textContent = error.message;
+        } else {
+            alert(error.message);
+        }
+    } finally {
+        isSaving = false;
+        approveButton.disabled = false;
+        rejectButton.disabled = false;
+    }
+}
+
+/* TABLE ACTIONS */
+
+$("applicationTable").addEventListener("click", async event => {
+    const button = event.target.closest("button[data-action]");
+    if (!button || isSaving) return;
+
+    const id = Number(button.dataset.id);
+    const action = button.dataset.action;
+
+    if (action === "view") {
+        viewApplicationById(id);
+        return;
+    }
+
+    const app = findApplication(id);
+    if (!app) return;
+
+    if (action === "approve") {
+        const confirmed = confirm(
+            `Approve the application for ${app.full_name} — ${app.scheme_name}?`
+        );
+
+        if (confirmed) {
+            await updateStatus(id, "Approved");
+        }
+    }
+
+    if (action === "reject") {
+        selectedApplication = app;
+        openRejectionModal();
+    }
+});
+
+/* CLOSE MODALS WHEN CLICKING OUTSIDE */
+
+$("rejectionModal").addEventListener("click", event => {
+    if (event.target === $("rejectionModal")) {
+        closeRejectionModal();
+    }
+});
+
+/* INITIAL LOAD */
+
+loadAdminHeader();
+loadApplications();
+
+
+</script>
+<script src="../js/admin_logout.js"></script>
+</body>
+</html>

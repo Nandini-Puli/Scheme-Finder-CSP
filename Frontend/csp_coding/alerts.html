@@ -1,0 +1,2125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Scheme Finder - Alerts</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<script src="../js/auth_guard.js"></script>
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:"Poppins", sans-serif;
+    background:#eef7ff;
+    color:#124b84;
+}
+
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+.sidebar{
+    position:fixed;
+    top:0;
+    left:0;
+
+    width:260px;
+    height:100vh;
+
+    background:linear-gradient(
+        180deg,
+        #07509d 0%,
+        #064b98 55%,
+        #063f82 100%
+    );
+
+    color:white;
+
+    padding:18px 15px;
+
+    z-index:1000;
+
+    overflow:hidden;
+}
+
+
+/* =====================================================
+   SIDEBAR DECORATION
+===================================================== */
+
+.sidebar::after{
+    content:"";
+
+    position:absolute;
+
+    left:-70px;
+    bottom:60px;
+
+    width:350px;
+    height:300px;
+
+    background:
+        linear-gradient(
+            rgba(255,255,255,0.06),
+            rgba(255,255,255,0.01)
+        );
+
+    border-radius:50% 50% 0 0;
+
+    transform:translateY(80px);
+
+    z-index:1;
+}
+
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.logo{
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    height:65px;
+
+    padding-left:10px;
+
+    margin-bottom:25px;
+
+    position:relative;
+
+    z-index:3;
+}
+
+.logo img{
+    width:42px;
+    height:52px;
+
+    object-fit:contain;
+
+    filter:brightness(0) invert(1);
+}
+
+.logo-text{
+    font-size:24px;
+
+    font-weight:600;
+
+    color:white;
+
+    white-space:nowrap;
+}
+
+
+/* =====================================================
+   SIDEBAR MENU
+===================================================== */
+
+.menu{
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+    padding:0;
+
+    position:relative;
+
+    z-index:3;
+}
+
+.menu a{
+    width:100%;
+
+    height:52px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+    padding:0 14px;
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:16px;
+
+    font-weight:500;
+
+    border-radius:9px;
+
+    transition:.25s ease;
+}
+
+.menu a i{
+    width:26px;
+
+    text-align:center;
+
+    font-size:24px;
+}
+
+.menu a:hover{
+    background:rgba(255,255,255,0.12);
+}
+
+.menu a.active{
+    background:linear-gradient(
+        90deg,
+        #168cff,
+        #1685f4
+    );
+
+    box-shadow:
+        0 5px 15px rgba(0,126,255,0.25);
+}
+
+
+/* =====================================================
+   SIDEBAR FOOTER
+===================================================== */
+
+.sidebar-bottom{
+    position:absolute;
+
+    bottom:25px;
+    left:0;
+
+    width:100%;
+
+    text-align:center;
+
+    z-index:3;
+}
+
+.sidebar-bottom p{
+    color:white;
+
+    font-size:14px;
+
+    line-height:1.6;
+
+    opacity:0.95;
+}
+
+
+/* =====================================================
+   INDIAN TRICOLOR
+===================================================== */
+
+.india-line{
+    width:90px;
+    height:20px;
+
+    margin:8px auto 0;
+
+    position:relative;
+}
+
+.india-line::before{
+    content:"";
+
+    position:absolute;
+
+    width:75px;
+    height:5px;
+
+    background:#ff9933;
+
+    border-radius:50%;
+
+    left:8px;
+    top:2px;
+
+    transform:rotate(-10deg);
+}
+
+.india-line::after{
+    content:"";
+
+    position:absolute;
+
+    width:75px;
+    height:5px;
+
+    background:#138808;
+
+    border-radius:50%;
+
+    left:8px;
+    top:11px;
+
+    transform:rotate(-10deg);
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+    position:fixed;
+
+    top:0;
+    left:260px;
+    right:0;
+
+    height:73px;
+
+    background:white;
+
+    border-bottom:1px solid #dceaf5;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:flex-end;
+
+    padding:0 28px;
+
+    z-index:900;
+}
+
+
+/* =====================================================
+   HEADER RIGHT
+===================================================== */
+
+.header-right{
+    display:flex;
+
+    align-items:center;
+
+    gap:28px;
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+.search-box{
+    width:295px;
+    height:42px;
+
+    border:1px solid #d8e5f1;
+
+    border-radius:24px;
+
+    display:flex;
+
+    align-items:center;
+
+    padding:0 16px;
+
+    background:#fff;
+}
+
+.search-box i{
+    color:#3974aa;
+
+    font-size:16px;
+
+    margin-right:11px;
+}
+
+.search-box input{
+    width:100%;
+
+    border:none;
+
+    outline:none;
+
+    color:#315b84;
+
+    font-size:13px;
+}
+
+.search-box input::placeholder{
+    color:#7188a0;
+}
+
+
+/* =====================================================
+   NOTIFICATION
+===================================================== */
+
+.notification{
+    width:35px;
+    height:40px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    position:relative;
+
+    color:#0755a0;
+
+    font-size:23px;
+}
+
+.notification-number{
+    position:absolute;
+
+    top:0;
+    right:-3px;
+
+    width:17px;
+    height:17px;
+
+    background:#e51f36;
+
+    color:white;
+
+    font-size:10px;
+
+    font-weight:bold;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border:2px solid white;
+}
+
+
+/* =====================================================
+   PROFILE
+===================================================== */
+
+.profile{
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    cursor:pointer;
+}
+
+.profile-circle{
+    width:46px;
+    height:46px;
+
+    border-radius:50%;
+
+    background:#e4f1ff;
+
+    border:2px solid #d7eafa;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    color:#0759a5;
+
+    font-size:25px;
+}
+
+.profile-name{
+    font-size:16px;
+
+    font-weight:600;
+
+    color:#08457f;
+}
+
+.profile-arrow{
+    font-size:13px;
+
+    color:#0756a0;
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.main{
+    margin-left:260px;
+
+    padding-top:73px;
+
+    min-height:100vh;
+
+    background:
+        linear-gradient(
+            135deg,
+            #edf7ff,
+            #f6fbff
+        );
+}
+
+.content{
+    padding:27px 25px 40px;
+}
+
+
+/* =====================================================
+   PAGE HEADING
+===================================================== */
+
+.page-heading{
+    display:flex;
+
+    align-items:center;
+
+    gap:22px;
+
+    margin-bottom:20px;
+}
+
+.page-icon{
+    width:66px;
+    height:66px;
+
+    border-radius:50%;
+
+    background:#dceeff;
+
+    color:#0876df;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:34px;
+}
+
+.page-title h1{
+    color:#06447f;
+
+    font-size:30px;
+
+    margin-bottom:3px;
+}
+
+.page-title p{
+    color:#547395;
+
+    font-size:15px;
+}
+
+
+/* =====================================================
+   MAIN LAYOUT
+===================================================== */
+
+.alert-layout{
+    display:grid;
+
+    grid-template-columns:
+        minmax(600px,1fr)
+        410px;
+
+    gap:22px;
+
+    align-items:start;
+}
+
+
+/* =====================================================
+   LEFT ALERT AREA
+===================================================== */
+
+.alert-container{
+    background:rgba(255,255,255,.55);
+
+    border-radius:12px;
+
+    padding:0;
+}
+
+
+/* =====================================================
+   TABS
+===================================================== */
+
+.alert-tabs{
+    height:43px;
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr 1fr;
+
+    background:#eaf4fc;
+
+    border-radius:10px;
+
+    overflow:hidden;
+
+    margin-bottom:25px;
+}
+
+.alert-tab{
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:14px;
+
+    color:#456a93;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.alert-tab.active{
+    background:#0879ed;
+
+    color:white;
+
+    font-weight:600;
+
+    border-radius:9px;
+}
+
+
+/* =====================================================
+   ALERT CARD
+===================================================== */
+
+.alert-card{
+    min-height:126px;
+
+    background:white;
+
+    border:1px solid #d9e8f4;
+
+    border-radius:11px;
+
+    margin-bottom:10px;
+
+    padding:18px 20px;
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:20px;
+
+    box-shadow:
+        0 2px 7px rgba(28,94,143,.035);
+
+    transition:.2s;
+}
+
+.alert-card:hover{
+    transform:translateY(-1px);
+
+    box-shadow:
+        0 5px 15px rgba(28,94,143,.08);
+}
+
+
+/* =====================================================
+   ALERT ICON
+===================================================== */
+
+.alert-icon{
+    width:60px;
+    height:60px;
+
+    flex-shrink:0;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:26px;
+}
+
+.alert-icon.red{
+    background:#ffe1e9;
+    color:#ef2349;
+}
+
+.alert-icon.green{
+    background:#d8f8e8;
+    color:#0ca866;
+}
+
+.alert-icon.purple{
+    background:#e7dcff;
+    color:#7135d7;
+}
+
+.alert-icon.orange{
+    background:#ffedcf;
+    color:#ed9210;
+}
+
+.alert-icon.blue{
+    background:#dcefff;
+    color:#0875dd;
+}
+
+
+/* =====================================================
+   ALERT CONTENT
+===================================================== */
+
+.alert-content{
+    flex:1;
+
+    min-width:0;
+}
+
+.alert-title-row{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:15px;
+}
+
+.alert-title{
+    color:#06447f;
+
+    font-size:17px;
+
+    font-weight:700;
+
+    margin-bottom:5px;
+}
+
+.alert-description{
+    color:#547395;
+
+    font-size:13.5px;
+
+    line-height:1.6;
+
+    max-width:680px;
+}
+
+
+/* =====================================================
+   ALERT TYPE
+===================================================== */
+
+.alert-type{
+    flex-shrink:0;
+
+    padding:6px 13px;
+
+    border-radius:18px;
+
+    font-size:12px;
+
+    font-weight:600;
+}
+
+.alert-type.important{
+    color:#ed2346;
+    background:#ffe4eb;
+}
+
+.alert-type.new{
+    color:#13965a;
+    background:#e1f8eb;
+}
+
+.alert-type.update{
+    color:#0872d7;
+    background:#e2f1ff;
+}
+
+.alert-type.reminder{
+    color:#ed9210;
+    background:#fff0d9;
+}
+
+.alert-type.information{
+    color:#0872d7;
+    background:#e2f1ff;
+}
+
+
+/* =====================================================
+   ALERT DATE
+===================================================== */
+
+.alert-date{
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    margin-top:9px;
+
+    color:#547395;
+
+    font-size:12px;
+}
+
+.alert-date i{
+    color:#397bb4;
+}
+
+
+/* =====================================================
+   ARROW
+===================================================== */
+
+.alert-arrow{
+    width:20px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    align-self:center;
+
+    color:#5782a8;
+
+    font-size:17px;
+}
+
+
+/* =====================================================
+   RIGHT SIDE
+===================================================== */
+
+.right-panel{
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+}
+
+
+/* =====================================================
+   STAY INFORMED
+===================================================== */
+
+.informed-box{
+    min-height:148px;
+
+    background:white;
+
+    border:1px solid #d9e8f4;
+
+    border-radius:11px;
+
+    padding:22px 25px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 2px 8px rgba(28,94,143,.04);
+}
+
+.informed-content{
+    display:flex;
+
+    gap:18px;
+}
+
+.informed-icon{
+    color:#0875dc;
+
+    font-size:30px;
+
+    padding-top:2px;
+}
+
+.informed-text h2{
+    color:#06447f;
+
+    font-size:17px;
+
+    margin-bottom:7px;
+}
+
+.informed-text p{
+    color:#5c7897;
+
+    font-size:13px;
+
+    line-height:1.6;
+
+    max-width:225px;
+}
+
+
+/* =====================================================
+   BELL ILLUSTRATION
+===================================================== */
+
+.informed-illustration{
+    width:95px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    position:relative;
+}
+
+.big-bell{
+    color:#83b7e8;
+
+    font-size:57px;
+
+    transform:rotate(-10deg);
+}
+
+.paper-plane{
+    position:absolute;
+
+    right:0;
+    bottom:12px;
+
+    color:#087ce8;
+
+    font-size:25px;
+
+    transform:rotate(-20deg);
+}
+
+
+/* =====================================================
+   QUICK SUMMARY
+===================================================== */
+
+.summary-box{
+    background:white;
+
+    border:1px solid #d9e8f4;
+
+    border-radius:11px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 2px 8px rgba(28,94,143,.04);
+}
+
+.summary-header{
+    height:60px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:13px;
+
+    padding:0 22px;
+
+    color:#06447f;
+
+    font-size:17px;
+
+    font-weight:700;
+}
+
+.summary-header i{
+    color:#0875dc;
+
+    font-size:22px;
+}
+
+
+/* =====================================================
+   SUMMARY ROWS
+===================================================== */
+
+.summary-row{
+    min-height:64px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:13px;
+
+    padding:0 22px;
+
+    border-top:1px solid #edf3f8;
+}
+
+.summary-row-icon{
+    width:38px;
+    height:38px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:18px;
+}
+
+.summary-row-icon.red{
+    background:#ffe1e9;
+    color:#ef2349;
+}
+
+.summary-row-icon.green{
+    background:#d8f8e8;
+    color:#0ca866;
+}
+
+.summary-row-icon.blue{
+    background:#dcefff;
+    color:#0875dd;
+}
+
+.summary-row-icon.orange{
+    background:#ffedcf;
+    color:#ed9210;
+}
+
+.summary-row-title{
+    flex:1;
+
+    color:#28639a;
+
+    font-size:13px;
+}
+
+.summary-count{
+    color:#145aa0;
+
+    font-size:17px;
+
+    font-weight:600;
+}
+
+.summary-arrow{
+    color:#527da4;
+
+    font-size:15px;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:1100px){
+
+    .alert-layout{
+        grid-template-columns:1fr;
+    }
+
+    .right-panel{
+        display:grid;
+
+        grid-template-columns:1fr 1fr;
+    }
+
+    .search-box{
+        width:220px;
+    }
+}
+
+
+@media(max-width:800px){
+
+    .sidebar{
+        width:220px;
+    }
+
+    .header{
+        left:220px;
+    }
+
+    .main{
+        margin-left:220px;
+    }
+
+    .alert-layout{
+        grid-template-columns:1fr;
+    }
+
+    .right-panel{
+        display:flex;
+    }
+
+    .alert-title-row{
+        align-items:flex-start;
+    }
+
+    .logo-text{
+        font-size:20px;
+    }
+
+    .logo img{
+        width:38px;
+        height:48px;
+    }
+}
+
+
+@media(max-width:600px){
+
+    body{
+        overflow:auto;
+    }
+
+    .sidebar{
+        position:relative;
+
+        width:100%;
+        height:auto;
+
+        min-height:430px;
+    }
+
+    .header{
+        position:relative;
+
+        left:0;
+
+        width:100%;
+
+        height:73px;
+    }
+
+    .main{
+        margin-left:0;
+
+        padding-top:0;
+    }
+
+    .menu{
+        display:none;
+    }
+
+    .sidebar-bottom{
+        display:none;
+    }
+
+    .search-box{
+        display:none;
+    }
+
+    .profile-name,
+    .profile-arrow{
+        display:none;
+    }
+
+    .content{
+        padding:22px 14px;
+    }
+
+    .page-heading{
+        gap:13px;
+    }
+
+    .page-icon{
+        width:53px;
+        height:53px;
+
+        font-size:28px;
+    }
+
+    .page-title h1{
+        font-size:25px;
+    }
+
+    .page-title p{
+        font-size:13px;
+    }
+
+    .alert-tabs{
+        font-size:12px;
+    }
+
+    .alert-card{
+        padding:15px;
+
+        gap:12px;
+    }
+
+    .alert-icon{
+        width:48px;
+        height:48px;
+
+        font-size:21px;
+    }
+
+    .alert-title{
+        font-size:15px;
+    }
+
+    .alert-description{
+        font-size:12.5px;
+    }
+
+    .alert-title-row{
+        flex-direction:column;
+
+        gap:5px;
+    }
+
+    .alert-arrow{
+        display:none;
+    }
+
+    .informed-box{
+        padding:18px;
+    }
+
+    .informed-illustration{
+        display:none;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
+
+
+    <!-- LOGO -->
+
+    <div class="logo">
+
+        <img
+            src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg"
+            alt="Government of India">
+
+        <span class="logo-text">
+            Scheme Finder
+        </span>
+
+    </div>
+
+
+    <!-- NAVIGATION -->
+
+    <nav class="menu">
+
+
+        <a href="dashboard.html">
+
+            <i class="fa-solid fa-house"></i>
+
+            <span>Dashboard</span>
+
+        </a>
+
+
+        <a href="schemes.html">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <span>Schemes</span>
+
+        </a>
+
+
+        <a href="savedschemes.html">
+
+            <i class="fa-regular fa-heart"></i>
+
+            <span>Saved Schemes</span>
+
+        </a>
+
+
+        <a href="alerts.html" class="active">
+
+            <i class="fa-regular fa-bell"></i>
+
+            <span>Alerts</span>
+
+        </a>
+
+
+        <a href="profile.html">
+
+            <i class="fa-regular fa-user"></i>
+
+            <span>Profile</span>
+
+        </a>
+
+
+        <a href="settings.html">
+
+            <i class="fa-solid fa-gear"></i>
+
+            <span>Settings</span>
+
+        </a>
+
+
+        <a href="logout.html">
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+            <span>Logout</span>
+
+        </a>
+
+
+    </nav>
+
+
+    <!-- SIDEBAR FOOTER -->
+
+    <div class="sidebar-bottom">
+
+        <p>
+            Government Schemes<br>
+            for a Better Tomorrow
+        </p>
+
+        <div class="india-line"></div>
+
+    </div>
+
+
+</aside>
+
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+
+    <div class="header-right">
+
+
+        <!-- SEARCH -->
+
+        <div class="search-box">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="text"
+                placeholder="Search schemes..."
+            >
+
+        </div>
+
+
+        <!-- NOTIFICATION -->
+
+        <div class="notification">
+
+            <i class="fa-regular fa-bell"></i>
+
+            <span class="notification-number" id="unreadAlertCount">
+                0
+            </span>
+
+        </div>
+
+
+        <!-- PROFILE -->
+
+        <div class="profile">
+
+            <div class="profile-circle">
+
+                <i class="fa-regular fa-user"></i>
+
+            </div>
+
+            <span class="profile-name" id="profileName">
+                User
+            </span>
+
+            <i class="fa-solid fa-chevron-down profile-arrow"></i>
+
+        </div>
+
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main">
+
+
+<div class="content">
+
+
+    <!-- PAGE HEADING -->
+
+    <div class="page-heading">
+
+
+        <div class="page-icon">
+
+            <i class="fa-regular fa-bell"></i>
+
+        </div>
+
+
+        <div class="page-title">
+
+            <h1>
+                Alerts
+            </h1>
+
+            <p>
+                Stay updated with the latest scheme notifications,
+                deadlines and important updates.
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         ALERT LAYOUT
+    ================================================== -->
+
+    <div class="alert-layout">
+
+
+        <!-- =================================================
+             LEFT SIDE
+        ================================================== -->
+
+        <section class="alert-container">
+
+
+            <!-- TABS -->
+
+            <div class="alert-tabs">
+                <div class="alert-tab active" data-filter="all">
+                    All Alerts (<span id="allAlertsCount">0</span>)
+                </div>
+
+                <div class="alert-tab" data-filter="important">
+                    Important (<span id="importantAlertsCount">0</span>)
+                </div>
+
+                <div class="alert-tab" data-filter="general">
+                    General (<span id="generalAlertsCount">0</span>)
+                </div>
+            </div>
+
+            <div id="userAlertsList"></div>
+
+                <p id="alertsEmptyState"
+                    style="display:none; text-align:center; padding:30px 15px; color:#547395;">
+                    No notifications to display.
+                </p>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             RIGHT SIDE
+        ================================================== -->
+
+        <aside class="right-panel">
+
+
+            <!-- STAY INFORMED -->
+
+            <div class="informed-box">
+
+
+                <div class="informed-content">
+
+
+                    <div class="informed-icon">
+
+                        <i class="fa-solid fa-bell"></i>
+
+                    </div>
+
+
+                    <div class="informed-text">
+
+                        <h2>
+                            Stay Informed
+                        </h2>
+
+                        <p>
+                            Get notified about new schemes,
+                            application deadlines and important updates.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="informed-illustration">
+
+                    <i class="fa-solid fa-bell big-bell"></i>
+
+                    <i class="fa-solid fa-paper-plane paper-plane"></i>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- QUICK SUMMARY -->
+
+            <div class="summary-box">
+
+
+                <div class="summary-header">
+
+                    <i class="fa-solid fa-chart-column"></i>
+
+                    Quick Alerts Summary
+
+                </div>
+
+
+
+                <div class="summary-row">
+
+                    <div class="summary-row-icon red">
+
+                        <i class="fa-regular fa-calendar"></i>
+
+                    </div>
+
+                    <div class="summary-row-title">
+                        Important Alerts
+                    </div>
+
+                    <div class="summary-count" id="quickImportantCount">
+                        0
+                    </div>
+
+                    <div class="summary-arrow">
+
+                        <i class="fa-solid fa-chevron-right"></i>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="summary-row">
+
+                    <div class="summary-row-icon green">
+
+                        <i class="fa-solid fa-bullhorn"></i>
+
+                    </div>
+
+                    <div class="summary-row-title">
+                        New Schemes
+                    </div>
+
+                    <div class="summary-count" id="quickNewSchemesCount">
+                        0
+                    </div>
+
+                    <div class="summary-arrow">
+
+                        <i class="fa-solid fa-chevron-right"></i>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="summary-row">
+
+                    <div class="summary-row-icon blue">
+
+                        <i class="fa-solid fa-info"></i>
+
+                    </div>
+
+                    <div class="summary-row-title">
+                        Updates
+                    </div>
+
+                    <div class="summary-count" id="quickUpdatesCount">
+                        0
+                    </div>
+
+                    <div class="summary-arrow">
+
+                        <i class="fa-solid fa-chevron-right"></i>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="summary-row">
+
+                    <div class="summary-row-icon orange">
+
+                        <i class="fa-regular fa-clock"></i>
+
+                    </div>
+
+                    <div class="summary-row-title">
+                        Reminders
+                    </div>
+
+                    <div class="summary-count" id="quickRemindersCount">
+                        0
+                    </div>
+
+                    <div class="summary-arrow">
+
+                        <i class="fa-solid fa-chevron-right"></i>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </aside>
+
+
+    </div>
+
+
+</div>
+
+</main>
+
+<script>
+"use strict";
+
+const API_BASE = "http://127.0.0.1:5000/api";
+
+let userAlerts = [];
+let activeAlertFilter = "all";
+
+
+fetch("http://127.0.0.1:5000/api/user/profile", {
+    credentials: "include"
+})
+.then(response => response.json())
+.then(data => {
+    const nameElement = document.getElementById("profileName");
+
+    if (nameElement) {
+        nameElement.textContent = data.full_name || "User";
+    }
+})
+.catch(error => console.error("Error loading user name:", error));
+
+async function userAlertRequest(path, options = {}) {
+    const response = await fetch(`${API_BASE}${path}`, {
+        credentials: "include",
+        ...options,
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            ...(options.headers || {})
+        }
+    });
+
+    const data = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+        throw new Error(
+            data.message || `Request failed: ${response.status}`
+        );
+    }
+
+    return data;
+}
+
+function escapeAlertHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[char]);
+}
+
+function getAlertType(alert) {
+    const type = String(
+        alert.notification_type || alert.category || "general"
+    ).toLowerCase().replace(/[\s-]+/g, "_");
+
+    if ([
+        "important",
+        "new",
+        "new_scheme",
+        "scheme_update",
+        "apply_click",
+        "application",
+        "application_deadline",
+        "reminder"
+    ].includes(type)) {
+        return "important";
+    }
+
+    return "general";
+}
+
+function getAlertLabel(alert) {
+    const type = String(
+        alert.notification_type || alert.category || "general"
+    ).toLowerCase().replace(/[\s-]+/g, "_");
+
+    const labels = {
+        important: "Important",
+        new: "New",
+        new_scheme: "New",
+        scheme_update: "New",
+        apply_click: "Important",
+        application: "Important",
+        application_deadline: "Reminder",
+        reminder: "Reminder",
+        update: "Update",
+        information: "Information",
+        general: "General"
+    };
+
+    return labels[type] || "Information";
+}
+
+function getAlertAppearance(alert) {
+    const type = String(
+        alert.notification_type || alert.category || "general"
+    ).toLowerCase().replace(/[\s-]+/g, "_");
+
+    if (["reminder", "application_deadline"].includes(type)) {
+        return {
+            icon: "fa-regular fa-clock",
+            color: "orange",
+            badge: "reminder"
+        };
+    }
+
+    if (["new", "new_scheme", "scheme_update"].includes(type)) {
+        return {
+            icon: "fa-solid fa-bullhorn",
+            color: "green",
+            badge: "new"
+        };
+    }
+
+    if (["application", "apply_click"].includes(type)) {
+        return {
+            icon: "fa-regular fa-file-lines",
+            color: "red",
+            badge: "important"
+        };
+    }
+
+    if (["update", "application_status"].includes(type)) {
+        return {
+            icon: "fa-regular fa-file-lines",
+            color: "purple",
+            badge: "update"
+        };
+    }
+
+    if (getAlertType(alert) === "important") {
+        return {
+            icon: "fa-solid fa-circle-exclamation",
+            color: "red",
+            badge: "important"
+        };
+    }
+
+    return {
+        icon: "fa-solid fa-info",
+        color: "blue",
+        badge: "information"
+    };
+}
+
+function formatAlertDate(value) {
+    if (!value) return "Date unavailable";
+
+    const date = new Date(value);
+
+    if (Number.isNaN(date.getTime())) {
+        return String(value);
+    }
+
+    return date.toLocaleDateString("en-IN", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric"
+    }) + " · " + date.toLocaleTimeString("en-IN", {
+        hour: "2-digit",
+        minute: "2-digit"
+    });
+}
+
+function isAlertRead(alert) {
+    return alert.is_read === true ||
+           alert.is_read === 1 ||
+           alert.is_read === "1";
+}
+
+function updateUserAlertSummary() {
+    const importantCount = userAlerts.filter(
+        alert => getAlertType(alert) === "important"
+    ).length;
+
+    const generalCount = userAlerts.filter(
+        alert => getAlertType(alert) === "general"
+    ).length;
+
+    const newSchemesCount = userAlerts.filter(alert => {
+        const type = String(
+            alert.notification_type || ""
+        ).toLowerCase().replace(/[\s-]+/g, "_");
+
+        return ["new", "new_scheme", "scheme_update"].includes(type);
+    }).length;
+
+    const reminderCount = userAlerts.filter(alert => {
+        const type = String(
+            alert.notification_type || ""
+        ).toLowerCase().replace(/[\s-]+/g, "_");
+
+        return ["reminder", "application_deadline"].includes(type);
+    }).length;
+
+    const unreadCount = userAlerts.filter(
+        alert => !isAlertRead(alert)
+    ).length;
+
+    const setText = (id, value) => {
+        const element = document.getElementById(id);
+        if (element) element.textContent = String(value);
+    };
+
+    setText("allAlertsCount", userAlerts.length);
+    setText("importantAlertsCount", importantCount);
+    setText("generalAlertsCount", generalCount);
+    setText("quickImportantCount", importantCount);
+    setText("quickNewSchemesCount", newSchemesCount);
+    setText("quickUpdatesCount", newSchemesCount);
+    setText("quickRemindersCount", reminderCount);
+    const badge = document.getElementById("unreadAlertCount");
+
+    if (badge) {
+        badge.textContent = unreadCount > 99
+            ? "99+"
+            : String(unreadCount);
+
+        badge.style.display = unreadCount > 0 ? "flex" : "none";
+        badge.setAttribute(
+            "aria-label",
+            `${unreadCount} unread notifications`
+        );
+    }
+}
+
+function renderUserAlerts() {
+    const list = document.getElementById("userAlertsList");
+    const emptyState = document.getElementById("alertsEmptyState");
+
+    if (!list || !emptyState) return;
+
+    const filteredAlerts = userAlerts.filter(alert => {
+        if (activeAlertFilter === "all") return true;
+
+        return getAlertType(alert) === activeAlertFilter;
+    });
+
+    list.replaceChildren();
+
+    emptyState.style.display =
+        filteredAlerts.length === 0 ? "block" : "none";
+
+    filteredAlerts.forEach(alert => {
+        const appearance = getAlertAppearance(alert);
+        const card = document.createElement("article");
+
+        card.className = "alert-card";
+        if (!isAlertRead(alert)) {
+            card.style.cursor = "pointer";
+
+            card.addEventListener("click", event => {
+                if (event.target.closest("button")) return;
+                markUserAlertRead(alert.notification_id);
+            });
+        }
+
+        if (!isAlertRead(alert)) {
+            card.style.borderLeft = "4px solid #0879ed";
+        }
+
+        const icon = document.createElement("div");
+        icon.className = `alert-icon ${appearance.color}`;
+
+        const iconElement = document.createElement("i");
+        iconElement.className = appearance.icon;
+        icon.appendChild(iconElement);
+
+        const content = document.createElement("div");
+        content.className = "alert-content";
+
+        const titleRow = document.createElement("div");
+        titleRow.className = "alert-title-row";
+
+        const textContainer = document.createElement("div");
+
+        const title = document.createElement("div");
+        title.className = "alert-title";
+        title.textContent = alert.title || "Notification";
+
+        const description = document.createElement("p");
+        description.className = "alert-description";
+        description.textContent = alert.message || "";
+
+        textContainer.append(title, description);
+
+        const badge = document.createElement("span");
+        badge.className = `alert-type ${appearance.badge}`;
+        badge.textContent = getAlertLabel(alert);
+
+        titleRow.append(textContainer, badge);
+
+        const date = document.createElement("div");
+        date.className = "alert-date";
+
+        const dateIcon = document.createElement("i");
+        dateIcon.className = "fa-regular fa-calendar";
+
+        date.append(
+            dateIcon,
+            document.createTextNode(
+                " " + formatAlertDate(alert.created_at)
+            )
+        );
+
+        content.append(titleRow, date);
+
+        const actions = document.createElement("div");
+        actions.style.display = "flex";
+        actions.style.flexDirection = "column";
+        actions.style.gap = "8px";
+        actions.style.alignSelf = "center";
+
+        const notificationId = alert.notification_id;
+
+        if (isAlertRead(alert)) {
+            const tick = document.createElement("span");
+            tick.innerHTML = '<i class="fa-solid fa-check"></i>';
+            tick.title = "Read";
+            tick.setAttribute("aria-label", "Notification read");
+            tick.style.cssText =
+                "color:#0ca866;font-size:20px;text-align:center;";
+            actions.appendChild(tick);
+        } else if (notificationId != null) {
+            const readButton = document.createElement("button");
+            readButton.type = "button";
+            readButton.innerHTML = '<i class="fa-solid fa-check"></i> Mark read';
+            readButton.title = "Mark notification as read";
+            readButton.style.cssText =
+                "border:0;background:none;color:#0875dd;" +
+                "cursor:pointer;font:inherit;font-size:12px;";
+
+            readButton.addEventListener("click", () => {
+                markUserAlertRead(notificationId);
+            });
+
+            actions.appendChild(readButton);
+        }
+
+        if (notificationId != null) {
+            const deleteButton = document.createElement("button");
+            deleteButton.type = "button";
+            deleteButton.textContent = "Delete";
+            deleteButton.style.cssText =
+                "border:0;background:none;color:#e51f36;" +
+                "cursor:pointer;font:inherit;font-size:12px;";
+
+            deleteButton.addEventListener("click", () => {
+                deleteUserAlert(notificationId);
+            });
+
+            actions.appendChild(deleteButton);
+        }
+
+        card.append(icon, content);
+
+        if (actions.childElementCount > 0) {
+            card.appendChild(actions);
+        }
+
+        list.appendChild(card);
+    });
+}
+
+async function loadUserAlerts() {
+    const list = document.getElementById("userAlertsList");
+    const emptyState = document.getElementById("alertsEmptyState");
+
+    try {
+        const data = await userAlertRequest("/user/alerts");
+
+        userAlerts = Array.isArray(data)
+            ? data
+            : (Array.isArray(data.alerts) ? data.alerts : []);
+
+        renderUserAlerts();
+        updateUserAlertSummary();
+
+    } catch (error) {
+        console.error("Could not load user alerts:", error);
+
+        userAlerts = [];
+        renderUserAlerts();
+        updateUserAlertSummary();
+
+        if (emptyState) {
+            emptyState.textContent =
+                "Unable to load notifications. Please try again.";
+            emptyState.style.display = "block";
+        }
+    }
+}
+
+async function markUserAlertRead(notificationId) {
+    try {
+        await userAlertRequest(
+            `/user/alerts/${encodeURIComponent(notificationId)}/read`,
+            {
+                method: "PATCH",
+                body: JSON.stringify({ is_read: true })
+            }
+        );
+
+        await loadUserAlerts();
+
+    } catch (error) {
+        alert(error.message || "Unable to mark notification as read.");
+    }
+}
+
+async function deleteUserAlert(notificationId) {
+    if (!confirm("Are you sure you want to delete this notification?")) {
+        return;
+    }
+
+    try {
+        await userAlertRequest(
+            `/user/alerts/${encodeURIComponent(notificationId)}`,
+            { method: "DELETE" }
+        );
+
+        await loadUserAlerts();
+
+    } catch (error) {
+        alert(error.message || "Unable to delete notification.");
+    }
+}
+
+function setupAlertTabs() {
+    const tabs = document.querySelectorAll(".alert-tab");
+
+    tabs.forEach(tab => {
+        tab.addEventListener("click", () => {
+            tabs.forEach(item => item.classList.remove("active"));
+
+            tab.classList.add("active");
+            activeAlertFilter = tab.dataset.filter || "all";
+
+            renderUserAlerts();
+        });
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    setupAlertTabs();
+    loadUserAlerts();
+});
+</script>
+
+</body>
+</html>

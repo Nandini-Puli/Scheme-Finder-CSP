@@ -1,0 +1,134 @@
+
+/* =====================================
+   SCHEME FINDER GLOBAL APPEARANCE
+   Default: Light
+===================================== */
+
+:root {
+    color-scheme: light;
+
+    --page-bg: #f4f7fb;
+    --card-bg: #ffffff;
+    --text-color: #24364b;
+    --muted-color: #6380a0;
+    --primary-color: #0b4380;
+    --border-color: #dce5ef;
+    --input-bg: #ffffff;
+    --hover-bg: #edf4fb;
+    --shadow-color: rgba(0, 0, 0, 0.08);
+}
+
+/* LIGHT THEME */
+html[data-theme="light"] {
+    color-scheme: light;
+}
+
+/* DARK THEME */
+html[data-theme="dark"] {
+    color-scheme: dark;
+
+    --page-bg: #111827;
+    --card-bg: #1f2937;
+    --text-color: #f3f4f6;
+    --muted-color: #b0bdce;
+    --primary-color: #93c5fd;
+    --border-color: #374151;
+    --input-bg: #273449;
+    --hover-bg: #334155;
+    --shadow-color: rgba(0, 0, 0, 0.25);
+}
+
+/* PAGE */
+html,
+body {
+    background-color: var(--page-bg);
+    color: var(--text-color);
+}
+
+/* COMMON CARDS AND CONTAINERS */
+.card,
+.summary-card,
+.notification-card,
+.profile-card,
+.settings-card,
+.modal-content {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border-color: var(--border-color);
+    box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+/* TEXT */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+label,
+li {
+    color: inherit;
+}
+
+/* MUTED TEXT */
+small,
+.text-muted,
+.description,
+.subtitle {
+    color: var(--muted-color);
+}
+
+/* INPUTS */
+input,
+select,
+textarea {
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--muted-color);
+    opacity: 1;
+}
+
+/* LINKS */
+a {
+    color: var(--primary-color);
+}
+
+/* NAVIGATION HOVER */
+.settings-menu a:hover,
+nav a:hover {
+    background-color: var(--hover-bg);
+}
+
+/* ACTIVE SETTINGS ITEM */
+.settings-menu a.active {
+    background-color: var(--hover-bg);
+    color: var(--primary-color);
+}
+
+/* BORDERS */
+hr {
+    border-color: var(--border-color);
+}
+
+/* SMOOTH TRANSITIONS */
+body,
+.card,
+.summary-card,
+.notification-card,
+.profile-card,
+.settings-card,
+.modal-content,
+input,
+select,
+textarea {
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+}

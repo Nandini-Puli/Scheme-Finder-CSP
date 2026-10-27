@@ -1,0 +1,2144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Scheme Finder - Alerts & Notifications</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+/* =========================
+   RESET
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    background: #f4f8fc;
+    color: #163b68;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    width: 260px;
+    height: 100vh;
+
+    background: linear-gradient(
+        180deg,
+        #064b91,
+        #0755a5,
+        #0866c4
+    );
+
+    color: white;
+
+    z-index: 1000;
+
+    transition: 0.3s ease;
+
+    display: flex;
+    flex-direction: column;
+
+    box-shadow: 4px 0 18px rgba(0,0,0,0.08);
+}
+
+.sidebar.closed {
+    width: 0;
+    overflow: hidden;
+}
+
+
+/* =========================
+   SIDEBAR HEADER
+========================= */
+
+.sidebar-header {
+    height: 95px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 18px;
+
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+.sidebar-logo {
+    width: 42px;
+    height: 42px;
+
+    background: white;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 10px;
+
+    color: #0755a5;
+
+    flex-shrink: 0;
+}
+
+.sidebar-logo i {
+    font-size: 20px;
+}
+
+.logo-text h2 {
+    font-size: 17px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.logo-text p {
+    font-size: 8px;
+    opacity: 0.85;
+    white-space: nowrap;
+}
+
+
+/* =========================
+   SIDEBAR MENU
+========================= */
+
+.sidebar-menu {
+    padding: 20px 12px;
+    flex: 1;
+}
+
+.sidebar-menu a {
+    display: flex;
+    align-items: center;
+
+    text-decoration: none;
+
+    color: rgba(255,255,255,0.9);
+
+    padding: 13px 15px;
+
+    margin-bottom: 5px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+
+    transition: 0.25s;
+}
+
+.sidebar-menu a i {
+    width: 28px;
+    font-size: 15px;
+}
+
+.sidebar-menu a:hover {
+    background: rgba(255,255,255,0.13);
+    color: white;
+}
+
+.sidebar-menu a.active {
+    background: white;
+    color: #0755a5;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+
+/* =========================
+   SIDEBAR FOOTER
+========================= */
+
+.sidebar-footer {
+    padding: 15px;
+    text-align: center;
+
+    font-size: 9px;
+
+    opacity: 0.8;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.main {
+    margin-left: 260px;
+
+    min-height: 100vh;
+
+    transition: 0.3s ease;
+}
+
+.main.full {
+    margin-left: 0;
+}
+
+
+/* =========================
+   TOP HEADER
+========================= */
+
+.top-header {
+    height: 72px;
+
+    background: white;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 28px;
+
+    border-bottom: 1px solid #e5edf5;
+
+    position: sticky;
+    top: 0;
+
+    z-index: 500;
+}
+
+
+/* =========================
+   THREE LINE BUTTON
+========================= */
+
+.menu-btn {
+    width: 42px;
+    height: 42px;
+
+    border: none;
+
+    background: #f1f6fc;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 5px;
+
+    margin-right: 20px;
+}
+
+.menu-btn span {
+    width: 20px;
+    height: 2px;
+
+    background: #0755a5;
+
+    border-radius: 5px;
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.header-search {
+    width: 350px;
+    height: 40px;
+
+    border: 1px solid #d7e3ef;
+
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 13px;
+
+    background: #f9fbfd;
+}
+
+.header-search i {
+    color: #8ca4bd;
+
+    margin-right: 9px;
+}
+
+.header-search input {
+    border: none;
+    outline: none;
+
+    width: 100%;
+
+    background: transparent;
+
+    font-size: 12px;
+}
+
+
+/* =========================
+   HEADER RIGHT
+========================= */
+
+.header-right {
+    margin-left: auto;
+
+    display: flex;
+    align-items: center;
+
+    gap: 20px;
+}
+
+.notification {
+    position: relative;
+
+    width: 38px;
+    height: 38px;
+
+    border-radius: 50%;
+
+    background: #f1f6fc;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #0755a5;
+}
+
+.badge {
+    position: absolute;
+
+    top: -2px;
+    right: -1px;
+
+    width: 16px;
+    height: 16px;
+
+    border-radius: 50%;
+
+    background: #ef4444;
+
+    color: white;
+
+    font-size: 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-profile {
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+}
+
+.admin-avatar {
+    width: 38px;
+    height: 38px;
+
+    background: #e7f1ff;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #0755a5;
+}
+
+.admin-info strong {
+    display: block;
+
+    font-size: 12px;
+
+    color: #163b68;
+}
+
+.admin-info span {
+    font-size: 9px;
+
+    color: #7d94aa;
+}
+
+.admin-name-link {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.admin-name-link:hover {
+    color: #2563eb;
+}
+
+.admin-name-link:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 3px;
+    border-radius: 3px;
+}
+
+
+/* =========================
+   CONTENT
+========================= */
+
+.content {
+    padding: 30px;
+}
+
+
+/* =========================
+   PAGE TITLE
+========================= */
+
+.page-title {
+    margin-bottom: 25px;
+}
+
+.page-title h1 {
+    font-size: 24px;
+
+    color: #123f70;
+
+    font-weight: 600;
+}
+
+.page-title p {
+    font-size: 12px;
+
+    color: #7890a8;
+
+    margin-top: 4px;
+}
+
+
+/* =========================
+   SUMMARY CARDS
+========================= */
+
+.summary-cards {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 15px;
+
+    margin-bottom: 22px;
+}
+
+.summary-card {
+    background: white;
+
+    border: 1px solid #e3edf6;
+
+    border-radius: 10px;
+
+    padding: 16px 18px;
+
+    display: flex;
+    align-items: center;
+
+    box-shadow:
+        0 3px 12px rgba(40,75,110,0.04);
+}
+
+.summary-icon {
+    width: 42px;
+    height: 42px;
+
+    border-radius: 9px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 12px;
+}
+
+.summary-icon.blue {
+    background: #e7f2ff;
+    color: #1672d4;
+}
+
+.summary-icon.orange {
+    background: #fff4df;
+    color: #e58b18;
+}
+
+.summary-icon.green {
+    background: #e7f9f0;
+    color: #13a66a;
+}
+
+.summary-icon.red {
+    background: #fff0f0;
+    color: #e04b4b;
+}
+
+.summary-info span {
+    display: block;
+
+    font-size: 9px;
+
+    color: #8096aa;
+}
+
+.summary-info strong {
+    display: block;
+
+    font-size: 20px;
+
+    color: #164675;
+
+    margin-top: 2px;
+}
+
+
+/* =========================
+   MAIN GRID
+========================= */
+
+.alert-layout {
+    display: grid;
+
+    grid-template-columns: 1.7fr 1fr;
+
+    gap: 20px;
+
+    align-items: start;
+}
+
+
+/* =========================
+   ALERT CARD
+========================= */
+
+.alert-card {
+    background: white;
+
+    border: 1px solid #e3edf6;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 3px 12px rgba(40,75,110,0.05);
+
+    overflow: hidden;
+}
+
+
+/* =========================
+   ALERT HEADER
+========================= */
+
+.alert-header {
+    padding: 18px 20px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    border-bottom: 1px solid #edf2f7;
+}
+
+.alert-header h2 {
+    font-size: 15px;
+
+    color: #164675;
+}
+
+.mark-all {
+    border: none;
+
+    background: transparent;
+
+    color: #1672d4;
+
+    font-size: 9px;
+
+    cursor: pointer;
+}
+
+.mark-all:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================
+   FILTER TABS
+========================= */
+
+.alert-tabs {
+    display: flex;
+
+    gap: 6px;
+
+    padding: 14px 20px;
+
+    border-bottom: 1px solid #edf2f7;
+}
+
+.alert-tab {
+    border: none;
+
+    background: #f3f7fb;
+
+    color: #6e879d;
+
+    padding: 7px 13px;
+
+    border-radius: 6px;
+
+    font-size: 9px;
+
+    cursor: pointer;
+}
+
+.alert-tab.active {
+    background: #e7f2ff;
+
+    color: #176fc8;
+
+    font-weight: 600;
+}
+
+
+/* =========================
+   ALERT ITEM
+========================= */
+
+.alert-item {
+    padding: 17px 20px;
+
+    display: flex;
+
+    gap: 13px;
+
+    border-bottom: 1px solid #edf2f6;
+
+    transition: 0.2s;
+
+    position: relative;
+}
+
+.alert-item:hover {
+    background: #fbfdff;
+}
+
+.alert-item.unread {
+    background: #f8fbff;
+}
+
+.alert-item.unread::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    width: 3px;
+
+    background: #1672d4;
+}
+
+
+/* =========================
+   ALERT ICON
+========================= */
+
+.alert-icon {
+    width: 40px;
+    height: 40px;
+
+    min-width: 40px;
+
+    border-radius: 9px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.alert-icon.important {
+    background: #fff0f0;
+    color: #e04b4b;
+}
+
+.alert-icon.scheme {
+    background: #e7f2ff;
+    color: #1672d4;
+}
+
+.alert-icon.system {
+    background: #eeeaff;
+    color: #7657d8;
+}
+
+.alert-icon.success {
+    background: #e7f9f0;
+    color: #13a66a;
+}
+
+
+/* =========================
+   ALERT CONTENT
+========================= */
+
+.alert-content {
+    flex: 1;
+}
+
+.alert-content h3 {
+    font-size: 11px;
+
+    color: #234e75;
+
+    font-weight: 600;
+
+    margin-bottom: 4px;
+}
+
+.alert-content p {
+    font-size: 9px;
+
+    line-height: 1.6;
+
+    color: #71889e;
+
+    max-width: 600px;
+}
+
+.alert-time {
+    display: block;
+
+    font-size: 8px;
+
+    color: #9aabba;
+
+    margin-top: 7px;
+}
+
+
+/* =========================
+   ALERT TYPE
+========================= */
+
+.alert-type {
+    display: inline-block;
+
+    padding: 3px 7px;
+
+    border-radius: 12px;
+
+    font-size: 7px;
+
+    margin-top: 7px;
+}
+
+.type-important {
+    background: #fff0f0;
+    color: #d94a4a;
+}
+
+.type-general {
+    background: #e7f2ff;
+    color: #2775bd;
+}
+
+.type-success {
+    background: #e7f9f0;
+    color: #15945b;
+}
+
+
+/* =========================
+   ALERT ACTIONS
+========================= */
+
+.alert-actions {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 5px;
+}
+
+.small-action {
+    width: 27px;
+    height: 27px;
+
+    border: 1px solid #dce7f0;
+
+    background: white;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    color: #6c849a;
+
+    font-size: 9px;
+}
+
+.small-action:hover {
+    background: #eef6ff;
+
+    color: #1672d4;
+}
+
+
+/* =========================
+   RIGHT PANEL
+========================= */
+
+.right-panel {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+
+/* =========================
+   CREATE ALERT
+========================= */
+
+.create-card {
+    background: white;
+
+    border: 1px solid #e3edf6;
+
+    border-radius: 12px;
+
+    padding: 20px;
+
+    box-shadow:
+        0 3px 12px rgba(40,75,110,0.05);
+}
+
+.create-card h2 {
+    font-size: 15px;
+
+    color: #164675;
+
+    margin-bottom: 17px;
+}
+
+.form-group {
+    margin-bottom: 13px;
+}
+
+.form-group label {
+    display: block;
+
+    font-size: 9px;
+
+    color: #526f89;
+
+    margin-bottom: 6px;
+
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+
+    border: 1px solid #d8e4ee;
+
+    border-radius: 6px;
+
+    outline: none;
+
+    font-size: 9px;
+
+    color: #526f89;
+
+    padding: 10px;
+
+    background: #fbfdff;
+}
+
+.form-group textarea {
+    height: 80px;
+
+    resize: none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #6aa9e5;
+
+    background: white;
+}
+
+.send-btn {
+    width: 100%;
+
+    border: none;
+
+    background: #176fc8;
+
+    color: white;
+
+    padding: 11px;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    font-size: 10px;
+
+    font-weight: 500;
+
+    margin-top: 4px;
+}
+
+.send-btn:hover {
+    background: #0755a5;
+}
+
+
+/* =========================
+   INFO CARD
+========================= */
+
+.info-card {
+    background: linear-gradient(
+        135deg,
+        #0755a5,
+        #1672d4
+    );
+
+    color: white;
+
+    border-radius: 12px;
+
+    padding: 20px;
+
+    box-shadow:
+        0 5px 16px rgba(22,114,212,0.18);
+}
+
+.info-card h3 {
+    font-size: 14px;
+
+    margin-bottom: 8px;
+}
+
+.info-card p {
+    font-size: 9px;
+
+    line-height: 1.7;
+
+    opacity: 0.9;
+
+    margin-bottom: 14px;
+}
+
+.info-stat {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding-top: 12px;
+
+    border-top: 1px solid rgba(255,255,255,0.2);
+}
+
+.info-stat span {
+    font-size: 8px;
+
+    opacity: 0.8;
+}
+
+.info-stat strong {
+    font-size: 14px;
+}
+
+
+/* =========================
+   EMPTY STATE
+========================= */
+
+.no-alerts {
+    display: none;
+
+    text-align: center;
+
+    padding: 45px 20px;
+
+    color: #91a3b4;
+}
+
+.no-alerts i {
+    font-size: 30px;
+
+    margin-bottom: 10px;
+
+    color: #c2d1de;
+}
+
+.no-alerts p {
+    font-size: 10px;
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+.toast {
+    position: fixed;
+
+    right: 25px;
+
+    bottom: 25px;
+
+    background: #163f6d;
+
+    color: white;
+
+    padding: 12px 17px;
+
+    border-radius: 7px;
+
+    font-size: 10px;
+
+    box-shadow:
+        0 7px 25px rgba(0,0,0,0.15);
+
+    transform: translateY(100px);
+
+    opacity: 0;
+
+    transition: 0.3s;
+
+    z-index: 3000;
+}
+
+.toast.show {
+    transform: translateY(0);
+
+    opacity: 1;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1100px) {
+
+    .summary-cards {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .alert-layout {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media(max-width:750px) {
+
+    .main {
+        margin-left: 0;
+    }
+
+    .header-search {
+        display: none;
+    }
+
+    .content {
+        padding: 20px;
+    }
+
+    .admin-info {
+        display: none;
+    }
+
+    .summary-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .alert-tabs {
+        overflow-x: auto;
+    }
+
+    .alert-item {
+        padding: 15px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-header">
+
+        <div class="sidebar-logo">
+            <i class="fa-solid fa-landmark"></i>
+        </div>
+
+        <div class="logo-text">
+
+            <h2>Scheme Finder</h2>
+
+            <p>Government Schemes</p>
+
+        </div>
+
+    </div>
+
+
+    <nav class="sidebar-menu">
+
+        <a href="admin_dashboard.html">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Dashboard</span>
+        </a>
+
+        <a href="admin_schemes.html">
+            <i class="fa-solid fa-layer-group"></i>
+            <span>Schemes</span>
+        </a>
+
+        <a href="admin_users.html">
+            <i class="fa-solid fa-users"></i>
+            <span>Users</span>
+        </a>
+
+        <a href="admin_applications.html">
+            <i class="fa-solid fa-file-lines"></i>
+            <span>Applications</span>
+        </a>
+
+        <a href="admin_alerts.html" class="active">
+            <i class="fa-solid fa-bell"></i>
+            <span>Alerts & Notifications</span>
+        </a>
+
+        <a href="admin_reports.html">
+            <i class="fa-solid fa-chart-pie"></i>
+            <span>Reports</span>
+        </a>
+
+        <a href="admin_settings.html">
+            <i class="fa-solid fa-gear"></i>
+            <span>Settings</span>
+        </a>
+
+        <a href="admin_logout.html">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Logout</span>
+        </a>
+
+    </nav>
+
+
+    <div class="sidebar-footer">
+
+        Government of India<br>
+        Scheme Finder Admin Portal
+
+    </div>
+
+</aside>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main" id="main">
+
+
+    <!-- HEADER -->
+
+    <header class="top-header">
+
+
+        <button
+            class="menu-btn"
+            id="menuBtn"
+        >
+
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </button>
+
+
+        <div class="header-search">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="text"
+                placeholder="Search schemes, users, applications..."
+            >
+
+        </div>
+
+
+        <div class="header-right">
+
+
+            
+            <div class="notification"
+                role="link"
+                tabindex="0"
+                title="View notifications"
+                style="cursor:pointer;"
+                onclick="window.location.href='admin_alerts.html'"
+                onkeydown="if(event.key==='Enter'||event.key===' ')
+                {
+                    event.preventDefault();
+                    window.location.href='admin_alerts.html';
+                }">
+
+                <i class="fa-regular fa-bell"></i>
+
+                <span class="badge" id="adminUnreadBadge" style="display:none;">0</span>
+            </div>
+
+
+
+            <div class="admin-profile">
+
+                <div class="admin-avatar">
+
+                    <i class="fa-solid fa-user-shield"></i>
+
+                </div>
+
+                <div class="admin-info">
+
+                    <a href="admin_settings.html" class="admin-name-link">
+                        <strong id="adminName">Admin</strong>
+                    </a>
+
+                    <span>Administrator</span>
+
+                </div>
+
+                <i
+                    class="fa-solid fa-chevron-down"
+                    style="font-size:9px;color:#8095aa;"
+                ></i>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =================================================
+         CONTENT
+    ================================================== -->
+
+    <section class="content">
+
+
+        <div class="page-title">
+
+            <h1>
+                Alerts & Notifications
+            </h1>
+
+            <p>
+                Create, manage and monitor important
+                notifications for users and scheme updates.
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             SUMMARY
+        ================================================== -->
+
+        <div class="summary-cards">
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon blue">
+
+                    <i class="fa-solid fa-bell"></i>
+
+                </div>
+
+                <div class="summary-info">
+
+                    <span>Total Notifications</span>
+
+                    <strong id="totalNotifications">0</strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon orange">
+
+                    <i class="fa-solid fa-envelope"></i>
+
+                </div>
+
+                <div class="summary-info">
+
+                    <span>Unread</span>
+
+                    <strong id="unreadNotifications">0</strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon green">
+
+                    <i class="fa-solid fa-paper-plane"></i>
+
+                </div>
+
+                <div class="summary-info">
+
+                    <span>Sent Today</span>
+
+                    <strong id="sentTodayCount">0</strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon red">
+
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+
+                </div>
+
+                <div class="summary-info">
+
+                    <span>Important</span>
+
+                    <strong id="importantNotifications">0</strong>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =================================================
+            ALERT LAYOUT
+        ================================================== -->
+
+        <div class="alert-layout">
+
+
+            <!-- LEFT -->
+
+            <div class="alert-card">
+
+
+                <div class="alert-header">
+
+                    <h2>
+                        Recent Notifications
+                    </h2>
+
+                    <button 
+                        class="mark-all" 
+                        onclick="markAllAdminAlertsRead()"
+                    >
+                        Mark all as read
+
+                    </button>
+
+                </div>
+
+
+                <!-- TABS -->
+
+                <div class="alert-tabs">
+                    <button class="alert-tab active" data-filter="all">
+                        All <span id="allCount">(0)</span>
+                    </button>
+
+                    <button class="alert-tab" data-filter="important">
+                        Important <span id="importantCount">(0)</span>
+                    </button>
+
+                    <button class="alert-tab" data-filter="new">
+                        Schemes <span id="schemeCount">(0)</span>
+                    </button>
+
+                    <button class="alert-tab" data-filter="system">
+                        System <span id="systemCount">(0)</span>
+                    </button>
+                </div>
+
+                <!-- REAL ALERTS WILL BE INSERTED HERE -->
+                <div id="adminAlertsList"></div>
+
+                    <div class="no-alerts" id="noAlerts">
+                        <i class="fa-regular fa-bell-slash"></i>
+                            <p>No notifications found.</p>
+                    </div>
+            </div>        
+
+            <!-- =================================================
+                RIGHT PANEL
+            ================================================== -->
+
+            <div class="right-panel">
+
+
+                <!-- CREATE NOTIFICATION -->
+
+                <div class="create-card">
+
+                    <h2>
+                        Create Notification
+                    </h2>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Notification Title
+                        </label>
+
+                        <input
+                            type="text"
+                            id="notificationTitle"
+                            placeholder="Enter notification title"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Notification Type
+                        </label>
+
+                        <select id="notificationType">
+                            <option value="important">Important</option>
+                            <option value="new">Scheme Update</option>
+                            <option value="system">System</option>
+                            <option value="general">General</option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Target Audience
+                        </label>
+
+                        <select id="targetAudience">
+                            <option value="all">All Users</option>
+                            <option value="Education">Education</option>
+                            <option value="Unemployed">Unemployed</option>
+                            <option value="Entrepreneurship">Entrepreneurship</option>
+                            <option value="Internship">Internship</option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Message
+                        </label>
+
+                        <textarea
+                            id="notificationMessage"
+                            placeholder="Write notification message..."
+                        ></textarea>
+
+                    </div>
+
+
+                    <button class="send-btn" 
+                            onclick="sendAdminNotification()"
+                    >
+                        <i class="fa-solid fa-paper-plane"></i>
+                        Send Notification
+                    </button>
+
+                </div>
+
+
+                <!-- INFORMATION -->
+
+                <div class="info-card">
+
+                    <h3>
+                        Notification Summary
+                    </h3>
+
+                    <p>
+                        Keep users informed about scheme
+                        deadlines, new schemes, application
+                        updates and important portal information.
+                    </p>
+
+
+                    <div class="info-stat">
+
+                        <span>
+                            Delivery Rate
+                        </span>
+
+                        <strong>
+                            98.5%
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- =====================================================
+     TOAST
+===================================================== -->
+
+<div
+    class="toast"
+    id="toast"
+>
+    Notification sent successfully.
+</div>
+
+<script>
+
+
+"use strict";
+
+// For a phone on the same Wi-Fi, replace 127.0.0.1 with your
+// computer's LAN IP. Keep localhost for a browser on the Flask machine.
+const API_BASE = "http://127.0.0.1:5000/api";
+
+let adminAlerts = [];
+let activeFilter = "all";
+let isLoadingAlerts = false;
+
+async function adminAlertRequest(path, options = {}) {
+    const response = await fetch(`${API_BASE}${path}`, {
+        credentials: "include",
+        ...options,
+        headers: {
+            Accept: "application/json",
+            ...(options.body !== undefined
+                ? { "Content-Type": "application/json" }
+                : {}),
+            ...(options.headers || {})
+        }
+    });
+
+    const data = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+        throw new Error(
+            data.message || `Request failed (${response.status})`
+        );
+    }
+
+    return data;
+}
+
+function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[char]);
+}
+
+function getAlertId(alert) {
+    return alert.alert_id ?? alert.notification_id ?? null;
+}
+
+
+async function loadAdminName() {
+    const nameElement = document.getElementById("adminName");
+
+    if (!nameElement) return;
+
+    try {
+        const response = await fetch(
+            `${API_BASE}/admin/header`,
+            { credentials: "include" }
+        );
+
+        if (!response.ok) {
+            throw new Error("Failed to load admin name");
+        }
+
+        const data = await response.json();
+
+        nameElement.textContent =
+            data.admin_name ||
+            data.full_name ||
+            data.name ||
+            "Admin";
+
+    } catch (error) {
+        console.error("Admin name loading error:", error);
+        nameElement.textContent = "Admin";
+    }
+}
+
+
+function getAlertType(alert) {
+    const value = String(
+        alert.notification_type || alert.category || "general"
+    ).toLowerCase();
+
+    if (["important", "apply_click", "application"].includes(value)) {
+        return "important";
+    }
+
+    if (["new", "scheme", "scheme_update"].includes(value)) {
+        return "new";
+    }
+
+    if (["system", "registration"].includes(value)) {
+        return "system";
+    }
+
+    return "general";
+}
+
+function getAlertTitle(alert) {
+    const type = getAlertType(alert);
+
+    return alert.title ||
+        alert.scheme_name ||
+        (type === "important"
+            ? "Important Notification"
+            : type === "system"
+                ? "System Notification"
+                : type === "new"
+                    ? "Scheme Update"
+                    : "Notification");
+}
+
+function isAlertRead(alert) {
+    return (
+        alert.is_read === true ||
+        alert.is_read === 1 ||
+        alert.is_read === "1"
+    );
+}
+
+function parseAlertDate(value) {
+    if (!value) return null;
+
+    const normalized = typeof value === "string"
+        ? value.replace(" ", "T")
+        : value;
+
+    const parsed = new Date(normalized);
+
+    return Number.isNaN(parsed.getTime()) ? null : parsed;
+}
+
+function formatAlertDate(value) {
+    const date = parseAlertDate(value);
+
+    if (!date) return "Date unavailable";
+
+    return date.toLocaleString([], {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+    });
+}
+
+function alertIcon(type) {
+    const icons = {
+        important: "fa-triangle-exclamation",
+        new: "fa-graduation-cap",
+        system: "fa-shield-halved",
+        general: "fa-bell"
+    };
+
+    return `<i class="fa-solid ${icons[type] || icons.general}"></i>`;
+}
+
+function alertLabel(type) {
+    const labels = {
+        important: "Important",
+        new: "Scheme Update",
+        system: "System",
+        general: "General"
+    };
+
+    return labels[type] || labels.general;
+}
+
+function alertIconClass(type) {
+    const classes = {
+        important: "important",
+        new: "scheme",
+        system: "system",
+        general: "success"
+    };
+
+    return classes[type] || classes.general;
+}
+
+function alertLabelClass(type) {
+    if (type === "important") return "type-important";
+    if (type === "new" || type === "general") return "type-general";
+    return "type-success";
+}
+
+function renderAdminAlerts() {
+    const list = document.getElementById("adminAlertsList");
+    const empty = document.getElementById("noAlerts");
+
+    if (!list || !empty) return;
+
+    const filtered = adminAlerts.filter(alert => {
+        if (activeFilter === "all") return true;
+        return getAlertType(alert) === activeFilter;
+    });
+
+    list.innerHTML = filtered.map(alert => {
+        const type = getAlertType(alert);
+        const read = isAlertRead(alert);
+        const id = getAlertId(alert);
+
+        // Alerts without an ID can be displayed, but cannot be changed.
+        const hasId = id !== null && id !== undefined && id !== "";
+
+        return `
+            <article
+                class="alert-item ${read ? "" : "unread"}"
+                data-type="${type}"
+            >
+                <div class="alert-icon ${alertIconClass(type)}">
+                    ${alertIcon(type)}
+                </div>
+
+                <div class="alert-content">
+                    <h3>${escapeHTML(getAlertTitle(alert))}</h3>
+
+                    <p>${escapeHTML(alert.message || "")}</p>
+
+                    <span class="alert-type ${alertLabelClass(type)}">
+                        ${escapeHTML(alertLabel(type))}
+                    </span>
+
+                    <span class="alert-time">
+                        ${escapeHTML(formatAlertDate(alert.created_at))}
+                    </span>
+                </div>
+
+                <div class="alert-actions">
+                    ${!read && hasId ? `
+                        <button
+                            class="small-action"
+                            type="button"
+                            title="Mark as read"
+                            aria-label="Mark notification as read"
+                            data-action="read"
+                            data-id="${escapeHTML(id)}"
+                        >
+                            <i class="fa-solid fa-check"></i>
+                        </button>
+                    ` : ""}
+
+                    ${hasId ? `
+                        <button
+                            class="small-action"
+                            type="button"
+                            title="Delete notification"
+                            aria-label="Delete notification"
+                            data-action="delete"
+                            data-id="${escapeHTML(id)}"
+                        >
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    ` : ""}
+                </div>
+            </article>
+        `;
+    }).join("");
+
+    empty.style.display = filtered.length ? "none" : "block";
+
+    const emptyMessage = empty.querySelector("p");
+
+    if (emptyMessage) {
+        emptyMessage.textContent = filtered.length
+            ? ""
+            : "No notifications found.";
+    }
+}
+
+
+function updateAdminAlertSummary() {
+    const now = new Date();
+
+    const unread = adminAlerts.filter(
+        alert => !isAlertRead(alert)
+    ).length;
+
+    const important = adminAlerts.filter(
+        alert => getAlertType(alert) === "important"
+    ).length;
+
+    const schemes = adminAlerts.filter(
+        alert => getAlertType(alert) === "new"
+    ).length;
+
+    const systems = adminAlerts.filter(
+        alert => getAlertType(alert) === "system"
+    ).length;
+
+    // Count admin notification campaigns created today.
+    const sentTodayCount = adminAlerts.filter(alert => {
+        if (alert.source !== "admin_sent") {
+            return false;
+        }
+
+        const createdAt = parseAlertDate(alert.created_at);
+
+        if (!createdAt) {
+            console.warn(
+                "Invalid admin notification date:",
+                alert.created_at
+            );
+            return false;
+        }
+
+        return (
+            createdAt.getFullYear() === now.getFullYear() &&
+            createdAt.getMonth() === now.getMonth() &&
+            createdAt.getDate() === now.getDate()
+        );
+    }).length;
+
+    const setText = (id, value) => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.textContent = String(value);
+        }
+    };
+
+    setText("totalNotifications", adminAlerts.length);
+    setText("unreadNotifications", unread);
+    setText("sentTodayCount", sentTodayCount);
+    setText("importantNotifications", important);
+
+    setText("allCount", `(${adminAlerts.length})`);
+    setText("importantCount", `(${important})`);
+    setText("schemeCount", `(${schemes})`);
+    setText("systemCount", `(${systems})`);
+
+    const badge = document.getElementById("adminUnreadBadge");
+
+    if (badge) {
+        badge.textContent = unread > 99 ? "99+" : String(unread);
+        badge.style.display = unread > 0 ? "flex" : "none";
+        badge.setAttribute(
+            "aria-label",
+            `${unread} unread notifications`
+        );
+    }
+
+    console.log("Admin sent today:", sentTodayCount);
+    console.log(
+        "Admin sent history:",
+        adminAlerts.filter(alert => alert.source === "admin_sent")
+    );
+}
+
+
+async function loadAdminAlerts() {
+    if (isLoadingAlerts) return;
+
+    isLoadingAlerts = true;
+
+    const list = document.getElementById("adminAlertsList");
+    const empty = document.getElementById("noAlerts");
+
+    if (list && adminAlerts.length === 0) {
+        list.innerHTML = "";
+    }
+
+    try {
+        const data = await adminAlertRequest("/admin/alerts");
+
+        if (Array.isArray(data)) {
+            adminAlerts = data;
+        } else if (Array.isArray(data.alerts)) {
+            adminAlerts = data.alerts;
+        } else if (Array.isArray(data.notifications)) {
+            adminAlerts = data.notifications;
+        } else {
+            throw new Error(
+                "Unexpected notification response format."
+            );
+        }
+
+        renderAdminAlerts();
+        updateAdminAlertSummary();
+
+    } catch (error) {
+        console.error("Unable to load admin alerts:", error);
+
+        if (empty) {
+            empty.style.display = "block";
+
+            const message = empty.querySelector("p");
+            if (message) {
+                message.textContent =
+                    error.message || "Unable to load notifications.";
+            }
+        }
+
+    } finally {
+        isLoadingAlerts = false;
+    }
+}
+
+function filterAlerts(filter, button) {
+    activeFilter = filter;
+
+    document.querySelectorAll(".alert-tab").forEach(tab => {
+        tab.classList.toggle("active", tab === button);
+    });
+
+    renderAdminAlerts();
+}
+
+async function markAdminAlertRead(notificationId) {
+    try {
+        await adminAlertRequest(
+            `/admin/alerts/${encodeURIComponent(notificationId)}/read`,
+            { method: "PATCH" }
+        );
+
+        await loadAdminAlerts();
+
+    } catch (error) {
+        console.error("Unable to mark alert as read:", error);
+        alert(error.message || "Unable to update notification.");
+    }
+}
+
+async function deleteAdminAlert(notificationId) {
+    if (!confirm("Delete this notification?")) return;
+
+    try {
+        await adminAlertRequest(
+            `/admin/alerts/${encodeURIComponent(notificationId)}`,
+            { method: "DELETE" }
+        );
+
+        await loadAdminAlerts();
+
+    } catch (error) {
+        console.error("Unable to delete alert:", error);
+        alert(error.message || "Unable to delete notification.");
+    }
+}
+
+async function markAllAdminAlertsRead() {
+    try {
+        await adminAlertRequest("/admin/alerts/read-all", {
+            method: "PATCH"
+        });
+
+        await loadAdminAlerts();
+
+    } catch (error) {
+        console.error("Unable to mark all alerts as read:", error);
+        alert(error.message || "Unable to update notifications.");
+    }
+}
+
+async function sendAdminNotification() {
+    const titleInput = document.getElementById("notificationTitle");
+    const typeInput = document.getElementById("notificationType");
+    const audienceInput = document.getElementById("targetAudience");
+    const messageInput = document.getElementById("notificationMessage");
+    const sendButton = document.querySelector(".send-btn");
+
+    const title = titleInput.value.trim();
+    const message = messageInput.value.trim();
+    const selectedAudience = audienceInput.value;
+
+    if (!title || !message) {
+        alert("Enter both a notification title and message.");
+        return;
+    }
+
+    if (sendButton) sendButton.disabled = true;
+
+    const payload = {
+        title,
+        message,
+        notification_type: typeInput.value,
+        audience: selectedAudience === "all" ? "all" : "category",
+        category: selectedAudience === "all" ? null : selectedAudience
+    };
+
+    try {
+        const result = await adminAlertRequest(
+            "/admin/notifications",
+            {
+                method: "POST",
+                body: JSON.stringify(payload)
+            }
+        );
+
+        showToast(
+            result.message || "Notification sent successfully."
+        );
+
+        titleInput.value = "";
+        messageInput.value = "";
+
+        await loadAdminAlerts();
+
+    } catch (error) {
+        console.error("Unable to send notification:", error);
+        alert(error.message || "Unable to send notification.");
+
+    } finally {
+        if (sendButton) sendButton.disabled = false;
+    }
+}
+
+function showToast(message) {
+    const toast = document.getElementById("toast");
+
+    if (!toast) return;
+
+    toast.textContent = message;
+    toast.classList.add("show");
+
+    window.setTimeout(() => {
+        toast.classList.remove("show");
+    }, 3000);
+}
+
+// Use delegated events so rendered alert actions work after every refresh.
+document.addEventListener("click", event => {
+    const tab = event.target.closest(".alert-tab");
+
+    if (tab) {
+        filterAlerts(tab.dataset.filter, tab);
+        return;
+    }
+
+    const actionButton = event.target.closest("[data-action]");
+
+    if (!actionButton) return;
+
+    const id = actionButton.dataset.id;
+    if (!id) return;
+
+    if (actionButton.dataset.action === "read") {
+        markAdminAlertRead(id);
+    } else if (actionButton.dataset.action === "delete") {
+        deleteAdminAlert(id);
+    }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    loadAdminAlerts();
+    loadAdminName();
+});
+
+</script>
+<script src="../js/admin_logout.js"></script>
+
+</body>
+</html>

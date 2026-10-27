@@ -1,0 +1,2412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Scheme Finder - Settings</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<script src="../js/auth_guard.js"></script>
+<link rel="stylesheet" href="../css/appearance.css">
+<script src="../js/appearance.js" defer></script>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#eef7ff;
+    color:#123f78;
+}
+
+/* =====================================================
+   SIDEBAR - SAME AS LOGOUT PAGE
+===================================================== */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    width:260px;
+    height:100vh;
+
+    background:linear-gradient(
+        180deg,
+        #07509d 0%,
+        #064b98 55%,
+        #063f82 100%
+    );
+
+    color:white;
+    padding:18px 15px;
+
+    z-index:1000;
+    overflow:hidden;
+}
+
+/* Decorative shape */
+
+.sidebar::after{
+    content:"";
+
+    position:absolute;
+    left:-70px;
+    bottom:60px;
+
+    width:350px;
+    height:300px;
+
+    background:
+        linear-gradient(
+            rgba(255,255,255,0.06),
+            rgba(255,255,255,0.01)
+        );
+
+    border-radius:50% 50% 0 0;
+
+    transform:translateY(80px);
+}
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:15px;
+
+    height:65px;
+    padding-left:10px;
+
+    margin-bottom:25px;
+
+    position:relative;
+    z-index:2;
+}
+
+.logo img{
+    width:42px;
+    height:52px;
+
+    object-fit:contain;
+
+    filter:brightness(0) invert(1);
+}
+
+.logo-text{
+    font-size:24px;
+    font-weight:600;
+
+    color:white;
+    white-space:nowrap;
+}
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+.nav-menu{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+
+    position:relative;
+    z-index:2;
+}
+
+.nav-item{
+    width:100%;
+    height:52px;
+
+    display:flex;
+    align-items:center;
+
+    gap:20px;
+
+    padding:0 14px;
+
+    color:white;
+    text-decoration:none;
+
+    font-size:16px;
+    font-weight:500;
+
+    border-radius:9px;
+
+    transition:0.25s ease;
+}
+
+.nav-item i{
+    width:26px;
+    text-align:center;
+    font-size:24px;
+}
+
+.nav-item:hover{
+    background:rgba(255,255,255,0.12);
+}
+
+/* Active Settings */
+
+.nav-item.active{
+    background:linear-gradient(
+        90deg,
+        #168cff,
+        #1685f4
+    );
+
+    box-shadow:
+        0 5px 15px rgba(0,126,255,0.25);
+}
+
+/* =====================================================
+   SIDEBAR FOOTER
+===================================================== */
+
+.sidebar-footer{
+    position:absolute;
+
+    bottom:25px;
+    left:0;
+
+    width:100%;
+
+    text-align:center;
+
+    z-index:3;
+}
+
+.sidebar-footer p{
+    color:white;
+
+    font-size:14px;
+    line-height:1.6;
+
+    opacity:0.95;
+}
+
+/* Indian tricolor curve */
+
+.tricolor{
+    width:90px;
+    height:20px;
+
+    margin:8px auto 0;
+
+    position:relative;
+}
+
+.tricolor::before{
+    content:"";
+
+    position:absolute;
+
+    width:75px;
+    height:5px;
+
+    background:#ff9933;
+
+    border-radius:50%;
+
+    left:8px;
+    top:2px;
+
+    transform:rotate(-10deg);
+}
+
+.tricolor::after{
+    content:"";
+
+    position:absolute;
+
+    width:75px;
+    height:5px;
+
+    background:#138808;
+
+    border-radius:50%;
+
+    left:8px;
+    top:11px;
+
+    transform:rotate(-10deg);
+}
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.main{
+    margin-left:260px;
+    min-height:100vh;
+}
+
+/* =====================================================
+   TOP BAR
+===================================================== */
+
+.topbar{
+    height:74px;
+
+    background:white;
+
+    border-bottom:1px solid #dbeaf7;
+
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+
+    padding:0 28px;
+
+    gap:27px;
+}
+
+/* Notification */
+
+.notification{
+    position:relative;
+
+    font-size:25px;
+
+    color:#07509e;
+
+    cursor:pointer;
+}
+
+.notification .badge{
+    position:absolute;
+
+    top:-5px;
+    right:-7px;
+
+    width:16px;
+    height:16px;
+
+    background:#e9253f;
+
+    color:white;
+
+    font-size:9px;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-weight:600;
+}
+
+/* Profile */
+
+.top-profile{
+    display:flex;
+    align-items:center;
+
+    gap:12px;
+
+    cursor:pointer;
+}
+
+.profile-circle{
+    width:45px;
+    height:45px;
+
+    border-radius:50%;
+
+    background:#e5f2ff;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#07509e;
+
+    font-size:24px;
+}
+
+.top-profile span{
+    font-weight:600;
+    color:#123f78;
+}
+
+.top-profile i{
+    font-size:14px;
+    color:#07509e;
+}
+
+/* =====================================================
+   CONTENT
+===================================================== */
+
+.content{
+    padding:25px 30px 40px;
+}
+
+/* Page Heading */
+
+.page-heading{
+    display:flex;
+    align-items:center;
+
+    gap:18px;
+
+    margin-bottom:20px;
+}
+
+.heading-icon{
+    width:65px;
+    height:65px;
+
+    border-radius:50%;
+
+    background:#dff0ff;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#0865ca;
+
+    font-size:30px;
+}
+
+.page-heading h1{
+    font-size:30px;
+
+    color:#0a4383;
+
+    font-weight:700;
+}
+
+.page-heading p{
+    margin-top:2px;
+
+    font-size:15px;
+
+    color:#52739a;
+}
+
+/* =====================================================
+   SETTINGS LAYOUT
+===================================================== */
+
+.settings-layout{
+    display:grid;
+
+    grid-template-columns:275px 1fr;
+
+    gap:22px;
+}
+
+/* Left settings menu */
+
+.settings-menu{
+    background:white;
+
+    border:1px solid #dceaf6;
+
+    border-radius:10px;
+
+    padding:14px 10px;
+
+    min-height:790px;
+
+    box-shadow:0 2px 10px rgba(40,100,160,0.04);
+}
+
+.settings-menu a{
+    height:55px;
+
+    display:flex;
+    align-items:center;
+
+    gap:18px;
+
+    padding:0 15px;
+
+    border-radius:8px;
+
+    text-decoration:none;
+
+    color:#365b83;
+
+    font-size:15px;
+
+    margin-bottom:4px;
+}
+
+.settings-menu a i{
+    width:28px;
+
+    text-align:center;
+
+    font-size:22px;
+}
+
+.settings-menu a:hover{
+    background:#edf6ff;
+}
+
+.settings-menu a.active{
+    background:#dceeff;
+
+    color:#1264b9;
+
+    font-weight:600;
+}
+
+/* =====================================================
+   RIGHT CONTENT
+===================================================== */
+
+.right-content{
+    display:flex;
+
+    flex-direction:column;
+
+    gap:16px;
+}
+
+/* Card */
+
+.card{
+    background:white;
+
+    border:1px solid #dceaf6;
+
+    border-radius:10px;
+
+    box-shadow:0 2px 10px rgba(40,100,160,0.04);
+}
+
+/* Card heading */
+
+.card-heading{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:18px 20px 10px;
+}
+
+.card-title{
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+}
+
+.card-title-icon{
+    width:43px;
+    height:43px;
+
+    border-radius:50%;
+
+    background:#e0f0ff;
+
+    color:#0867c9;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:21px;
+}
+
+.card-title h2{
+    font-size:19px;
+
+    color:#0b4380;
+}
+
+.card-title p{
+    font-size:13px;
+
+    color:#6380a0;
+
+    margin-top:2px;
+}
+
+/* Edit button */
+
+.edit-btn{
+    height:42px;
+
+    padding:0 20px;
+
+    border-radius:9px;
+
+    border:1px solid #c9e0f4;
+
+    background:#f5faff;
+
+    color:#0a68c9;
+
+    font-family:Poppins;
+
+    font-size:14px;
+
+    font-weight:500;
+
+    cursor:pointer;
+}
+
+.edit-btn i{
+    margin-right:7px;
+}
+
+.edit-btn:hover{
+    background:#e7f4ff;
+}
+
+/* =====================================================
+   ACCOUNT PROFILE
+===================================================== */
+
+.account-profile{
+    margin:0 18px 0;
+
+    border:1px solid #dfebf6;
+
+    border-radius:9px 9px 0 0;
+
+    padding:12px 18px;
+}
+
+.profile-info{
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+}
+
+.large-profile{
+    width:76px;
+    height:76px;
+
+    border-radius:50%;
+
+    background:#dceeff;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    color:#0968c9;
+
+    font-size:40px;
+}
+
+.profile-text h3{
+    font-size:19px;
+
+    color:#10457f;
+}
+
+.profile-text p{
+    font-size:14px;
+
+    color:#527394;
+
+    margin-top:2px;
+}
+
+.location{
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    margin-top:5px;
+}
+
+/* Account details */
+
+.account-details{
+    margin:0 18px 18px;
+
+    border:1px solid #dfebf6;
+
+    border-top:none;
+
+    border-radius:0 0 9px 9px;
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr 1fr;
+}
+
+.detail{
+    min-height:82px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    padding:15px 22px;
+
+    border-right:1px solid #e1edf7;
+}
+
+.detail:last-child{
+    border-right:none;
+}
+
+.detail i{
+    font-size:22px;
+
+    color:#0b66c5;
+}
+
+.detail label{
+    display:block;
+
+    color:#65809d;
+
+    font-size:13px;
+
+    margin-bottom:4px;
+}
+
+.detail strong{
+    color:#174b83;
+
+    font-size:14px;
+}
+
+/* =====================================================
+   NOTIFICATION CARD
+===================================================== */
+
+.notification-card{
+    padding-bottom:10px;
+}
+
+.save-btn{
+    background:#0878ed;
+
+    color:white;
+
+    border:none;
+
+    border-radius:9px;
+
+    height:42px;
+
+    padding:0 22px;
+
+    font-family:Poppins;
+
+    font-weight:500;
+
+    cursor:pointer;
+}
+
+.save-btn i{
+    margin-right:7px;
+}
+
+.notification-list{
+    margin:5px 18px 8px;
+
+    border:1px solid #dfebf6;
+
+    border-radius:9px;
+
+    overflow:hidden;
+}
+
+.notification-row{
+    min-height:74px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:12px 18px;
+
+    border-bottom:1px solid #e4eef7;
+}
+
+.notification-row:last-child{
+    border-bottom:none;
+}
+
+.notification-left{
+    display:flex;
+
+    align-items:center;
+
+    gap:17px;
+}
+
+.notification-icon{
+    width:40px;
+    height:40px;
+
+    border-radius:50%;
+
+    background:#e8f4ff;
+
+    color:#0968c9;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:19px;
+}
+
+.notification-text h4{
+    color:#174b83;
+
+    font-size:14px;
+
+    font-weight:600;
+}
+
+.notification-text p{
+    color:#6380a0;
+
+    font-size:12px;
+
+    margin-top:2px;
+}
+
+/* Toggle */
+
+.switch{
+    position:relative;
+
+    width:50px;
+    height:28px;
+}
+
+.switch input{
+    display:none;
+}
+
+.slider{
+    position:absolute;
+
+    inset:0;
+
+    background:#b8cde3;
+
+    border-radius:30px;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.slider:before{
+    content:"";
+
+    position:absolute;
+
+    width:20px;
+    height:20px;
+
+    left:4px;
+    top:4px;
+
+    background:white;
+
+    border-radius:50%;
+
+    transition:0.3s;
+}
+
+.switch input:checked + .slider{
+    background:#1685ed;
+}
+
+.switch input:checked + .slider:before{
+    transform:translateX(22px);
+}
+
+/* =====================================================
+   LANGUAGE
+===================================================== */
+
+.language-card{
+    min-height:82px;
+}
+
+.language-content{
+    padding:8px 18px 15px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+}
+
+.language-left{
+    display:flex;
+
+    align-items:center;
+
+    gap:17px;
+}
+
+.language-icon{
+    width:43px;
+    height:43px;
+
+    border-radius:50%;
+
+    background:#e2f2ff;
+
+    color:#0867c9;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:21px;
+}
+
+.language-text h4{
+    color:#174b83;
+
+    font-size:15px;
+}
+
+.language-text p{
+    color:#67829f;
+
+    font-size:12px;
+}
+
+.language-select{
+    width:230px;
+    height:44px;
+
+    border:1px solid #d7e6f3;
+
+    border-radius:12px;
+
+    background:white;
+
+    padding:0 15px;
+
+    color:#164b83;
+
+    font-family:Poppins;
+
+    outline:none;
+
+    cursor:pointer;
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:1100px){
+
+    .settings-layout{
+        grid-template-columns:220px 1fr;
+    }
+
+    .account-details{
+        grid-template-columns:1fr;
+    }
+
+    .detail{
+        border-right:none;
+
+        border-bottom:1px solid #e1edf7;
+    }
+
+    .detail:last-child{
+        border-bottom:none;
+    }
+}
+
+@media(max-width:850px){
+
+    .sidebar{
+        width:80px;
+    }
+
+    .logo-text,
+    .nav-item span,
+    .sidebar-footer{
+        display:none;
+    }
+
+    .logo{
+        justify-content:center;
+
+        padding-left:0;
+    }
+
+    .nav-item{
+        justify-content:center;
+
+        padding:0;
+    }
+
+    .nav-item i{
+        margin:0;
+    }
+
+    .main{
+        margin-left:80px;
+    }
+
+    .settings-layout{
+        grid-template-columns:1fr;
+    }
+
+    .settings-menu{
+        min-height:auto;
+    }
+
+    .settings-menu a{
+        display:inline-flex;
+
+        width:48%;
+    }
+
+    .topbar{
+        padding:0 15px;
+    }
+
+    .search-box{
+        width:220px;
+    }
+}
+
+@media(max-width:600px){
+
+    .content{
+        padding:18px 12px;
+    }
+
+    .search-box{
+        display:none;
+    }
+
+    .settings-menu a{
+        width:100%;
+    }
+
+    .card-heading{
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:12px;
+    }
+
+    .account-profile{
+        padding:15px;
+    }
+
+    .account-details{
+        margin:0 18px 18px;
+    }
+
+    .language-content{
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:15px;
+    }
+
+    .language-select{
+        width:100%;
+    }
+}
+
+
+/* ================================
+   SCHEME FINDER APPEARANCE THEMES
+================================ */
+
+/* LIGHT THEME */
+html[data-theme="light"] body {
+    background-color: #f4f8fc;
+    color: #183b60;
+}
+
+html[data-theme="light"] .card {
+    background-color: #ffffff;
+    color: #183b60;
+}
+
+/* DARK THEME */
+html[data-theme="dark"] body {
+    background-color: #121821;
+    color: #e6edf5;
+}
+
+html[data-theme="dark"] .card {
+    background-color: #1e2937;
+    color: #e6edf5;
+}
+
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3,
+html[data-theme="dark"] p,
+html[data-theme="dark"] label,
+html[data-theme="dark"] span {
+    color: #e6edf5;
+}
+
+html[data-theme="dark"] input,
+html[data-theme="dark"] select,
+html[data-theme="dark"] textarea {
+    background-color: #263445;
+    color: #ffffff;
+    border-color: #52657b;
+}
+
+html[data-theme="dark"] .settings-menu a {
+    color: #d5e2f0;
+}
+
+html[data-theme="dark"] .settings-menu a.active {
+    background-color: #263e59;
+    color: #ffffff;
+}
+
+/* SYSTEM THEME is resolved to light or dark by JavaScript */
+
+
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+
+        <!-- Government of India Emblem -->
+        <img
+            src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg"
+            alt="Government of India">
+
+        <span class="logo-text">
+            Scheme Finder
+        </span>
+
+    </div>
+
+
+    <nav class="nav-menu">
+
+        <a href="dashboard.html" class="nav-item">
+            <i class="fa-solid fa-house"></i>
+            <span>Dashboard</span>
+        </a>
+
+        <a href="schemes.html" class="nav-item">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span>Schemes</span>
+        </a>
+
+        <a href="savedschemes.html" class="nav-item">
+            <i class="fa-regular fa-heart"></i>
+            <span>Saved Schemes</span>
+        </a>
+
+        <a href="alerts.html" class="nav-item">
+            <i class="fa-regular fa-bell"></i>
+            <span>Alerts</span>
+        </a>
+
+        <a href="profile.html" class="nav-item">
+            <i class="fa-regular fa-user"></i>
+            <span>Profile</span>
+        </a>
+
+        <!-- ACTIVE SETTINGS -->
+        <a href="settings.html" class="nav-item active">
+            <i class="fa-solid fa-gear"></i>
+            <span>Settings</span>
+        </a>
+
+        <a href="logout.html" class="nav-item">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Logout</span>
+        </a>
+
+    </nav>
+
+
+    <!-- Sidebar Footer -->
+
+    <div class="sidebar-footer">
+
+        <p>
+            Government Schemes<br>
+            for a Better Tomorrow
+        </p>
+
+        <div class="tricolor"></div>
+
+    </div>
+
+</aside>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main">
+
+    <!-- TOP BAR -->
+
+    <header class="topbar">
+
+
+        <div class="notification">
+
+            <i class="fa-regular fa-bell"></i>
+
+            <span class="notification-number" id="unreadAlertCount">0</span>
+
+        </div>
+
+
+        <div class="top-profile">
+
+            <div class="profile-circle">
+
+                <i class="fa-regular fa-user"></i>
+
+            </div>
+
+            <span id="topUsername">User</span>
+
+            <i class="fa-solid fa-chevron-down"></i>
+
+        </div>
+
+    </header>
+
+
+    <!-- =================================================
+         CONTENT
+    ================================================= -->
+
+    <section class="content">
+
+
+        <!-- PAGE HEADING -->
+
+        <div class="page-heading">
+
+            <div class="heading-icon">
+
+                <i class="fa-solid fa-gear"></i>
+
+            </div>
+
+            <div>
+
+                <h1>Settings</h1>
+
+                <p>
+                    Manage your account and app preferences.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- SETTINGS LAYOUT -->
+
+        <div class="settings-layout">
+
+
+            <!-- LEFT SETTINGS MENU -->
+
+            <div class="settings-menu">
+
+                <a href="#" class="active">
+
+                    <i class="fa-regular fa-user"></i>
+
+                    <span>
+                        Account Settings
+                    </span>
+
+                </a>
+
+
+                <a href="#">
+
+                    <i class="fa-regular fa-bell"></i>
+
+                    <span>
+                        Notification Settings
+                    </span>
+
+                </a>
+
+                <a href="#">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                    <span>
+                        Privacy & Security
+                    </span>
+
+                </a>
+
+
+                <a href="#">
+
+                    <i class="fa-solid fa-palette"></i>
+
+                    <span>
+                        Appearance
+                    </span>
+
+                </a>
+
+
+                <a href="#">
+
+                    <i class="fa-regular fa-circle-question"></i>
+
+                    <span>
+                        Help & Support
+                    </span>
+
+                </a>
+
+            </div>
+
+
+            <!-- RIGHT CONTENT -->
+
+            <div class="right-content">
+
+
+                <!-- ACCOUNT SETTINGS -->
+
+                <div class="card">
+
+                    <div class="card-heading">
+
+                        <div class="card-title">
+
+                            <div class="card-title-icon">
+
+                                <i class="fa-regular fa-user"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h2>
+                                    Account Settings
+                                </h2>
+
+                                <p>
+                                    Update your personal information and account details.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PROFILE -->
+
+                    <div class="account-profile">
+
+                        <div class="profile-info">
+
+                            <div class="large-profile">
+
+                                <i class="fa-regular fa-user"></i>
+
+                            </div>
+
+
+                            <div class="profile-text">
+
+                                <h3 id="profileName">
+                                    User
+                                </h3>
+
+                                <p id="profileEducation">
+                                    Category : -----
+                                </p>
+
+                                <p class="location" id="profileState">
+
+                                    <i class="fa-solid fa-location-dot"></i>
+
+                                    Location : -----
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- DETAILS -->
+
+                    <div class="account-details">
+
+
+                        <div class="detail">
+
+                            <i class="fa-regular fa-envelope"></i>
+
+                            <div>
+
+                                <label>
+                                    Email Address
+                                </label>
+
+                                <strong id="profileEmail">
+                                    ------
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <i class="fa-solid fa-phone"></i>
+
+                            <div>
+
+                                <label>
+                                    Mobile Number
+                                </label>
+
+                                <strong id="profileMobile">
+                                    ------
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <i class="fa-regular fa-calendar"></i>
+
+                            <div>
+
+                                <label>
+                                    Date of Birth
+                                </label>
+
+                                <strong id="profileDOB">
+                                    ------
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- NOTIFICATION SETTINGS -->
+
+                <div class="card notification-card">
+
+                    <div class="card-heading">
+
+                        <div class="card-title">
+
+                            <div class="card-title-icon">
+
+                                <i class="fa-regular fa-bell"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h2>
+                                    Notification Settings
+                                </h2>
+
+                                <p>
+                                    Choose what kind of notifications you want to receive.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <button class="save-btn">
+
+                            <i class="fa-regular fa-floppy-disk"></i>
+
+                            Save
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="notification-list">
+
+
+                        <!-- Scheme Updates -->
+
+                        <div class="notification-row">
+
+                            <div class="notification-left">
+
+                                <div class="notification-icon">
+
+                                    <i class="fa-solid fa-bullhorn"></i>
+
+                                </div>
+
+                                <div class="notification-text">
+
+                                    <h4>
+                                        Scheme Updates
+                                    </h4>
+
+                                    <p>
+                                        Get notified about new schemes and updates.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <label class="switch">
+
+                                <input
+                                    type="checkbox"
+                                    id="schemeUpdates"
+                                    checked>
+
+                                <span class="slider"></span>
+
+                            </label>
+
+                        </div>
+
+
+                        <!-- Application Status -->
+
+                        <div class="notification-row">
+
+                            <div class="notification-left">
+
+                                <div class="notification-icon">
+
+                                    <i class="fa-regular fa-file-lines"></i>
+
+                                </div>
+
+                                <div class="notification-text">
+
+                                    <h4>
+                                        Application Status
+                                    </h4>
+
+                                    <p>
+                                        Receive alerts on your application status.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <label class="switch">
+
+                                <input
+                                    type="checkbox"
+                                    checked>
+
+                                <span class="slider"></span>
+
+                            </label>
+
+                        </div>
+
+
+                        <!-- Reminders -->
+
+                        <div class="notification-row">
+
+                            <div class="notification-left">
+
+                                <div class="notification-icon">
+
+                                    <i class="fa-regular fa-bell"></i>
+
+                                </div>
+
+                                <div class="notification-text">
+
+                                    <h4>
+                                        Reminders
+                                    </h4>
+
+                                    <p>
+                                        Get reminders for important dates and deadlines.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <label class="switch">
+
+                                <input
+                                    type="checkbox"
+                                    id="reminders"
+                                    checked>
+
+                                <span class="slider"></span>
+
+                            </label>
+
+                        </div>
+
+
+                        <!-- Promotional Notifications -->
+
+                        <div class="notification-row">
+
+                            <div class="notification-left">
+
+                                <div class="notification-icon">
+
+                                    <i class="fa-solid fa-gift"></i>
+
+                                </div>
+
+                                <div class="notification-text">
+
+                                    <h4>
+                                        Promotional Notifications
+                                    </h4>
+
+                                    <p>
+                                        Receive useful tips and announcements.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <label class="switch">
+
+                                <input type="checkbox">
+
+                                <span class="slider"></span>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+<script>
+(() => {
+    "use strict";
+
+    const API_BASE = "http://127.0.0.1:5000/api";
+    const APPEARANCE_KEY = "schemeFinderAppearance";
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const menuLinks = document.querySelectorAll(".settings-menu a");
+        const rightContent = document.querySelector(".right-content");
+
+        const accountCard = rightContent?.querySelector(
+            ".card:not(.notification-card)"
+        );
+
+        const notificationCard = document.querySelector(".notification-card");
+
+        // -----------------------------------------
+        // COMMON API REQUEST HELPER
+        // -----------------------------------------
+
+        async function userSettingsRequest(path, options = {}) {
+            const response = await fetch(`${API_BASE}${path}`, {
+                credentials: "include",
+                ...options,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    ...(options.headers || {})
+                }
+            });
+
+            const data = await response.json().catch(() => ({}));
+
+            if (!response.ok) {
+                throw new Error(
+                    data.message || `Request failed: ${response.status}`
+                );
+            }
+
+            return data;
+        }
+
+        // -----------------------------------------
+        // LOAD PROFILE DATA FROM FLASK
+        // -----------------------------------------
+
+        async function loadSettingsProfile() {
+            try {
+                const response = await fetch(
+                    `${API_BASE}/user/settings/profile`,
+                    {
+                        method: "GET",
+                        credentials: "include",
+                        headers: {
+                            Accept: "application/json"
+                        }
+                    }
+                );
+
+                const data = await response.json().catch(() => ({}));
+
+                if (!response.ok) {
+                    throw new Error(
+                        data.message || "Unable to load user details."
+                    );
+                }
+
+                const user = data.user || {};
+
+                const setText = (id, value, fallback) => {
+                    const element = document.getElementById(id);
+
+                    if (element) {
+                        element.textContent = value || fallback;
+                    }
+                };
+
+                setText("topUsername", user.full_name, "User");
+
+                setText(
+                    "profileName",
+                    user.full_name,
+                    "Name not provided"
+                );
+
+                setText(
+                    "profileEducation",
+                    user.category,
+                    "Category details not provided"
+                );
+
+                const stateElement = document.getElementById("profileState");
+
+                if (stateElement) {
+                    stateElement.replaceChildren();
+
+                    const locationIcon = document.createElement("i");
+                    locationIcon.className = "fa-solid fa-location-dot";
+
+                    stateElement.append(
+                        locationIcon,
+                        document.createTextNode(
+                            " " + (user.state || "State not provided")
+                        )
+                    );
+                }
+
+                setText(
+                    "profileEmail",
+                    user.email,
+                    "Email not provided"
+                );
+
+                setText(
+                    "profileMobile",
+                    user.mobile_number,
+                    "Mobile number not provided"
+                );
+
+                setText(
+                    "profileDOB",
+                    formatProfileDate(user.date_of_birth),
+                    "Date of birth not provided"
+                );
+
+            } catch (error) {
+                console.error(
+                    "Error loading settings profile:",
+                    error
+                );
+            }
+        }
+
+        function formatProfileDate(value) {
+            if (!value) {
+                return "Date of birth not provided";
+            }
+
+            const match = String(value).match(
+                /^(\d{4})-(\d{2})-(\d{2})/
+            );
+
+            if (match) {
+                const [, year, month, day] = match;
+
+                return new Date(
+                    Number(year),
+                    Number(month) - 1,
+                    Number(day)
+                ).toLocaleDateString("en-IN", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric"
+                });
+            }
+
+            return String(value);
+        }
+
+        // -----------------------------------------
+        // ACTIVE MENU
+        // -----------------------------------------
+
+        function setActiveMenu(selectedLink) {
+            menuLinks.forEach(link => {
+                link.classList.remove("active");
+            });
+
+            selectedLink.classList.add("active");
+        }
+
+        // Hide dynamic panels and restore the normal cards.
+        function showMainCards() {
+            if (accountCard) {
+                accountCard.style.display = "";
+            }
+
+            if (notificationCard) {
+                notificationCard.style.display = "";
+            }
+
+            ["privacySecurityPanel", "appearancePanel"].forEach(id => {
+                const panel = document.getElementById(id);
+
+                if (panel) {
+                    panel.style.display = "none";
+                }
+            });
+        }
+
+        // Show one panel without displaying the account/notification cards.
+        function showOnlyPanel(panel) {
+            if (accountCard) {
+                accountCard.style.display = "none";
+            }
+
+            if (notificationCard) {
+                notificationCard.style.display = "none";
+            }
+
+            ["privacySecurityPanel", "appearancePanel"].forEach(id => {
+                const existingPanel = document.getElementById(id);
+
+                if (existingPanel) {
+                    existingPanel.style.display = "none";
+                }
+            });
+
+            panel.style.display = "";
+
+            panel.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+        }
+
+        // -----------------------------------------
+        // PRIVACY & SECURITY PANEL
+        // -----------------------------------------
+
+        function showPrivacyPanel() {
+            if (!rightContent) {
+                return;
+            }
+
+            let panel = document.getElementById("privacySecurityPanel");
+
+            if (!panel) {
+                panel = document.createElement("section");
+                panel.id = "privacySecurityPanel";
+                panel.className = "card";
+                panel.style.padding = "20px";
+
+                const heading = document.createElement("h2");
+                heading.textContent = "Privacy & Security";
+                heading.style.marginBottom = "12px";
+                heading.style.color = "#0b4380";
+
+                const message = document.createElement("p");
+
+                message.textContent =
+                    "Your account information should be handled securely. " +
+                    "Review these privacy statements and choose the options " +
+                    "that reflect your preferences. Your privacy and security " +
+                    "are important to us. Scheme Finder encourages users to " +
+                    "protect their personal information and use the platform " +
+                    "responsibly. Your personal details, including your name, " +
+                    "email address, mobile number, education, and state, " +
+                    "should be handled carefully. Avoid sharing confidential " +
+                    "information with unauthorized individuals or untrusted " +
+                    "websites. Avoid sharing confidential information with " +
+                    "unauthorized individuals or untrusted websites.\n\n" +
+
+                    "Always keep your password private and use a strong " +
+                    "password to protect your account. If you access Scheme " +
+                    "Finder on a shared computer, remember to log out after " +
+                    "completing your activities. Your profile information may " +
+                    "help identify government schemes relevant to your " +
+                    "education and career interests. Providing accurate and " +
+                    "up-to-date information can help you find potentially " +
+                    "suitable schemes. Before applying for any government " +
+                    "scheme, verify the eligibility criteria, required " +
+                    "documents, application deadlines, and other details " +
+                    "through the official government website.\n\n" +
+
+                    "Be cautious of fraudulent calls, messages, emails, and " +
+                    "websites claiming to offer government benefits. Never " +
+                    "share your passwords, OTPs, banking PINs, or other " +
+                    "confidential credentials with unknown individuals. We " +
+                    "encourage users to access trusted websites, review " +
+                    "information carefully before submitting applications, " +
+                    "and take appropriate steps to safeguard their personal " +
+                    "information. If you experience account-related problems " +
+                    "or notice suspicious activity, visit the Help & Support " +
+                    "section for assistance. Staying informed and following " +
+                    "safe online practices can help you use Scheme Finder " +
+                    "more securely.";
+
+                message.style.color = "#6380a0";
+                message.style.fontSize = "14px";
+                message.style.lineHeight = "1.7";
+                message.style.marginBottom = "18px";
+                message.style.whiteSpace = "pre-line";
+
+                const questions = [
+                    {
+                        id: "privacyProfileConsent",
+                        text:
+                            "I understand that my profile information may be " +
+                            "used to help personalize relevant scheme recommendations."
+                    },
+                    {
+                        id: "privacySecurityAcknowledgement",
+                        text:
+                            "I will keep my password and account credentials " +
+                            "private and will log out when using a shared device."
+                    }
+                ];
+
+                panel.append(heading, message);
+
+                questions.forEach(question => {
+                    const label = document.createElement("label");
+
+                    label.style.display = "flex";
+                    label.style.alignItems = "flex-start";
+                    label.style.gap = "10px";
+                    label.style.margin = "14px 0";
+                    label.style.color = "#365b83";
+                    label.style.fontSize = "14px";
+                    label.style.lineHeight = "1.6";
+                    label.style.cursor = "pointer";
+
+                    const checkbox = document.createElement("input");
+                    checkbox.type = "checkbox";
+                    checkbox.id = question.id;
+                    checkbox.style.marginTop = "5px";
+                    checkbox.style.flexShrink = "0";
+
+                    const text = document.createElement("span");
+                    text.textContent = question.text;
+
+                    label.append(checkbox, text);
+                    panel.appendChild(label);
+                });
+
+                rightContent.appendChild(panel);
+            }
+
+            showOnlyPanel(panel);
+        }
+
+        // -----------------------------------------
+        // APPEARANCE SETTINGS
+        // -----------------------------------------
+
+        function getSavedAppearance() {
+            try {
+                const saved = localStorage.getItem(APPEARANCE_KEY);
+
+                return ["light", "system", "dark"].includes(saved)
+                    ? saved
+                    : "light";
+
+            } catch (error) {
+                return "light";
+            }
+        }
+
+        function applyAppearance(preference) {
+            const systemDark = window.matchMedia
+                ? window.matchMedia(
+                    "(prefers-color-scheme: dark)"
+                ).matches
+                : false;
+
+            const theme = preference === "system"
+                ? (systemDark ? "dark" : "light")
+                : preference;
+
+            document.documentElement.setAttribute(
+                "data-theme",
+                theme
+            );
+
+            ["light", "system", "dark"].forEach(value => {
+                const button = document.getElementById(
+                    "appearance" +
+                    value.charAt(0).toUpperCase() +
+                    value.slice(1)
+                );
+
+                if (!button) {
+                    return;
+                }
+
+                const selected = value === preference;
+
+                button.style.background = selected
+                    ? "#0878ed"
+                    : "#f5faff";
+
+                button.style.color = selected
+                    ? "#ffffff"
+                    : "#0a4383";
+
+                button.style.border = "1px solid #c9e0f4";
+
+                button.setAttribute(
+                    "aria-pressed",
+                    String(selected)
+                );
+            });
+        }
+
+        function showAppearancePanel() {
+            if (!rightContent) {
+                return;
+            }
+
+            let panel = document.getElementById("appearancePanel");
+
+            if (!panel) {
+                panel = document.createElement("section");
+                panel.id = "appearancePanel";
+                panel.className = "card";
+                panel.style.padding = "20px";
+
+                const heading = document.createElement("h2");
+                heading.textContent = "Appearance";
+                heading.style.marginBottom = "10px";
+                heading.style.color = "#0b4380";
+
+                const description = document.createElement("p");
+
+                description.textContent =
+                    "Customize how Scheme Finder looks. Choose Light, " +
+                    "System, or Dark mode. Your preference will be " +
+                    "maintained across website pages.";
+
+                description.style.color = "#6380a0";
+                description.style.fontSize = "14px";
+                description.style.lineHeight = "1.7";
+                description.style.marginBottom = "20px";
+
+                const optionsContainer = document.createElement("div");
+
+                optionsContainer.style.display = "flex";
+                optionsContainer.style.flexWrap = "wrap";
+                optionsContainer.style.gap = "12px";
+
+                const options = [
+                    {
+                        id: "appearanceLight",
+                        value: "light",
+                        label: "Light",
+                        icon: "fa-sun"
+                    },
+                    {
+                        id: "appearanceSystem",
+                        value: "system",
+                        label: "System",
+                        icon: "fa-desktop"
+                    },
+                    {
+                        id: "appearanceDark",
+                        value: "dark",
+                        label: "Dark",
+                        icon: "fa-moon"
+                    }
+                ];
+
+                options.forEach(option => {
+                    const button = document.createElement("button");
+
+                    button.type = "button";
+                    button.id = option.id;
+                    button.style.padding = "12px 18px";
+                    button.style.borderRadius = "9px";
+                    button.style.cursor = "pointer";
+                    button.style.fontFamily = "inherit";
+                    button.style.fontSize = "14px";
+
+                    const icon = document.createElement("i");
+
+                    icon.className = `fa-solid ${option.icon}`;
+                    icon.style.marginRight = "8px";
+
+                    button.append(
+                        icon,
+                        document.createTextNode(option.label)
+                    );
+
+                    button.addEventListener("click", () => {
+                        window.saveSchemeFinderAppearance?.(
+                            option.value
+                        );
+                    });
+
+                    optionsContainer.appendChild(button);
+                });
+
+                panel.append(
+                    heading,
+                    description,
+                    optionsContainer
+                );
+
+                rightContent.appendChild(panel);
+            }
+
+            showOnlyPanel(panel);
+            applyAppearance(getSavedAppearance());
+        }
+
+        // Apply the saved theme when the settings page loads.
+        applyAppearance(getSavedAppearance());
+
+        // Update System mode if the device theme changes.
+        if (window.matchMedia) {
+            const colorScheme = window.matchMedia(
+                "(prefers-color-scheme: dark)"
+            );
+
+            const handleSystemThemeChange = () => {
+                if (getSavedAppearance() === "system") {
+                    applyAppearance("system");
+                }
+            };
+
+            if (colorScheme.addEventListener) {
+                colorScheme.addEventListener(
+                    "change",
+                    handleSystemThemeChange
+                );
+            } else if (colorScheme.addListener) {
+                colorScheme.addListener(
+                    handleSystemThemeChange
+                );
+            }
+        }
+
+        // -----------------------------------------
+        // SETTINGS MENU ACTIONS
+        // -----------------------------------------
+
+        menuLinks.forEach(link => {
+            link.addEventListener("click", event => {
+                const label = link.textContent
+                    .trim()
+                    .replace(/\s+/g, " ");
+
+                if (label === "Notification Settings") {
+                    event.preventDefault();
+
+                    setActiveMenu(link);
+                    showMainCards();
+
+                    if (notificationCard) {
+                        notificationCard.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start"
+                        });
+                    }
+
+                } else if (label === "Privacy & Security") {
+                    event.preventDefault();
+
+                    setActiveMenu(link);
+                    showPrivacyPanel();
+
+                } else if (label === "Appearance") {
+                    event.preventDefault();
+
+                    setActiveMenu(link);
+                    showAppearancePanel();
+
+                } else if (label === "Help & Support") {
+                    event.preventDefault();
+
+                    window.location.href = "help.html";
+
+                } else if (label === "Account Settings") {
+                    event.preventDefault();
+
+                    setActiveMenu(link);
+                    showMainCards();
+
+                    if (accountCard) {
+                        accountCard.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start"
+                        });
+                    }
+                }
+            });
+        });
+
+        // -----------------------------------------
+        // LOAD USER NOTIFICATION SETTINGS
+        // -----------------------------------------
+
+        async function loadUserNotificationSettings() {
+            try {
+                const data = await userSettingsRequest(
+                    "/user/settings/notifications"
+                );
+
+                const settings = data.settings || data;
+
+                const schemeToggle = document.getElementById(
+                    "schemeUpdates"
+                );
+
+                const reminderToggle = document.getElementById(
+                    "reminders"
+                );
+
+                if (
+                    schemeToggle &&
+                    settings.scheme_updates !== undefined
+                ) {
+                    schemeToggle.checked =
+                        settings.scheme_updates === true ||
+                        settings.scheme_updates === 1 ||
+                        settings.scheme_updates === "1";
+                }
+
+                if (
+                    reminderToggle &&
+                    settings.reminders !== undefined
+                ) {
+                    reminderToggle.checked =
+                        settings.reminders === true ||
+                        settings.reminders === 1 ||
+                        settings.reminders === "1";
+                }
+
+            } catch (error) {
+                console.error(
+                    "Could not load user notification settings:",
+                    error
+                );
+            }
+        }
+
+        // -----------------------------------------
+        // SAVE ONE USER NOTIFICATION SETTING
+        // -----------------------------------------
+
+        async function saveUserNotificationSetting(key, enabled) {
+            try {
+                await userSettingsRequest(
+                    "/user/settings/notifications",
+                    {
+                        method: "PUT",
+                        body: JSON.stringify({
+                            setting_key: key,
+                            setting_value: enabled
+                        })
+                    }
+                );
+
+            } catch (error) {
+                alert(
+                    error.message ||
+                    "Unable to save your notification preference."
+                );
+
+                await loadUserNotificationSettings();
+            }
+        }
+
+        // -----------------------------------------
+        // NOTIFICATION TOGGLE EVENTS
+        // -----------------------------------------
+
+        const schemeToggle = document.getElementById("schemeUpdates");
+        const reminderToggle = document.getElementById("reminders");
+
+        schemeToggle?.addEventListener("change", event => {
+            saveUserNotificationSetting(
+                "scheme_updates",
+                event.target.checked
+            );
+        });
+
+        reminderToggle?.addEventListener("change", event => {
+            saveUserNotificationSetting(
+                "reminders",
+                event.target.checked
+            );
+        });
+
+        // -----------------------------------------
+        // NOTIFICATION SAVE BUTTON
+        // -----------------------------------------
+
+        const saveButton = document.querySelector(
+            ".notification-card .save-btn"
+        );
+
+        if (saveButton) {
+            saveButton.addEventListener("click", async () => {
+                const schemeUpdatesEnabled = schemeToggle
+                    ? schemeToggle.checked
+                    : false;
+
+                const remindersEnabled = reminderToggle
+                    ? reminderToggle.checked
+                    : false;
+
+                try {
+                    await userSettingsRequest(
+                        "/user/settings/notifications",
+                        {
+                            method: "PUT",
+                            body: JSON.stringify({
+                                settings: {
+                                    scheme_updates: schemeUpdatesEnabled,
+                                    reminders: remindersEnabled
+                                }
+                            })
+                        }
+                    );
+
+                    alert("Notification preferences saved successfully.");
+
+                } catch (error) {
+                    alert(
+                        error.message ||
+                        "Unable to save notification preferences."
+                    );
+
+                    await loadUserNotificationSettings();
+                }
+            });
+        }
+
+        // -----------------------------------------
+        // INITIAL PAGE LOAD
+        // -----------------------------------------
+
+        loadSettingsProfile();
+        loadUserNotificationSettings();
+    });
+})();
+</script>
+<script src="../js/user_notifications.js"></script>
+
+</body>
+</html>

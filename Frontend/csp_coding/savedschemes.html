@@ -1,0 +1,1665 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Scheme Finder - Saved Schemes</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+rel="stylesheet">
+
+<script src="../js/auth_guard.js"></script>
+<link rel="stylesheet" href="../css/appearance.css">
+<script src="../js/appearance.js"></script>
+
+<style>
+
+/* ==============================
+   BASIC RESET
+================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:"Poppins","Segoe UI",Arial,sans-serif;
+    background:#eef7ff;
+    color:#124b84;
+}
+
+
+/* ==============================
+   SIDEBAR
+================================= */
+
+.sidebar{
+    position:fixed;
+    top:0;
+    left:0;
+
+    width:260px;
+    height:100vh;
+
+    background:linear-gradient(
+        180deg,
+        #07509d 0%,
+        #064b98 55%,
+        #063f82 100%
+    );
+
+    color:white;
+
+    padding:18px 15px;
+
+    z-index:1000;
+
+    overflow:hidden;
+}
+
+.sidebar::after{
+    content:"";
+
+    position:absolute;
+
+    left:-70px;
+    bottom:60px;
+
+    width:350px;
+    height:300px;
+
+    background:
+        linear-gradient(
+            rgba(255,255,255,0.06),
+            rgba(255,255,255,0.01)
+        );
+
+    border-radius:50% 50% 0 0;
+
+    transform:translateY(80px);
+
+    z-index:1;
+}
+
+
+/* ==============================
+   LOGO - EMBLEM + SCHEME FINDER
+================================= */
+
+.logo{
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    height:65px;
+
+    padding-left:10px;
+
+    margin-bottom:25px;
+
+    position:relative;
+
+    z-index:3;
+}
+
+.logo img{
+    width:42px;
+    height:52px;
+
+    object-fit:contain;
+
+    filter:brightness(0) invert(1);
+}
+
+.logo-text{
+    font-size:24px;
+
+    font-weight:600;
+
+    color:white;
+
+    white-space:nowrap;
+}
+
+
+/* ==============================
+   MENU
+================================= */
+
+.menu{
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+    padding:0;
+
+    position:relative;
+
+    z-index:3;
+}
+
+.menu a{
+    width:100%;
+
+    height:52px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+    padding:0 14px;
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:16px;
+
+    font-weight:500;
+
+    border-radius:9px;
+
+    transition:.25s ease;
+}
+
+.menu a i{
+    width:26px;
+
+    text-align:center;
+
+    font-size:24px;
+}
+
+.menu a:hover{
+    background:rgba(255,255,255,.12);
+}
+
+.menu a.active{
+    background:linear-gradient(
+        90deg,
+        #168cff,
+        #1685f4
+    );
+
+    box-shadow:
+    0 5px 15px rgba(0,126,255,.25);
+}
+
+
+/* ==============================
+   BOTTOM TEXT
+================================= */
+
+.sidebar-bottom{
+    position:absolute;
+
+    bottom:25px;
+
+    left:0;
+
+    width:100%;
+
+    text-align:center;
+
+    z-index:3;
+}
+
+.sidebar-bottom p{
+    color:white;
+
+    font-size:14px;
+
+    line-height:1.6;
+
+    opacity:.95;
+}
+
+.india-line{
+    width:90px;
+
+    height:20px;
+
+    margin:8px auto 0;
+
+    position:relative;
+}
+
+.india-line::before{
+    content:"";
+
+    position:absolute;
+
+    width:75px;
+    height:5px;
+
+    background:#ff9933;
+
+    border-radius:50%;
+
+    left:8px;
+    top:2px;
+
+    transform:rotate(-10deg);
+}
+
+.india-line::after{
+    content:"";
+
+    position:absolute;
+
+    width:75px;
+    height:5px;
+
+    background:#138808;
+
+    border-radius:50%;
+
+    left:8px;
+    top:11px;
+
+    transform:rotate(-10deg);
+}
+
+
+/* ==============================
+   HEADER
+================================= */
+
+.header{
+    position:fixed;
+
+    top:0;
+    left:260px;
+    right:0;
+
+    height:73px;
+
+    background:white;
+
+    border-bottom:1px solid #dceaf5;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:flex-end;
+
+    padding:0 28px;
+
+    z-index:900;
+}
+
+
+/* ==============================
+   HEADER RIGHT
+================================= */
+
+.header-right{
+    display:flex;
+
+    align-items:center;
+
+    gap:25px;
+}
+
+
+/* ==============================
+   SEARCH
+================================= */
+
+.search-box{
+    width:300px;
+
+    height:43px;
+
+    border:1px solid #d8e5f1;
+
+    border-radius:25px;
+
+    display:flex;
+
+    align-items:center;
+
+    padding:0 17px;
+
+    background:white;
+}
+
+.search-box i{
+    color:#1473ca;
+
+    font-size:17px;
+
+    margin-right:11px;
+}
+
+.search-box input{
+    border:none;
+
+    outline:none;
+
+    width:100%;
+
+    font-size:13px;
+
+    color:#315b84;
+}
+
+.search-box input::placeholder{
+    color:#7188a0;
+}
+
+
+/* ==============================
+   NOTIFICATION
+================================= */
+
+.notification{
+    width:40px;
+    height:40px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    position:relative;
+
+    color:#0755a0;
+
+    font-size:23px;
+}
+
+.notification-number{
+    position:absolute;
+
+    top:0;
+    right:0;
+
+    width:17px;
+    height:17px;
+
+    background:#e51f36;
+
+    color:white;
+
+    font-size:10px;
+
+    font-weight:bold;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border:2px solid white;
+}
+
+
+/* ==============================
+   PROFILE
+================================= */
+
+.profile{
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    cursor:pointer;
+}
+
+.profile-circle{
+    width:48px;
+    height:48px;
+
+    border-radius:50%;
+
+    background:#e4f1ff;
+
+    border:2px solid #d7eafa;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    color:#0759a5;
+
+    font-size:26px;
+}
+
+.profile-name{
+    font-size:16px;
+
+    font-weight:600;
+
+    color:#08457f;
+}
+
+.profile-arrow{
+    font-size:13px;
+
+    color:#0756a0;
+}
+
+
+/* ==============================
+   MAIN AREA
+================================= */
+
+.main{
+    margin-left:260px;
+
+    padding-top:73px;
+
+    min-height:100vh;
+
+    background:
+    linear-gradient(
+        135deg,
+        #eaf6ff,
+        #f5fbff
+    );
+}
+
+.content{
+    padding:30px 30px 40px;
+}
+
+
+/* ==============================
+   PAGE TITLE
+================================= */
+
+.page-top{
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:22px;
+}
+
+.title-area{
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+}
+
+.title-icon{
+    width:53px;
+    height:53px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    color:#0875dc;
+
+    font-size:36px;
+}
+
+.title-area h1{
+    font-size:30px;
+
+    color:#06447f;
+
+    margin-bottom:5px;
+}
+
+.title-area p{
+    color:#547395;
+
+    font-size:15px;
+}
+
+
+/* ==============================
+   TOTAL SAVED
+================================= */
+
+.total-box{
+    width:288px;
+
+    height:92px;
+
+    background:#f7fbff;
+
+    border:1px solid #d9e9f5;
+
+    border-radius:12px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    padding:14px 20px;
+}
+
+.total-icon{
+    width:53px;
+    height:53px;
+
+    border-radius:50%;
+
+    background:#e4f2ff;
+
+    color:#0875dc;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:24px;
+}
+
+.total-text small{
+    display:block;
+
+    color:#174f84;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    margin-bottom:5px;
+}
+
+.total-text strong{
+    display:block;
+
+    font-size:26px;
+
+    color:#06447f;
+}
+
+
+/* ==============================
+   SAVED SCHEMES GRID
+================================= */
+
+.scheme-grid{
+    display:grid;
+
+    grid-template-columns:
+    1fr 1fr;
+
+    gap:20px;
+}
+
+
+/* ==============================
+   SCHEME CARD
+================================= */
+
+.scheme-card{
+    background:white;
+
+    border:1px solid #d9e7f2;
+
+    border-radius:12px;
+
+    padding:20px 22px;
+
+    min-height:345px;
+
+    box-shadow:
+    0 3px 12px rgba(28,94,143,.05);
+}
+
+
+/* ==============================
+   CARD TOP
+================================= */
+
+.card-top{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+}
+
+.scheme-heading{
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+}
+
+.scheme-icon{
+    width:62px;
+    height:62px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:27px;
+}
+
+.education{
+    background:#dcefff;
+    color:#0875dc;
+}
+
+.farmer{
+    background:#d7f8e6;
+    color:#14955c;
+}
+
+.women{
+    background:#ffdced;
+    color:#e62680;
+}
+
+.health{
+    background:#e5d8ff;
+    color:#6632d6;
+}
+
+.scheme-name h2{
+    color:#07457f;
+
+    font-size:20px;
+
+    margin-bottom:8px;
+}
+
+.category{
+    display:inline-block;
+
+    padding:5px 12px;
+
+    border-radius:7px;
+
+    font-size:12px;
+
+    font-weight:600;
+}
+
+.category.education-tag{
+    color:#0875d4;
+    background:#e4f3ff;
+}
+
+.category.farmer-tag{
+    color:#16955b;
+    background:#e1f8eb;
+}
+
+.category.women-tag{
+    color:#e32983;
+    background:#ffe3f1;
+}
+
+.category.health-tag{
+    color:#6637d0;
+    background:#ede5ff;
+}
+
+
+/* ==============================
+   SAVED
+================================= */
+
+.saved{
+    color:#0872d7;
+
+    font-size:14px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    font-weight:600;
+}
+
+.saved i{
+    font-size:18px;
+}
+
+
+/* ==============================
+   DESCRIPTION
+================================= */
+
+.description{
+    margin-top:14px;
+
+    font-size:15px;
+
+    line-height:1.65;
+
+    color:#496b8f;
+
+    min-height:50px;
+}
+
+
+
+
+/* ==============================
+   BOTTOM
+================================= */
+
+.card-bottom{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-top:40px;
+}
+
+.deadline{
+    display:flex;
+
+    align-items:center;
+
+    gap:11px;
+
+    color:#e22b55;
+}
+
+.deadline i{
+    font-size:20px;
+}
+
+.deadline-title{
+    font-size:13px;
+
+    font-weight:600;
+
+    margin-bottom:3px;
+}
+
+.deadline-date{
+    font-size:13px;
+
+    font-weight:600;
+}
+
+
+/* ==============================
+   BUTTONS
+================================= */
+
+.card-buttons{
+    display:flex;
+
+    gap:18px;
+}
+
+.btn{
+    height:45px;
+
+    padding:0 20px;
+
+    border-radius:8px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:9px;
+}
+
+.view-btn{
+    background:white;
+
+    border:1.5px solid #2380df;
+
+    color:#0870d3;
+
+    min-width:153px;
+}
+
+.remove-btn{
+    background:#0875e9;
+
+    color:white;
+
+    border:1px solid #0875e9;
+
+    min-width:132px;
+}
+
+.view-btn:hover{
+    background:#eef7ff;
+}
+
+.remove-btn:hover{
+    background:#0668d2;
+}
+
+
+/* ==============================
+   RESPONSIVE
+================================= */
+
+@media(max-width:1100px){
+
+    .scheme-grid{
+        grid-template-columns:1fr;
+    }
+
+    .search-box{
+        width:230px;
+    }
+}
+
+
+@media(max-width:800px){
+
+    .sidebar{
+        width:260px;
+    }
+
+    .header{
+        left:260px;
+    }
+
+    .main{
+        margin-left:260px;
+    }
+
+    .page-top{
+        align-items:flex-start;
+
+        flex-direction:column;
+
+        gap:20px;
+    }
+}
+
+
+@media(max-width:600px){
+
+    .sidebar{
+        width:230px;
+    }
+
+    .header{
+        left:230px;
+
+        padding:0 15px;
+    }
+
+    .main{
+        margin-left:230px;
+    }
+
+    .search-box{
+        display:none;
+    }
+
+    .profile-name,
+    .profile-arrow{
+        display:none;
+    }
+
+    .content{
+        padding:22px 15px;
+    }
+
+    .title-area h1{
+        font-size:25px;
+    }
+
+    .scheme-grid{
+        grid-template-columns:1fr;
+    }
+
+    .scheme-card{
+        padding:16px;
+    }
+
+    .card-bottom{
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:15px;
+    }
+
+    .card-buttons{
+        width:100%;
+    }
+
+    .btn{
+        flex:1;
+    }
+
+    .scheme-heading{
+        gap:11px;
+    }
+
+    .scheme-name h2{
+        font-size:17px;
+    }
+
+    .total-box{
+        width:100%;
+    }
+
+}
+
+
+.saved-schemes-message {
+    grid-column: 1 / -1;
+    padding: 24px;
+    text-align: center;
+    color: #0759a5;
+    font-size: 15px;
+}
+.profile { cursor: pointer; }
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =================================
+     SIDEBAR
+================================== -->
+
+<aside class="sidebar">
+
+
+    <!-- GOVERNMENT EMBLEM + SCHEME FINDER -->
+
+    <div class="logo">
+
+        <img
+            src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg"
+            alt="Government of India">
+
+        <span class="logo-text">
+            Scheme Finder
+        </span>
+
+    </div>
+
+
+    <!-- MENU -->
+
+    <nav class="menu">
+
+        <a href="dashboard.html">
+
+            <i class="fa-solid fa-house"></i>
+
+            <span>Dashboard</span>
+
+        </a>
+
+
+        <a href="schemes.html">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <span>Schemes</span>
+
+        </a>
+
+
+        <a href="savedschemes.html" class="active">
+
+            <i class="fa-regular fa-heart"></i>
+
+            <span>Saved Schemes</span>
+
+        </a>
+
+
+        <a href="alerts.html">
+
+            <i class="fa-regular fa-bell"></i>
+
+            <span>Alerts</span>
+
+        </a>
+
+
+        <a href="profile.html">
+
+            <i class="fa-regular fa-user"></i>
+
+            <span>Profile</span>
+
+        </a>
+
+
+        <a href="settings.html">
+
+            <i class="fa-solid fa-gear"></i>
+
+            <span>Settings</span>
+
+        </a>
+
+
+        <a href="logout.html">
+
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+
+            <span>Logout</span>
+
+        </a>
+
+    </nav>
+
+
+    <!-- SIDEBAR BOTTOM -->
+
+    <div class="sidebar-bottom">
+
+        <p>
+            Government Schemes<br>
+            for a Better Tomorrow
+        </p>
+
+        <div class="india-line"></div>
+
+    </div>
+
+</aside>
+
+
+
+<!-- =================================
+     HEADER
+================================== -->
+
+<header class="header">
+
+    <div class="header-right">
+
+
+        <!-- SEARCH -->
+
+        <div class="search-box">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="text"
+                id="savedSchemeSearch"
+                placeholder="Search schemes..."
+                aria-label="Search saved schemes"
+                autocomplete="off"
+            >
+
+        </div>
+
+
+        <!-- NOTIFICATION -->
+
+        <div class="notification">
+
+            <i class="fa-regular fa-bell"></i>
+
+            <span class="notification-number" id="unreadAlertCount">0</span>
+
+        </div>
+
+
+        <!-- PROFILE -->
+
+        <div class="profile" id="profileNavigation" role="link" tabindex="0" title="Open profile">
+
+            <div class="profile-circle">
+
+                <i class="fa-regular fa-user"></i>
+
+            </div>
+
+            <span class="profile-name" id="profileUserName">
+                User
+            </span>
+
+            <i class="fa-solid fa-chevron-down profile-arrow"></i>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<!-- =================================
+     MAIN
+================================== -->
+
+<main class="main">
+
+<div class="content">
+
+
+    <!-- PAGE TITLE -->
+
+    <div class="page-top">
+
+        <div class="title-area">
+
+            <div class="title-icon">
+
+                <i class="fa-regular fa-heart"></i>
+
+            </div>
+
+            <div>
+
+                <h1>
+                    Saved Schemes
+                </h1>
+
+                <p>
+                    Schemes you have saved for later.
+                    Keep track of your interests and don’t miss any opportunity!
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- TOTAL SAVED -->
+
+        <div class="total-box">
+
+            <div class="total-icon">
+
+                <i class="fa-regular fa-bookmark"></i>
+
+            </div>
+
+            <div class="total-text">
+
+                <small>
+                    Total Saved Schemes
+                </small>
+
+                <strong id="totalSavedCount">0</strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================
+         SCHEME GRID
+    ================================== -->
+
+    <div class="scheme-grid" id="savedSchemesGrid" aria-live="polite">
+        <p class="saved-schemes-message">Loading saved schemes...</p>
+    </div>
+
+</div>
+
+</main>
+
+<script>
+(() => {
+    "use strict";
+
+    const API_BASE = "http://127.0.0.1:5000/api";
+    const grid = document.getElementById("savedSchemesGrid");
+    const countLabel = document.getElementById("totalSavedCount");
+    const searchInput = document.getElementById("savedSchemeSearch");
+    const profile = document.getElementById("profileNavigation");
+
+    let savedSchemes = [];
+
+    function text(value, fallback = "Not provided") {
+        if (value === null || value === undefined || String(value).trim() === "") {
+            return fallback;
+        }
+        return String(value).trim();
+    }
+
+    function addText(parent, tag, className, value, fallback = "Not provided") {
+        const element = document.createElement(tag);
+
+        if (className) {
+            element.className = className;
+        }
+
+        element.textContent = text(value, fallback);
+        parent.appendChild(element);
+
+        return element;
+    }
+
+    function icon(className) {
+        const element = document.createElement("i");
+        element.className = className;
+        element.setAttribute("aria-hidden", "true");
+        return element;
+    }
+
+    function categoryIcon(category) {
+        const value = String(category || "").toLowerCase();
+
+        if (value.includes("education") || value.includes("scholar")) {
+            return "fa-solid fa-graduation-cap";
+        }
+
+        if (value.includes("health")) {
+            return "fa-solid fa-heart-pulse";
+        }
+
+        if (value.includes("business") || value.includes("entrepreneur")) {
+            return "fa-solid fa-briefcase";
+        }
+
+        if (value.includes("agri") || value.includes("farm")) {
+            return "fa-solid fa-seedling";
+        }
+
+        return "fa-solid fa-landmark";
+    }
+
+    function showMessage(message, isError = false) {
+        if (!grid) return;
+
+        grid.replaceChildren();
+
+        const p = document.createElement("p");
+        p.className = "saved-schemes-message";
+        p.textContent = message;
+
+        if (isError) {
+            p.style.color = "#b91c1c";
+        }
+
+        grid.appendChild(p);
+    }
+
+    function createCard(row) {
+        // Supports API responses that return either a scheme directly
+        // or a saved-scheme row containing a nested "scheme" object.
+        const scheme = row.scheme || row;
+
+        const id = row.scheme_id ?? scheme.scheme_id ?? scheme.id;
+        const name = scheme.scheme_name || scheme.name || "Unnamed scheme";
+        const category = scheme.category || "General";
+
+        const card = document.createElement("article");
+        card.className = "scheme-card";
+        card.dataset.schemeId = String(id ?? "");
+
+        // Card heading
+        const top = document.createElement("div");
+        top.className = "card-top";
+
+        const heading = document.createElement("div");
+        heading.className = "scheme-heading";
+
+        const schemeIcon = document.createElement("div");
+        schemeIcon.className = "scheme-icon education";
+        schemeIcon.appendChild(icon(categoryIcon(category)));
+
+        const nameBox = document.createElement("div");
+        nameBox.className = "scheme-name";
+
+        addText(nameBox, "h2", "", name);
+        addText(nameBox, "span", "category education-tag", category);
+
+        heading.append(schemeIcon, nameBox);
+
+        const savedBadge = document.createElement("div");
+        savedBadge.className = "saved";
+        savedBadge.append(
+            icon("fa-solid fa-bookmark"),
+            document.createTextNode(" Saved")
+        );
+
+        top.append(heading, savedBadge);
+        card.appendChild(top);
+
+        // Scheme description
+        addText(
+            card,
+            "p",
+            "description",
+            scheme.description,
+            "Description has not been provided."
+        );
+
+        // Bottom section: deadline and buttons
+        const bottom = document.createElement("div");
+        bottom.className = "card-bottom";
+
+        // Deadline
+        const deadline = document.createElement("div");
+        deadline.className = "deadline";
+        deadline.appendChild(icon("fa-regular fa-calendar"));
+
+        const deadlineText = document.createElement("div");
+        addText(deadlineText, "div", "deadline-title", "Deadline");
+        addText(
+            deadlineText,
+            "div",
+            "deadline-date",
+            scheme.deadline,
+            "Not specified"
+        );
+
+        deadline.appendChild(deadlineText);
+
+        // Buttons
+        const buttons = document.createElement("div");
+        buttons.className = "card-buttons";
+
+        // View Details button
+        const view = document.createElement("button");
+        view.type = "button";
+        view.className = "btn view-btn";
+        view.append(
+            icon("fa-regular fa-eye"),
+            document.createTextNode(" View Details")
+        );
+
+        view.addEventListener("click", () => {
+            if (id === undefined || id === null || id === "") {
+                alert("This saved scheme has no scheme ID.");
+                return;
+            }
+
+            window.location.href =
+                `scheme_details.html?id=${encodeURIComponent(id)}`;
+        });
+
+        // Remove button
+        const remove = document.createElement("button");
+        remove.type = "button";
+        remove.className = "btn remove-btn";
+        remove.append(
+            icon("fa-regular fa-trash-can"),
+            document.createTextNode(" Remove")
+        );
+
+        remove.addEventListener("click", () => {
+            removeSavedScheme(id, remove);
+        });
+
+        buttons.append(view, remove);
+        bottom.append(deadline, buttons);
+
+        // IMPORTANT: Append the bottom section to the card.
+        // This makes Deadline, View Details, and Remove visible.
+        card.appendChild(bottom);
+
+        return card;
+    }
+
+    function renderSavedSchemes() {
+        if (!grid || !countLabel) return;
+
+        const query = (searchInput?.value || "").trim().toLowerCase();
+
+        const filtered = savedSchemes.filter(row => {
+            const scheme = row.scheme || row;
+
+            const name = String(
+                scheme.scheme_name || scheme.name || ""
+            ).toLowerCase();
+
+            const category = String(
+                scheme.category || ""
+            ).toLowerCase();
+
+            return name.includes(query) || category.includes(query);
+        });
+
+        countLabel.textContent = String(savedSchemes.length);
+        grid.replaceChildren();
+
+        if (!savedSchemes.length) {
+            showMessage("You have not saved any schemes yet.");
+            return;
+        }
+
+        if (!filtered.length) {
+            showMessage("No saved schemes match your search.");
+            return;
+        }
+
+        filtered.forEach(row => {
+            grid.appendChild(createCard(row));
+        });
+    }
+
+    async function loadSavedSchemes() {
+        if (!grid || !countLabel) {
+            console.error(
+                "Missing required HTML elements: savedSchemesGrid or totalSavedCount."
+            );
+            return;
+        }
+
+        showMessage("Loading saved schemes...");
+
+        try {
+            const response = await fetch(`${API_BASE}/saved-schemes`, {
+                method: "GET",
+                credentials: "include",
+                headers: {
+                    "Accept": "application/json"
+                }
+            });
+
+            const data = await response.json().catch(() => ({}));
+
+            if (response.status === 401) {
+                throw new Error(
+                    "Please log in to view your saved schemes."
+                );
+            }
+
+            if (!response.ok) {
+                throw new Error(
+                    data.message ||
+                    `Could not load saved schemes (${response.status}).`
+                );
+            }
+
+            savedSchemes = Array.isArray(data)
+                ? data
+                : Array.isArray(data.schemes)
+                    ? data.schemes
+                    : Array.isArray(data.saved_schemes)
+                        ? data.saved_schemes
+                        : [];
+
+            renderSavedSchemes();
+
+        } catch (error) {
+            console.error("Failed to load saved schemes:", error);
+            countLabel.textContent = "0";
+
+            showMessage(
+                error.message ||
+                "Unable to load saved schemes. Check your Flask API.",
+                true
+            );
+        }
+    }
+
+    async function removeSavedScheme(id, button) {
+        if (id === undefined || id === null || id === "") {
+            alert("This saved scheme has no scheme ID.");
+            return;
+        }
+
+        if (button) {
+            button.disabled = true;
+        }
+
+        try {
+            const response = await fetch(
+                `${API_BASE}/saved-schemes/${encodeURIComponent(id)}`,
+                {
+                    method: "DELETE",
+                    credentials: "include",
+                    headers: {
+                        "Accept": "application/json"
+                    }
+                }
+            );
+
+            const data = await response.json().catch(() => ({}));
+
+            if (response.status === 401) {
+                throw new Error(
+                    "Please log in to remove saved schemes."
+                );
+            }
+
+            if (!response.ok) {
+                throw new Error(
+                    data.message ||
+                    `Could not remove scheme (${response.status}).`
+                );
+            }
+
+            // Remove only the selected scheme from the displayed list.
+            savedSchemes = savedSchemes.filter(row => {
+                const scheme = row.scheme || row;
+                const rowId =
+                    row.scheme_id ?? scheme.scheme_id ?? scheme.id;
+
+                return String(rowId) !== String(id);
+            });
+
+            renderSavedSchemes();
+
+        } catch (error) {
+            console.error("Failed to remove saved scheme:", error);
+
+            if (button) {
+                button.disabled = false;
+            }
+
+            alert(
+                error.message ||
+                "Unable to remove this saved scheme."
+            );
+        }
+    }
+    
+    const profileName = document.getElementById("profileUserName");
+
+async function loadProfileName() {
+    console.log("Loading profile name...");
+
+    if (!profileName) {
+        console.error("Element #profileUserName was not found.");
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_BASE}/user/profileusername`, {
+            method: "GET",
+            credentials: "include",
+            headers: { "Accept": "application/json" }
+        });
+
+        console.log("Profile API status:", response.status);
+
+        const data = await response.json();
+        console.log("Profile API response:", data);
+
+        if (!response.ok) {
+            profileName.textContent = "Profile";
+            return;
+        }
+
+        const user = data.user || data.profile || data;
+
+        profileName.textContent =
+            user.full_name || "Profile";
+
+    } catch (error) {
+        console.error("Profile loading error:", error);
+        profileName.textContent = "Profile";
+    }
+}
+loadProfileName();
+
+    if (searchInput) {
+        searchInput.addEventListener("input", renderSavedSchemes);
+    }
+
+    if (profile) {
+        const goToProfile = () => {
+            window.location.href = "profile.html";
+        };
+
+        profile.addEventListener("click", goToProfile);
+
+        profile.addEventListener("keydown", event => {
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                goToProfile();
+            }
+        });
+    }
+
+    loadSavedSchemes();
+})();
+</script>
+<script src="../js/user_notifications.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,2269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Scheme Finder - Schemes</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+/* =========================
+   RESET
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f6fbff;
+    color:#104a82;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+    height:82px;
+    background:white;
+
+    display:flex;
+    align-items:center;
+
+    padding:0 4%;
+
+    border-bottom:1px solid #dceaf5;
+}
+
+
+/* LOGO */
+
+.logo-area{
+    display:flex;
+    align-items:center;
+
+    gap:15px;
+
+    width:36%;
+}
+
+.logo-area img{
+    width:48px;
+    height:62px;
+
+    object-fit:contain;
+}
+
+.logo-text h1{
+    font-size:25px;
+    color:#073f78;
+
+    margin-bottom:4px;
+}
+
+.logo-text p{
+    font-size:13px;
+    color:#5d7da1;
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+nav{
+    display:flex;
+    align-items:center;
+
+    gap:50px;
+}
+
+nav a{
+    text-decoration:none;
+
+    color:#073f78;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    padding:31px 0;
+}
+
+nav a:hover{
+    color:#176ee0;
+}
+
+nav a.active{
+    color:#176ee0;
+
+    border-bottom:3px solid #176ee0;
+}
+
+
+/* =========================
+   HEADER RIGHT
+========================= */
+
+.header-right{
+    margin-left:auto;
+    display:flex;
+    align-items:center;
+    
+    gap:14px;
+}
+
+
+.login{
+    width:118px;
+    height:50px;
+
+    border-radius:28px;
+    margin-left: 230px;
+    margin-right: 35px;
+    border:1.5px solid #176ee0;
+
+    background:white;
+
+    color:#176ee0;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+.register{
+    width:138px;
+    height:50px;
+
+    border:none;
+
+    border-radius:28px;
+
+    background:#176ee0;
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+
+/* =========================
+   PAGE HERO
+========================= */
+
+.page-hero{
+    background:
+    linear-gradient(
+        120deg,
+        #edf8ff,
+        #e8f5ff
+    );
+
+    padding:38px 5% 35px;
+}
+
+.page-hero h1{
+    color:#073f78;
+
+    font-size:35px;
+
+    margin-bottom:8px;
+}
+
+.page-hero h1 span{
+    color:#176ee0;
+}
+
+.page-hero p{
+    color:#58789a;
+
+    font-size:15px;
+
+    line-height:1.6;
+}
+
+
+/* =========================
+   SEARCH AREA
+========================= */
+
+.search-section{
+    padding:25px 5% 0;
+}
+
+.search-wrapper{
+    background:white;
+
+    border:1px solid #dceaf5;
+
+    border-radius:12px;
+
+    padding:18px;
+
+    display:flex;
+
+    gap:15px;
+
+    box-shadow:
+    0 4px 15px rgba(28,94,143,.05);
+}
+
+.search-input{
+    flex:1;
+
+    height:48px;
+
+    border:1px solid #cfdfed;
+
+    border-radius:8px;
+
+    display:flex;
+
+    align-items:center;
+
+    padding:0 16px;
+}
+
+.search-input i{
+    color:#176ee0;
+
+    margin-right:10px;
+}
+
+.search-input input{
+    width:100%;
+
+    border:none;
+
+    outline:none;
+
+    font-size:14px;
+
+    color:#315d87;
+}
+
+.search-input input::placeholder{
+    color:#8aa0b7;
+}
+
+.search-btn{
+    width:125px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:#176ee0;
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+.search-btn:hover{
+    background:#075fc9;
+}
+
+
+/* =========================
+   CONTENT
+========================= */
+
+.content{
+    padding:28px 5% 50px;
+}
+
+.main-layout{
+    display:grid;
+
+    grid-template-columns:240px 1fr;
+
+    gap:25px;
+
+    align-items:start;
+}
+
+
+/* =========================
+   FILTER
+========================= */
+
+.filter-box{
+    background:white;
+
+    border:1px solid #dceaf5;
+
+    border-radius:12px;
+
+    padding:20px;
+
+    box-shadow:
+    0 4px 15px rgba(28,94,143,.05);
+}
+
+.filter-title{
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:20px;
+}
+
+.filter-title h2{
+    color:#073f78;
+
+    font-size:18px;
+}
+
+.clear-btn{
+    border:none;
+
+    background:none;
+
+    color:#176ee0;
+
+    cursor:pointer;
+
+    font-size:12px;
+}
+
+.filter-group{
+    margin-bottom:22px;
+}
+
+.filter-group h3{
+    color:#315f89;
+
+    font-size:14px;
+
+    margin-bottom:12px;
+}
+
+.filter-option{
+    display:flex;
+
+    align-items:center;
+
+    gap:9px;
+
+    margin-bottom:10px;
+
+    color:#5d7895;
+
+    font-size:13px;
+
+    cursor:pointer;
+}
+
+.filter-option input{
+    accent-color:#176ee0;
+}
+
+
+/* =========================
+   SCHEME AREA
+========================= */
+
+.scheme-area{
+    min-width:0;
+}
+
+.scheme-top{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-bottom:18px;
+}
+
+.scheme-top h2{
+    color:#073f78;
+
+    font-size:22px;
+}
+
+.scheme-count{
+    color:#66819d;
+
+    font-size:13px;
+}
+
+
+/* =========================
+   CATEGORY BUTTONS
+========================= */
+
+.category-bar{
+    display:flex;
+
+    gap:10px;
+
+    flex-wrap:wrap;
+
+    margin-bottom:20px;
+}
+
+.category-btn{
+    border:1px solid #cfe2f1;
+
+    background:white;
+
+    color:#315f89;
+
+    border-radius:20px;
+
+    padding:9px 17px;
+
+    font-size:13px;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.category-btn:hover{
+    border-color:#176ee0;
+
+    color:#176ee0;
+}
+
+.category-btn.active{
+    background:#176ee0;
+
+    color:white;
+
+    border-color:#176ee0;
+}
+
+
+/* =========================
+   SCHEME GRID
+========================= */
+
+.scheme-grid{
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:18px;
+}
+
+
+/* =========================
+   SCHEME CARD
+========================= */
+
+.scheme-card{
+    background:white;
+
+    border:1px solid #dceaf5;
+
+    border-radius:13px;
+
+    padding:20px;
+
+    box-shadow:
+    0 4px 15px rgba(28,94,143,.05);
+
+    transition:.25s;
+}
+
+.scheme-card:hover{
+    transform:translateY(-3px);
+
+    box-shadow:
+    0 8px 20px rgba(28,94,143,.10);
+}
+
+
+/* CARD TOP */
+
+.card-top{
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:14px;
+
+    margin-bottom:14px;
+}
+
+.scheme-icon{
+    width:55px;
+    height:55px;
+
+    flex-shrink:0;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:24px;
+}
+
+.blue{
+    background:#dceeff;
+    color:#0875dc;
+}
+
+.green{
+    background:#ddf8ea;
+    color:#13965c;
+}
+
+.orange{
+    background:#fff0dc;
+    color:#ed9210;
+}
+
+.purple{
+    background:#eee5ff;
+    color:#6935d2;
+}
+
+.cyan{
+    background:#dff8fc;
+    color:#0795b5;
+}
+
+.pink{
+    background:#ffe3f0;
+    color:#e32c7d;
+}
+
+.scheme-name{
+    flex:1;
+}
+
+.scheme-name h3{
+    color:#073f78;
+
+    font-size:17px;
+
+    margin-bottom:8px;
+
+    line-height:1.35;
+}
+
+.category-tag{
+    display:inline-block;
+
+    padding:5px 10px;
+
+    border-radius:15px;
+
+    background:#edf6ff;
+
+    color:#176ee0;
+
+    font-size:11px;
+
+    font-weight:600;
+}
+
+
+/* DESCRIPTION */
+
+.scheme-description{
+    color:#607d9b;
+
+    font-size:13px;
+
+    line-height:1.6;
+
+    min-height:62px;
+
+    margin-bottom:14px;
+}
+
+
+/* INFO */
+
+.scheme-info{
+    display:flex;
+
+    gap:10px;
+
+    margin-bottom:16px;
+}
+
+.info{
+    flex:1;
+
+    background:#f3f8fc;
+
+    border-radius:8px;
+
+    padding:10px;
+}
+
+.info-title{
+    color:#7290aa;
+
+    font-size:11px;
+
+    margin-bottom:5px;
+}
+
+.info-value{
+    color:#315f89;
+
+    font-size:12px;
+
+    font-weight:600;
+}
+
+
+/* CARD BOTTOM */
+
+.card-bottom{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    border-top:1px solid #edf3f8;
+
+    padding-top:14px;
+}
+
+.deadline{
+    color:#d94b62;
+
+    font-size:11px;
+}
+
+.deadline strong{
+    display:block;
+
+    color:#526f8e;
+
+    margin-top:3px;
+}
+
+.details-btn{
+    border:1px solid #176ee0;
+
+    background:white;
+
+    color:#176ee0;
+
+    border-radius:7px;
+
+    padding:9px 15px;
+
+    font-size:12px;
+
+    font-weight:600;
+
+    cursor:pointer;
+}
+
+.details-btn:hover{
+    background:#176ee0;
+
+    color:white;
+}
+
+
+/* =========================
+   EMPTY
+========================= */
+
+.no-result{
+    display:none;
+
+    background:white;
+
+    border:1px solid #dceaf5;
+
+    border-radius:12px;
+
+    padding:45px;
+
+    text-align:center;
+
+    color:#67839f;
+}
+
+.no-result i{
+    font-size:40px;
+
+    color:#a5bfd6;
+
+    margin-bottom:12px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    background:#073f78;
+
+    color:white;
+
+    text-align:center;
+
+    padding:22px;
+}
+
+footer p{
+    font-size:13px;
+
+    opacity:.9;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1050px){
+
+    .logo-area{
+        width:auto;
+    }
+
+    nav{
+        gap:20px;
+    }
+
+    .main-layout{
+        grid-template-columns:200px 1fr;
+    }
+
+    .scheme-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:800px){
+
+    header{
+        height:auto;
+
+        padding:15px 5%;
+
+        flex-wrap:wrap;
+
+        gap:12px;
+    }
+
+    .logo-area{
+        width:100%;
+    }
+
+    nav{
+        order:3;
+
+        width:100%;
+
+        justify-content:center;
+
+        gap:20px;
+    }
+
+    nav a{
+        padding:10px 0;
+    }
+
+    .header-right{
+        position:absolute;
+
+        right:5%;
+
+        top:20px;
+    }
+
+    .login,
+    .register{
+        display:none;
+    }
+
+    .main-layout{
+        grid-template-columns:1fr;
+    }
+
+    .filter-box{
+        width:100%;
+    }
+}
+
+@media(max-width:600px){
+
+    .page-hero h1{
+        font-size:28px;
+    }
+
+    .search-wrapper{
+        flex-direction:column;
+    }
+
+    .search-btn{
+        height:45px;
+
+        width:100%;
+    }
+
+    .category-bar{
+        overflow-x:auto;
+
+        flex-wrap:nowrap;
+
+        padding-bottom:5px;
+    }
+
+    .category-btn{
+        flex-shrink:0;
+    }
+
+    .scheme-info{
+        flex-direction:column;
+    }
+
+    .card-bottom{
+        gap:12px;
+
+        align-items:flex-start;
+
+        flex-direction:column;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+
+
+    <!-- LOGO -->
+
+    <div class="logo-area">
+
+        <img
+        src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg"
+        alt="Government Emblem">
+
+        <div class="logo-text">
+
+            <h1>
+                Scheme Finder
+            </h1>
+
+            <p>
+                Government Schemes for a Brighter Future
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- NAVIGATION -->
+
+    <nav>
+
+        <a href="home.html">
+            Home
+        </a>
+
+        <a href="schemesssss.html" class="active">
+            Schemes
+        </a>
+
+        <a href="about us.html">
+            About Us
+        </a>
+
+        <a href="help.html">
+            Help
+        </a>
+
+    </nav>
+
+
+    <!-- RIGHT -->
+
+       <a href="login.html">
+    <button class="login">Login</button>
+</a>
+
+<a href="register.html">
+    <button class="register">Register</button>
+</a>
+
+    </div>
+
+
+</header>
+
+
+
+<!-- =====================================================
+     PAGE HERO
+===================================================== -->
+
+<section class="page-hero">
+
+    <h1>
+        Explore Government
+        <span>Schemes</span>
+    </h1>
+
+    <p>
+        Find schemes based on your needs, category and
+        eligibility. Explore benefits, eligibility requirements
+        and application information in one place.
+    </p>
+
+</section>
+
+
+
+<!-- =====================================================
+     SEARCH
+===================================================== -->
+
+<section class="search-section">
+
+    <div class="search-wrapper">
+
+        <div class="search-input">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search schemes by name, category or keyword..."
+                onkeyup="searchSchemes()"
+            >
+
+        </div>
+
+
+        <button
+            class="search-btn"
+            onclick="searchSchemes()">
+
+            Search
+
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CONTENT
+===================================================== -->
+
+<section class="content">
+
+
+<div class="main-layout">
+
+
+    <!-- =================================================
+         FILTER
+    ================================================== -->
+
+    <aside class="filter-box">
+
+
+        <div class="filter-title">
+
+            <h2>
+                Filters
+            </h2>
+
+            <button
+                class="clear-btn"
+                onclick="clearFilters()">
+
+                Clear All
+
+            </button>
+
+        </div>
+
+
+        <!-- CATEGORY -->
+
+        <div class="filter-group">
+
+            <h3>
+                Category
+            </h3>
+
+
+            <label class="filter-option">
+
+                <input
+                    type="checkbox"
+                    value="Education"
+                    class="filter">
+
+                Education
+
+            </label>
+
+
+            <label class="filter-option">
+
+                <input
+                    type="checkbox"
+                    value="Employed"
+                    class="filter">
+
+                Employment
+
+            </label>
+
+
+            <label class="filter-option">
+
+                <input
+                    type="checkbox"
+                    value="Unemployed"
+                    class="filter">
+
+                Unemployment
+
+            </label>
+
+
+            <label class="filter-option">
+
+                <input
+                    type="checkbox"
+                    value="Entrepreneurship"
+                    class="filter">
+
+                Entrepreneurship
+
+            </label>
+
+
+            <label class="filter-option">
+
+                <input
+                    type="checkbox"
+                    value="Internship"
+                    class="filter">
+
+                Internship
+
+            </label>
+
+        </div>
+
+
+        <!-- SCHEME TYPE -->
+
+        <div class="filter-group">
+
+            <h3>
+                Scheme Type
+            </h3>
+
+
+            <label class="filter-option">
+
+                <input type="checkbox">
+
+                Central Government
+
+            </label>
+
+        </div>
+
+
+        <!-- BENEFIT -->
+
+        <div class="filter-group">
+
+            <h3>
+                Benefits
+            </h3>
+
+
+            <label class="filter-option">
+
+                <input type="checkbox">
+
+                Scholarship
+
+            </label>
+
+
+            <label class="filter-option">
+
+                <input type="checkbox">
+
+                Financial Assistance
+
+            </label>
+
+
+            <label class="filter-option">
+
+                <input type="checkbox">
+
+                Training
+
+            </label>
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- =================================================
+         SCHEMES
+    ================================================== -->
+
+    <main class="scheme-area">
+
+
+        <div class="scheme-top">
+
+            <h2>
+                All Schemes
+            </h2>
+
+            <span
+                class="scheme-count"
+                id="schemeCount">
+
+                Showing 8 schemes
+
+            </span>
+
+        </div>
+
+
+
+        <!-- CATEGORY BUTTONS -->
+
+        <div class="category-bar">
+
+            <button
+                class="category-btn active"
+                onclick="filterCategory('All',this)">
+
+                All
+
+            </button>
+
+
+            <button
+                class="category-btn"
+                onclick="filterCategory('Education',this)">
+
+                Education
+
+            </button>
+
+
+            <button
+                class="category-btn"
+                onclick="filterCategory('Employed',this)">
+
+                Employed
+
+            </button>
+
+
+            <button
+                class="category-btn"
+                onclick="filterCategory('Unemployed',this)">
+
+                Unemployed
+
+            </button>
+
+
+            <button
+                class="category-btn"
+                onclick="filterCategory('Entrepreneurship',this)">
+
+                Entrepreneurship
+
+            </button>
+
+
+            <button
+                class="category-btn"
+                onclick="filterCategory('Internship',this)">
+
+                Internship
+
+            </button>
+
+        </div>
+
+
+
+        <!-- =================================================
+             SCHEME GRID
+        ================================================== -->
+
+        <div class="scheme-grid" id="schemeGrid">
+
+
+            <!-- 1 -->
+
+            <div
+                class="scheme-card"
+                data-category="Education"
+                data-name="PM Scholarship Scheme">
+
+                <div class="card-top">
+
+                    <div class="scheme-icon blue">
+
+                        <i class="fa-solid fa-graduation-cap"></i>
+
+                    </div>
+
+                    <div class="scheme-name">
+
+                        <h3>
+                            PM Scholarship Scheme
+                        </h3>
+
+                        <span class="category-tag">
+                            Education
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <p class="scheme-description">
+
+                    Financial assistance for eligible students
+                    pursuing higher education.
+
+                </p>
+
+
+                <div class="scheme-info">
+
+                    <div class="info">
+
+                        <div class="info-title">
+                            Benefit
+                        </div>
+
+                        <div class="info-value">
+                            Scholarship
+                        </div>
+
+                    </div>
+
+
+                    <div class="info">
+
+                        <div class="info-title">
+                            Eligibility
+                        </div>
+
+                        <div class="info-value">
+                            Eligible Students
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card-bottom">
+
+                    <div class="deadline">
+
+                        Application
+
+                        <strong>
+                            Check official portal
+                        </strong>
+
+                    </div>
+
+                    <button class="details-btn">
+                        View Details
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- 2 -->
+
+            <div
+                class="scheme-card"
+                data-category="Education"
+                data-name="PM YASASVI Scholarship Scheme">
+
+                <div class="card-top">
+
+                    <div class="scheme-icon purple">
+
+                        <i class="fa-solid fa-book-open"></i>
+
+                    </div>
+
+                    <div class="scheme-name">
+
+                        <h3>
+                            PM-YASASVI Scholarship Scheme
+                        </h3>
+
+                        <span class="category-tag">
+                            Education
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <p class="scheme-description">
+
+                    Scholarship support for eligible students
+                    belonging to specified disadvantaged groups.
+
+                </p>
+
+
+                <div class="scheme-info">
+
+                    <div class="info">
+
+                        <div class="info-title">
+                            Benefit
+                        </div>
+
+                        <div class="info-value">
+                            Financial Support
+                        </div>
+
+                    </div>
+
+
+                    <div class="info">
+
+                        <div class="info-title">
+                            Eligibility
+                        </div>
+
+                        <div class="info-value">
+                            Eligible Students
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card-bottom">
+
+                    <div class="deadline">
+
+                        Application
+
+                        <strong>
+                            Check official portal
+                        </strong>
+
+                    </div>
+
+                    <button class="details-btn">
+                        View Details
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- 3 -->
+
+            <div
+                class="scheme-card"
+                data-category="Employed"
+                data-name="National Career Service">
+
+                <div class="card-top">
+
+                    <div class="scheme-icon green">
+
+                        <i class="fa-solid fa-briefcase"></i>
+
+                    </div>
+
+                    <div class="scheme-name">
+
+                        <h3>
+                            National Career Service
+                        </h3>
+
+                        <span class="category-tag">
+                            Employed
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <p class="scheme-description">
+
+                    Career-related services connecting job seekers
+                    and employers with employment opportunities.
+
+                </p>
+
+
+                <div class="scheme-info">
+
+                    <div class="info">
+
+                        <div class="info-title">
+                            Benefit
+                        </div>
+
+                        <div class="info-value">
+                            Job Opportunities
+                        </div>
+
+                    </div>
+
+
+                    <div class="info">
+
+                        <div class="info-title">
+                            Eligibility
+                        </div>
+
+                        <div class="info-value">
+                            Job Seekers
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card-bottom">
+
+                    <div class="deadline">
+
+                        Availability
+
+                        <strong>
+                            Check official portal
+                        </strong>
+
+                    </div>
+
+                    <button class="details-btn">
+                        View Details
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- 4 -->
+
+            <div
+                class="scheme-card"
+                data-category="Unemployed"
+                data-name="Employment Support Scheme">
+
+                <div class="card-top">
+
+                    <div class="scheme-icon orange">
+
+                        <i class="fa-solid fa-user-tie"></i>
+
+                    </div>
+
+                    <div class="scheme-name">
+
+                        <h3>
+                            Employment Support Scheme
+                        </h3>
+
+                        <span class="category-tag">
+                            Unemployed
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <p class="scheme-description">
+
+                    Support and skill development opportunities
+                    for individuals seeking employment.
+
+                </p>
+
+
+                <div class="scheme-info">
+
+                    <div class="info">
+
+                        <div class="info-title">
+                            Benefit
+                        </div>
+
+                        <div class="info-value">
+                            Training & Support
+                        </div>
+
+                    </div>
+
+
+                    <div class="info">
+
+                        <div class="info-title">
+                            Eligibility
+                        </div>
+
+                        <div class="info-value">
+                            Job Seekers
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card-bottom">
+
+                    <div class="deadline">
+
+                        Application
+
+                        <strong>
+                            Check official portal
+                        </strong>
+
+                    </div>
+
+                    <button class="details-btn">
+                        View Details
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- 5 -->
+
+            <div
+                class="scheme-card"
+                data-category="Entrepreneurship"
+                data-name="Startup India">
+
+                <div class="card-top">
+
+                    <div class="scheme-icon purple">
+
+                        <i class="fa-solid fa-lightbulb"></i>
+
+                    </div>
+
+                    <div class="scheme-name">
+
+                        <h3>
+                            Startup India
+                        </h3>
+
+                        <span class="category-tag">
+                            Entrepreneurship
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <p class="scheme-description">
+
+                    Supports startup development and encourages
+                    innovation and entrepreneurship.
+
+                </p>
+
+
+                <div class="scheme-info">
+
+                    <div class="info">
+
+                        <div class="info-title">
+                            Benefit
+                        </div>
+
+                        <div class="info-value">
+                            Startup Support
+                        </div>
+
+                    </div>
+
+
+                    <div class="info">
+
+                        <div class="info-title">
+                            Eligibility
+                        </div>
+
+                        <div class="info-value">
+                            Eligible Startups
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card-bottom">
+
+                    <div class="deadline">
+
+                        Information
+
+                        <strong>
+                            Check official portal
+                        </strong>
+
+                    </div>
+
+                    <button class="details-btn">
+                        View Details
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- 6 -->
+
+            <div
+                class="scheme-card"
+                data-category="Entrepreneurship"
+                data-name="MUDRA Loan">
+
+                <div class="card-top">
+
+                    <div class="scheme-icon green">
+
+                        <i class="fa-solid fa-building"></i>
+
+                    </div>
+
+                    <div class="scheme-name">
+
+                        <h3>
+                            Pradhan Mantri MUDRA Yojana
+                        </h3>
+
+                        <span class="category-tag">
+                            Entrepreneurship
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <p class="scheme-description">
+
+                    Provides institutional credit support to
+                    micro and small business activities.
+
+                </p>
+
+
+                <div class="scheme-info">
+
+                    <div class="info">
+
+                        <div class="info-title">
+                            Benefit
+                        </div>
+
+                        <div class="info-value">
+                            Business Credit
+                        </div>
+
+                    </div>
+
+
+                    <div class="info">
+
+                        <div class="info-title">
+                            Eligibility
+                        </div>
+
+                        <div class="info-value">
+                            Eligible Entrepreneurs
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card-bottom">
+
+                    <div class="deadline">
+
+                        Information
+
+                        <strong>
+                            Check official portal
+                        </strong>
+
+                    </div>
+
+                    <button class="details-btn">
+                        View Details
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- 7 -->
+
+            <div
+                class="scheme-card"
+                data-category="Internship"
+                data-name="National Internship Portal">
+
+                <div class="card-top">
+
+                    <div class="scheme-icon cyan">
+
+                        <i class="fa-solid fa-laptop"></i>
+
+                    </div>
+
+                    <div class="scheme-name">
+
+                        <h3>
+                            Internship Opportunities
+                        </h3>
+
+                        <span class="category-tag">
+                            Internship
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <p class="scheme-description">
+
+                    Explore internship opportunities that help
+                    students gain practical industry exposure.
+
+                </p>
+
+
+                <div class="scheme-info">
+
+                    <div class="info">
+
+                        <div class="info-title">
+                            Benefit
+                        </div>
+
+                        <div class="info-value">
+                            Industry Exposure
+                        </div>
+
+                    </div>
+
+
+                    <div class="info">
+
+                        <div class="info-title">
+                            Eligibility
+                        </div>
+
+                        <div class="info-value">
+                            Students
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card-bottom">
+
+                    <div class="deadline">
+
+                        Availability
+
+                        <strong>
+                            Check official portal
+                        </strong>
+
+                    </div>
+
+                    <button class="details-btn">
+                        View Details
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- 8 -->
+
+            <div
+                class="scheme-card"
+                data-category="Internship"
+                data-name="Skill Development Internship">
+
+                <div class="card-top">
+
+                    <div class="scheme-icon blue">
+
+                        <i class="fa-solid fa-code"></i>
+
+                    </div>
+
+                    <div class="scheme-name">
+
+                        <h3>
+                            Skill Development Programs
+                        </h3>
+
+                        <span class="category-tag">
+                            Internship
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <p class="scheme-description">
+
+                    Skill development and practical learning
+                    opportunities for aspiring professionals.
+
+                </p>
+
+
+                <div class="scheme-info">
+
+                    <div class="info">
+
+                        <div class="info-title">
+                            Benefit
+                        </div>
+
+                        <div class="info-value">
+                            Skill Development
+                        </div>
+
+                    </div>
+
+
+                    <div class="info">
+
+                        <div class="info-title">
+                            Eligibility
+                        </div>
+
+                        <div class="info-value">
+                            Eligible Youth
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card-bottom">
+
+                    <div class="deadline">
+
+                        Availability
+
+                        <strong>
+                            Check official portal
+                        </strong>
+
+                    </div>
+
+                    <button class="details-btn">
+                        View Details
+                    </button>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- NO RESULT -->
+
+        <div class="no-result" id="noResult">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <h3>
+                No schemes found
+            </h3>
+
+            <p>
+                Try another search term or category.
+            </p>
+
+        </div>
+
+
+    </main>
+
+</div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <p>
+        © 2026 Scheme Finder | Government Schemes for a Brighter Future
+    </p>
+
+</footer>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+/* =========================
+   SEARCH
+========================= */
+
+function searchSchemes(){
+
+    let input =
+        document.getElementById("searchInput")
+        .value
+        .toLowerCase()
+        .trim();
+
+    let cards =
+        document.querySelectorAll(".scheme-card");
+
+    let count = 0;
+
+
+    cards.forEach(function(card){
+
+        let name =
+            card.dataset.name.toLowerCase();
+
+        let category =
+            card.dataset.category.toLowerCase();
+
+        let text =
+            card.innerText.toLowerCase();
+
+
+        if(
+            name.includes(input) ||
+            category.includes(input) ||
+            text.includes(input)
+        ){
+
+            card.style.display = "block";
+
+            count++;
+
+        }
+        else{
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+
+    updateCount(count);
+
+}
+
+
+/* =========================
+   CATEGORY FILTER
+========================= */
+
+function filterCategory(category, button){
+
+    let cards =
+        document.querySelectorAll(".scheme-card");
+
+    let count = 0;
+
+
+    document
+    .querySelectorAll(".category-btn")
+    .forEach(function(btn){
+
+        btn.classList.remove("active");
+
+    });
+
+
+    button.classList.add("active");
+
+
+    cards.forEach(function(card){
+
+        if(
+            category === "All" ||
+            card.dataset.category === category
+        ){
+
+            card.style.display = "block";
+
+            count++;
+
+        }
+        else{
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+
+    document.getElementById("searchInput").value = "";
+
+    updateCount(count);
+
+}
+
+
+/* =========================
+   COUNT
+========================= */
+
+function updateCount(count){
+
+    document.getElementById("schemeCount")
+    .innerText =
+        "Showing " + count + " schemes";
+
+
+    if(count === 0){
+
+        document.getElementById("noResult")
+        .style.display = "block";
+
+    }
+    else{
+
+        document.getElementById("noResult")
+        .style.display = "none";
+
+    }
+
+}
+
+
+/* =========================
+   CLEAR FILTERS
+========================= */
+
+function clearFilters(){
+
+    document
+    .querySelectorAll(".filter")
+    .forEach(function(filter){
+
+        filter.checked = false;
+
+    });
+
+
+    document.getElementById("searchInput").value = "";
+
+
+    document
+    .querySelectorAll(".scheme-card")
+    .forEach(function(card){
+
+        card.style.display = "block";
+
+    });
+
+
+    document
+    .querySelectorAll(".category-btn")
+    .forEach(function(btn){
+
+        btn.classList.remove("active");
+
+    });
+
+
+    document
+    .querySelector(".category-btn")
+    .classList.add("active");
+
+
+    updateCount(
+        document.querySelectorAll(".scheme-card").length
+    );
+
+}
+
+
+/* =========================
+   FILTER CHECKBOXES
+========================= */
+
+document
+.querySelectorAll(".filter")
+.forEach(function(filter){
+
+    filter.addEventListener("change",function(){
+
+        let selected =
+            Array.from(
+                document.querySelectorAll(".filter:checked")
+            )
+            .map(function(item){
+                return item.value;
+            });
+
+
+        let cards =
+            document.querySelectorAll(".scheme-card");
+
+        let count = 0;
+
+
+        cards.forEach(function(card){
+
+            if(
+                selected.length === 0 ||
+                selected.includes(card.dataset.category)
+            ){
+
+                card.style.display = "block";
+
+                count++;
+
+            }
+            else{
+
+                card.style.display = "none";
+
+            }
+
+        });
+
+
+        updateCount(count);
+
+    });
+
+});
+
+</script>
+
+
+</body>
+
+</html>

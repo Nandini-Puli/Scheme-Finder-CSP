@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scheme Finder - Logout</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f4f9ff;
+            color: #0b4385;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* ================= SIDEBAR ================= */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 260px;
+            height: 100vh;
+
+            background: linear-gradient(
+                180deg,
+                #07509d 0%,
+                #064b98 55%,
+                #063f82 100%
+            );
+
+            color: white;
+            padding: 18px 15px;
+
+            z-index: 10;
+            overflow: hidden;
+        }
+
+        /* Decorative building inside sidebar */
+
+        .sidebar::after {
+            content: "";
+            position: absolute;
+            left: -70px;
+            bottom: 60px;
+
+            width: 350px;
+            height: 300px;
+
+            background:
+                linear-gradient(
+                    rgba(255,255,255,0.06),
+                    rgba(255,255,255,0.01)
+                );
+
+            border-radius: 50% 50% 0 0;
+
+            transform: translateY(80px);
+        }
+
+        /* ================= LOGO ================= */
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+
+            height: 65px;
+            padding-left: 10px;
+
+            margin-bottom: 25px;
+        }
+
+        .logo img {
+            width: 42px;
+            height: 52px;
+            object-fit: contain;
+
+            filter: brightness(0) invert(1);
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 600;
+            color: white;
+            white-space: nowrap;
+        }
+
+        /* ================= NAVIGATION ================= */
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .nav-item {
+            width: 100%;
+            height: 52px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 20px;
+
+            padding: 0 14px;
+
+            color: white;
+            text-decoration: none;
+
+            font-size: 16px;
+            font-weight: 500;
+
+            border-radius: 9px;
+
+            transition: 0.25s ease;
+        }
+
+        .nav-item i {
+            width: 26px;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        .nav-item:hover {
+            background: rgba(255,255,255,0.12);
+        }
+
+        /* Active Logout */
+
+        .nav-item.active {
+            background: linear-gradient(
+                90deg,
+                #168cff,
+                #1685f4
+            );
+
+            box-shadow:
+                0 5px 15px rgba(0, 126, 255, 0.25);
+        }
+
+        /* ================= SIDEBAR FOOTER ================= */
+
+        .sidebar-footer {
+            position: absolute;
+
+            bottom: 25px;
+            left: 0;
+
+            width: 100%;
+
+            text-align: center;
+
+            z-index: 3;
+        }
+
+        .sidebar-footer p {
+            color: white;
+            font-size: 14px;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+
+        /* Indian tricolor curve */
+
+        .tricolor {
+            width: 90px;
+            height: 20px;
+
+            margin: 8px auto 0;
+
+            position: relative;
+        }
+
+        .tricolor::before {
+            content: "";
+
+            position: absolute;
+
+            width: 75px;
+            height: 5px;
+
+            background: #ff9933;
+
+            border-radius: 50%;
+
+            left: 8px;
+            top: 2px;
+
+            transform: rotate(-10deg);
+        }
+
+        .tricolor::after {
+            content: "";
+
+            position: absolute;
+
+            width: 75px;
+            height: 5px;
+
+            background: #138808;
+
+            border-radius: 50%;
+
+            left: 8px;
+            top: 11px;
+
+            transform: rotate(-10deg);
+        }
+
+        /* ================= MAIN CONTENT ================= */
+
+        .main {
+            margin-left: 260px;
+
+            width: calc(100% - 260px);
+            height: 100vh;
+
+            position: relative;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background:
+                radial-gradient(
+                    circle at 50% 35%,
+                    rgba(225,240,255,0.7),
+                    transparent 35%
+                ),
+                #f5f9fe;
+        }
+
+        /* Decorative background waves */
+
+        .main::before {
+            content: "";
+
+            position: absolute;
+
+            width: 650px;
+            height: 650px;
+
+            top: -250px;
+            right: -180px;
+
+            background: rgba(224,239,255,0.35);
+
+            border-radius: 50%;
+        }
+
+        .main::after {
+            content: "";
+
+            position: absolute;
+
+            width: 800px;
+            height: 300px;
+
+            left: -100px;
+            bottom: -210px;
+
+            background: rgba(220,237,255,0.55);
+
+            border-radius: 50%;
+        }
+
+        /* ================= LOGOUT CONTENT ================= */
+
+        .logout-container {
+            position: relative;
+
+            width: 760px;
+
+            text-align: center;
+
+            z-index: 5;
+
+            margin-top: -20px;
+        }
+
+        /* ================= ILLUSTRATION ================= */
+
+        .logout-image {
+            width: 430px;
+            height: 300px;
+
+            margin: 0 auto 10px;
+
+            position: relative;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .illustration-bg {
+            position: absolute;
+
+            width: 440px;
+            height: 270px;
+
+            background: #e8f4ff;
+
+            border-radius: 45% 55% 45% 55%;
+
+            opacity: 0.95;
+        }
+
+        /* Door */
+
+        .door {
+            position: absolute;
+
+            width: 120px;
+            height: 210px;
+
+            right: 105px;
+            top: 35px;
+
+            background: linear-gradient(
+                135deg,
+                #168bff,
+                #0b6fe8
+            );
+
+            border-radius: 7px;
+
+            box-shadow:
+                inset 7px 0 0 rgba(255,255,255,0.12),
+                0 8px 20px rgba(0,100,220,0.15);
+
+            transform: skewY(-10deg);
+        }
+
+        .door-inner {
+            position: absolute;
+
+            width: 92px;
+            height: 170px;
+
+            left: 15px;
+            top: 18px;
+
+            border: 6px solid #075ecb;
+
+            border-radius: 4px;
+        }
+
+        /* Arrow */
+
+        .door-arrow {
+            position: absolute;
+
+            top: 92px;
+            right: 25px;
+
+            color: white;
+
+            font-size: 45px;
+
+            z-index: 3;
+        }
+
+        /* Door frame */
+
+        .door-frame {
+            position: absolute;
+
+            width: 32px;
+            height: 225px;
+
+            right: 210px;
+            top: 29px;
+
+            background: #0768dc;
+
+            border-radius: 5px;
+
+            transform: skewY(-10deg);
+        }
+
+        /* Plant */
+
+        .plant {
+            position: absolute;
+
+            left: 105px;
+            bottom: 20px;
+
+            width: 120px;
+            height: 150px;
+        }
+
+        .pot {
+            position: absolute;
+
+            bottom: 0;
+            left: 28px;
+
+            width: 65px;
+            height: 55px;
+
+            background: linear-gradient(
+                180deg,
+                #ffffff,
+                #d8efff
+            );
+
+            border: 4px solid #76bff3;
+
+            border-top: 0;
+
+            border-radius: 0 0 14px 14px;
+
+            transform: perspective(80px) rotateX(-3deg);
+        }
+
+        .stem {
+            position: absolute;
+
+            width: 6px;
+            height: 95px;
+
+            background: #43b889;
+
+            left: 58px;
+            bottom: 42px;
+
+            border-radius: 10px;
+
+            transform: rotate(5deg);
+        }
+
+        .leaf {
+            position: absolute;
+
+            width: 30px;
+            height: 55px;
+
+            background: #49c794;
+
+            border-radius: 80% 20% 80% 20%;
+
+            transform: rotate(-25deg);
+        }
+
+        .leaf.one {
+            left: 37px;
+            bottom: 91px;
+        }
+
+        .leaf.two {
+            left: 63px;
+            bottom: 105px;
+
+            transform: rotate(25deg);
+        }
+
+        .leaf.three {
+            left: 23px;
+            bottom: 65px;
+
+            transform: rotate(-45deg);
+        }
+
+        /* Small cloud */
+
+        .cloud {
+            position: absolute;
+
+            right: 30px;
+            top: 70px;
+
+            width: 65px;
+            height: 25px;
+
+            background: #bcdcff;
+
+            border-radius: 30px;
+        }
+
+        .cloud::before,
+        .cloud::after {
+            content: "";
+
+            position: absolute;
+
+            background: #bcdcff;
+
+            border-radius: 50%;
+        }
+
+        .cloud::before {
+            width: 30px;
+            height: 30px;
+            left: 10px;
+            top: -15px;
+        }
+
+        .cloud::after {
+            width: 35px;
+            height: 35px;
+            right: 8px;
+            top: -18px;
+        }
+
+        /* ================= TEXT ================= */
+
+        .logout-container h1 {
+            color: #084484;
+
+            font-size: 48px;
+            font-weight: 700;
+
+            margin-top: 5px;
+            margin-bottom: 20px;
+        }
+
+        .logout-container p {
+            font-size: 21px;
+
+            color: #345d8e;
+
+            line-height: 1.8;
+
+            margin-bottom: 38px;
+        }
+
+        /* ================= BUTTON ================= */
+
+        .login-btn {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            gap: 18px;
+
+            width: 285px;
+            height: 68px;
+
+            background: linear-gradient(
+                90deg,
+                #087df5,
+                #167cf0
+            );
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 11px;
+
+            font-size: 20px;
+            font-weight: 600;
+
+            box-shadow:
+                0 8px 18px rgba(0,117,235,0.20);
+
+            transition: all 0.25s ease;
+        }
+
+        .login-btn i {
+            font-size: 24px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 12px 25px rgba(0,117,235,0.30);
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 900px) {
+
+            .sidebar {
+                width: 220px;
+            }
+
+            .main {
+                margin-left: 220px;
+                width: calc(100% - 220px);
+            }
+
+            .logout-container {
+                width: 90%;
+            }
+
+            .logout-container h1 {
+                font-size: 38px;
+            }
+
+            .logout-container p {
+                font-size: 17px;
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            body {
+                overflow: auto;
+            }
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+                min-height: 700px;
+            }
+
+            .sidebar-footer {
+                display: none;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .logout-container h1 {
+                font-size: 30px;
+            }
+
+            .logout-container p {
+                font-size: 15px;
+            }
+
+            .logout-image {
+                transform: scale(0.75);
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <!-- Government Emblem -->
+            <img
+                src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg"
+                alt="Government of India">
+
+            <span class="logo-text">
+                Scheme Finder
+            </span>
+
+        </div>
+
+
+        <nav class="nav-menu">
+
+            <a href="dashboard.html" class="nav-item">
+                <i class="fa-solid fa-house"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="schemes.html" class="nav-item">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <span>Schemes</span>
+            </a>
+
+            <a href="savedschemes.html" class="nav-item">
+                <i class="fa-regular fa-heart"></i>
+                <span>Saved Schemes</span>
+            </a>
+
+            <a href="alerts.html" class="nav-item">
+                <i class="fa-regular fa-bell"></i>
+                <span>Alerts</span>
+            </a>
+
+            <a href="profile.html" class="nav-item">
+                <i class="fa-regular fa-user"></i>
+                <span>Profile</span>
+            </a>
+
+            <a href="settings.html" class="nav-item">
+                <i class="fa-solid fa-gear"></i>
+                <span>Settings</span>
+            </a>
+
+            <a href="logout.html" class="nav-item active">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </a>
+
+        </nav>
+
+
+        <!-- Sidebar Bottom -->
+
+        <div class="sidebar-footer">
+
+            <p>
+                Government Schemes<br>
+                for a Better Tomorrow
+            </p>
+
+            <div class="tricolor"></div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="main">
+
+        <div class="logout-container">
+
+            <!-- Illustration -->
+
+            <div class="logout-image">
+
+                <div class="illustration-bg"></div>
+
+                <div class="cloud"></div>
+
+                <!-- Plant -->
+
+                <div class="plant">
+
+                    <div class="stem"></div>
+
+                    <div class="leaf one"></div>
+                    <div class="leaf two"></div>
+                    <div class="leaf three"></div>
+
+                    <div class="pot"></div>
+
+                </div>
+
+                <!-- Door -->
+
+                <div class="door-frame"></div>
+
+                <div class="door">
+
+                    <div class="door-inner"></div>
+
+                    <i class="fa-solid fa-arrow-right door-arrow"></i>
+
+                </div>
+
+            </div>
+
+
+            <!-- Logout Message -->
+
+            <h1>
+                You have been logged out!
+            </h1>
+
+            <p>
+                Thank you for using Scheme Finder.<br>
+                Your session has ended securely.
+            </p>
+
+
+            <!-- Back to Login -->
+
+            <a href="login.html" class="login-btn">
+
+                <i class="fa-solid fa-house"></i>
+
+                <span>Back to Login</span>
+
+            </a>
+
+        </div>
+
+    </main>
+
+    
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const logoutButton = document.querySelector(".login-btn");
+
+    if (!logoutButton) return;
+
+    logoutButton.addEventListener("click", async (event) => {
+        event.preventDefault();
+
+        if (logoutButton.dataset.loggingOut === "true") return;
+
+        logoutButton.dataset.loggingOut = "true";
+        logoutButton.style.pointerEvents = "none";
+
+        try {
+            const response = await fetch(
+                "http://127.0.0.1:5000/api/auth/logout",
+                {
+                    method: "POST",
+                    credentials: "include",
+                    headers: {
+                        "Accept": "application/json"
+                    },
+                    cache: "no-store"
+                }
+            );
+
+            const data = await response.json();
+
+            if (!response.ok || !data.success) {
+                throw new Error(data.message || "Logout failed.");
+            }
+
+            // Remove cached pages from the current browser history
+            // by navigating to the login page.
+            window.location.replace("login.html");
+
+        } catch (error) {
+            console.error("Logout error:", error);
+
+            alert(
+                "Unable to log out from the server. " +
+                "Please check your Flask server and try again."
+            );
+
+            logoutButton.dataset.loggingOut = "false";
+            logoutButton.style.pointerEvents = "";
+        }
+    });
+});
+</script>
+
+</body>
+</html>

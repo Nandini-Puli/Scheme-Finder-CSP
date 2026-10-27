@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Scheme Finder - Forgot Password</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:"Segoe UI", Arial, sans-serif;
+    background:#eef7ff;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#08457f;
+}
+
+
+/* =========================
+   MAIN CONTAINER
+========================= */
+
+.forgot-container{
+    width:900px;
+    min-height:560px;
+
+    background:#ffffff;
+
+    border-radius:18px;
+
+    display:flex;
+
+    overflow:hidden;
+
+    box-shadow:0 10px 35px rgba(0,70,130,.15);
+}
+
+
+/* =========================
+   LEFT SIDE
+========================= */
+
+.left-section{
+    width:45%;
+
+    background:linear-gradient(
+        145deg,
+        #07539a,
+        #0875d1
+    );
+
+    color:white;
+
+    display:flex;
+    flex-direction:column;
+
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+
+    padding:40px;
+}
+
+.logo-icon{
+    width:85px;
+    height:85px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.15);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:40px;
+
+    margin-bottom:22px;
+}
+
+.left-section h1{
+    font-size:29px;
+    margin-bottom:12px;
+}
+
+.left-section p{
+    font-size:15px;
+    line-height:1.7;
+    opacity:.9;
+}
+
+
+/* =========================
+   RIGHT SIDE
+========================= */
+
+.right-section{
+    width:55%;
+
+    padding:45px 55px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.title{
+    font-size:28px;
+
+    color:#064581;
+
+    margin-bottom:8px;
+}
+
+.subtitle{
+    font-size:14px;
+
+    color:#607995;
+
+    line-height:1.6;
+
+    margin-bottom:28px;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.form-group{
+    margin-bottom:20px;
+}
+
+.form-group label{
+    display:block;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    color:#164d82;
+
+    margin-bottom:8px;
+}
+
+.input-box{
+    position:relative;
+}
+
+.input-box i{
+    position:absolute;
+
+    left:15px;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    color:#0871d5;
+
+    font-size:16px;
+}
+
+.input-box input{
+    width:100%;
+
+    height:48px;
+
+    border:1px solid #cddfea;
+
+    border-radius:8px;
+
+    outline:none;
+
+    padding:0 15px 0 45px;
+
+    font-size:14px;
+
+    color:#164d82;
+
+    transition:.2s;
+}
+
+.input-box input:focus{
+    border-color:#0875df;
+
+    box-shadow:0 0 0 3px rgba(8,117,223,.1);
+}
+
+
+/* =========================
+   RESET BUTTON
+========================= */
+
+.reset-button{
+    width:100%;
+
+    height:48px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:linear-gradient(
+        90deg,
+        #0875eb,
+        #0879e8
+    );
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    margin-top:5px;
+
+    transition:.2s;
+}
+
+.reset-button:hover{
+    background:#0668ce;
+
+    transform:translateY(-1px);
+}
+
+
+/* =========================
+   BACK LOGIN
+========================= */
+
+.back-login{
+    text-align:center;
+
+    margin-top:22px;
+
+    font-size:14px;
+
+    color:#607995;
+}
+
+.back-login a{
+    color:#0872d4;
+
+    font-weight:600;
+
+    text-decoration:none;
+}
+
+.back-login a:hover{
+    text-decoration:underline;
+}
+
+
+/* =========================
+   OTP SECTION
+========================= */
+
+#otpSection{
+    display:none;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:750px){
+
+    .forgot-container{
+        width:92%;
+
+        flex-direction:column;
+    }
+
+    .left-section,
+    .right-section{
+        width:100%;
+    }
+
+    .left-section{
+        min-height:220px;
+
+        padding:30px;
+    }
+
+    .logo-icon{
+        width:65px;
+        height:65px;
+
+        font-size:30px;
+
+        margin-bottom:12px;
+    }
+
+    .left-section h1{
+        font-size:24px;
+    }
+
+    .right-section{
+        padding:35px 30px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<div class="forgot-container">
+
+
+    <!-- =========================
+         LEFT SECTION
+    ========================== -->
+
+    <div class="left-section">
+
+        <div class="logo-icon">
+            <i class="fa-solid fa-lock"></i>
+        </div>
+
+        <h1>
+            Scheme Finder
+        </h1>
+
+        <p>
+            Don't worry! Reset your password
+            and get back to discovering
+            government schemes.
+        </p>
+
+    </div>
+
+
+
+    <!-- =========================
+         RIGHT SECTION
+    ========================== -->
+
+    <div class="right-section">
+
+        <h2 class="title">
+            Forgot Password?
+        </h2>
+
+        <p class="subtitle">
+            Enter your registered email or mobile number
+            and we'll help you reset your password.
+        </p>
+
+
+
+        <!-- EMAIL / MOBILE -->
+
+        <div id="emailSection">
+
+            <div class="form-group">
+
+                <label>
+                    Email / Mobile Number
+                </label>
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-user"></i>
+
+                    <input
+                        type="text"
+                        id="userContact"
+                        placeholder="Enter your email or mobile number"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="reset-button"
+                type="button"
+                onclick="sendOTP()">
+
+                Reset Password
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </button>
+
+        </div>
+
+
+
+        <!-- OTP SECTION -->
+
+        <div id="otpSection">
+
+            <div class="form-group">
+
+                <label>
+                    Enter OTP
+                </label>
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-key"></i>
+
+                    <input
+                        type="text"
+                        id="otp"
+                        maxlength="6"
+                        placeholder="Enter 6-digit OTP"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    New Password
+                </label>
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    <input
+                        type="password"
+                        id="newPassword"
+                        placeholder="Enter new password"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Confirm Password
+                </label>
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        placeholder="Confirm new password"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="reset-button"
+                type="button"
+                onclick="resetPassword()">
+
+                Reset Password
+
+                <i class="fa-solid fa-check"></i>
+
+            </button>
+
+        </div>
+
+
+
+        <!-- BACK TO LOGIN -->
+
+        <div class="back-login">
+
+            Remember your password?
+
+            <a href="login.html">
+                Back to Login
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+function sendOTP(){
+
+    const contact =
+        document.getElementById("userContact").value.trim();
+
+    if(contact === ""){
+
+        alert("Please enter your email or mobile number.");
+
+        return;
+    }
+
+    document.getElementById("emailSection").style.display = "none";
+
+    document.getElementById("otpSection").style.display = "block";
+
+}
+
+
+function resetPassword(){
+
+    const otp =
+        document.getElementById("otp").value.trim();
+
+    const newPassword =
+        document.getElementById("newPassword").value;
+
+    const confirmPassword =
+        document.getElementById("confirmPassword").value;
+
+
+    if(otp === ""){
+
+        alert("Please enter the OTP.");
+
+        return;
+    }
+
+
+    if(newPassword === ""){
+
+        alert("Please enter a new password.");
+
+        return;
+    }
+
+
+    if(newPassword !== confirmPassword){
+
+        alert("Passwords do not match.");
+
+        return;
+    }
+
+
+    alert("Password reset successfully!");
+
+    window.location.href = "login.html";
+
+}
+
+</script>
+<script src="../js/forgot-password.js"></script>
+
+</body>
+</html>

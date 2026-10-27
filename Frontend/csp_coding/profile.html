@@ -1,0 +1,1418 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Scheme Finder - Profile</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/appearance.css">
+
+    <script src="../js/auth_guard.js"></script>
+    <script src="../js/appearance.js"></script>
+
+    <style>
+        /* Reset and base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Poppins", sans-serif;
+            background: #eef7ff;
+            color: #0d4380;
+        }
+
+        button,
+        input,
+        select {
+            font-family: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            inset: 0 auto 0 0;
+            width: 260px;
+            height: 100vh;
+            padding: 18px 15px;
+            overflow: hidden;
+            color: white;
+            background: linear-gradient(180deg, #07509d 0%, #064b98 55%, #063f82 100%);
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+
+        .sidebar::after {
+            content: "";
+            position: absolute;
+            left: -70px;
+            bottom: 60px;
+            width: 350px;
+            height: 300px;
+            background: linear-gradient(rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.01));
+            border-radius: 50% 50% 0 0;
+            transform: translateY(80px);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .logo {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            height: 65px;
+            padding-left: 10px;
+            margin-bottom: 25px;
+        }
+
+        .logo img {
+            width: 42px;
+            height: 52px;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+        }
+
+        .logo-text {
+            color: white;
+            font-size: 24px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .menu {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+            height: 52px;
+            padding: 0 14px;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 9px;
+            transition: background 0.25s ease;
+        }
+
+        .menu-item:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .menu-item.active {
+            background: linear-gradient(90deg, #168cff, #1685f4);
+            box-shadow: 0 5px 15px rgba(0, 126, 255, 0.25);
+        }
+
+        .menu-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 26px;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        .sidebar-bottom {
+            position: absolute;
+            bottom: 25px;
+            left: 0;
+            z-index: 3;
+            width: 100%;
+            text-align: center;
+        }
+
+        .sidebar-bottom p {
+            color: white;
+            font-size: 14px;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+
+        .tricolor {
+            position: relative;
+            width: 90px;
+            height: 20px;
+            margin: 8px auto 0;
+        }
+
+        .tricolor::before,
+        .tricolor::after {
+            content: "";
+            position: absolute;
+            left: 8px;
+            width: 75px;
+            height: 5px;
+            border-radius: 50%;
+            transform: rotate(-10deg);
+        }
+
+        .tricolor::before {
+            top: 2px;
+            background: #ff9933;
+        }
+
+        .tricolor::after {
+            top: 11px;
+            background: #138808;
+        }
+
+        .sidebar.collapsed {
+            width: 80px;
+        }
+
+        .sidebar.collapsed .logo,
+        .sidebar.collapsed .sidebar-bottom,
+        .sidebar.collapsed .menu-item > span:last-child {
+            display: none;
+        }
+
+        .sidebar.collapsed .menu-item {
+            justify-content: center;
+            gap: 0;
+            padding: 0;
+        }
+
+        /* Sidebar toggle */
+        .menu-btn {
+            position: fixed;
+            top: 17px;
+            left: 18px;
+            z-index: 1100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            color: #064b92;
+            background: white;
+            border: 1px solid #dceafa;
+            border-radius: 8px;
+        }
+
+        /* Top bar */
+        .topbar {
+            position: fixed;
+            top: 0;
+            left: 260px;
+            right: 0;
+            z-index: 900;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            height: 75px;
+            padding: 0 28px;
+            background: white;
+            border-bottom: 1px solid #dceafa;
+            transition: left 0.3s ease;
+        }
+
+        .notification {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 42px;
+            height: 42px;
+            margin-right: 28px;
+            padding: 0;
+            color: #064b92;
+            font-size: 27px;
+            background: transparent;
+            border: 0;
+        }
+
+        .notification-number {
+            position: absolute;
+            top: -3px;
+            right: -5px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            min-width: 17px;
+            height: 17px;
+            padding: 0 4px;
+            color: white;
+            background: #e51d3e;
+            border-radius: 10px;
+            font-size: 10px;
+        }
+
+        .profile-top {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #0b407e;
+            font-weight: 600;
+        }
+
+        .profile-circle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            background: #e5f1ff;
+            border-radius: 50%;
+            font-size: 27px;
+        }
+
+        /* Notifications panel */
+        .notification-panel {
+            position: fixed;
+            top: 68px;
+            right: 115px;
+            z-index: 1200;
+            width: min(370px, calc(100vw - 24px));
+            max-height: 70vh;
+            overflow: auto;
+            padding: 15px;
+            background: white;
+            border: 1px solid #dceafa;
+            border-radius: 10px;
+            box-shadow: 0 12px 35px rgba(20, 65, 110, 0.18);
+        }
+
+        .notification-panel-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            color: #0b4382;
+        }
+
+        .notification-panel-heading button {
+            color: #0b4382;
+            background: transparent;
+            border: 0;
+            font-size: 25px;
+        }
+
+        .notification-row {
+            padding: 12px 0;
+            color: #315b84;
+            border-top: 1px solid #edf3f8;
+            font-size: 13px;
+        }
+
+        .notification-row.unread {
+            background: #f5fbff;
+        }
+
+        .notification-row strong {
+            display: block;
+            margin-bottom: 4px;
+            color: #0b4382;
+        }
+
+        .notification-row p {
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+        .notification-row button {
+            margin-top: 8px;
+            padding: 5px 9px;
+            color: #0870d8;
+            background: #f4faff;
+            border: 1px solid #8ac0ee;
+            border-radius: 6px;
+        }
+
+        /* Main layout */
+        .main {
+            min-height: 100vh;
+            margin-left: 260px;
+            padding: 95px 22px 30px;
+            transition: margin-left 0.3s ease;
+        }
+
+        /* Profile header */
+        .profile-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 18px;
+            padding: 20px 25px;
+            background: #f8fcff;
+            border-bottom: 1px solid #e2edf8;
+            border-radius: 12px;
+        }
+
+        .profile-intro {
+            display: flex;
+            align-items: center;
+            gap: 17px;
+            min-width: 0;
+        }
+
+        .large-avatar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 128px;
+            height: 128px;
+            background: #dceeff;
+            border: 1px solid #d1e5f8;
+            border-radius: 50%;
+            font-size: 72px;
+        }
+
+        .profile-intro h1 {
+            margin-bottom: 3px;
+            color: #0b4382;
+            font-size: 31px;
+            overflow-wrap: anywhere;
+        }
+
+        .profile-intro p {
+            margin: 4px 0;
+            color: #54708f;
+            font-size: 16px;
+        }
+
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        /* Profile completion */
+        .completion {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-shrink: 0;
+            width: 350px;
+            min-height: 130px;
+            padding: 18px 22px;
+            background: #f5fbff;
+            border: 1px solid #d8e9f7;
+            border-radius: 10px;
+        }
+
+        .progress {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 90px;
+            height: 90px;
+            color: #159564;
+            border: 8px solid #27ae76;
+            border-radius: 50%;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .completion h3 {
+            margin-bottom: 5px;
+            color: #0a4380;
+            font-size: 15px;
+        }
+
+        .completion p {
+            color: #52708f;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* Three-column profile content */
+        .content {
+            display: grid;
+            grid-template-columns: 225px minmax(0, 1fr) 355px;
+            gap: 16px;
+            align-items: start;
+        }
+
+        /* Profile section navigation */
+        .profile-menu {
+            display: flex;
+            flex-direction: column;
+            min-height: 650px;
+            overflow: hidden;
+            background: white;
+            border: 1px solid #dceafa;
+            border-radius: 9px;
+        }
+
+        .profile-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+            min-height: 60px;
+            padding: 10px 17px;
+            color: #466989;
+            background: white;
+            border: 0;
+            border-bottom: 1px solid #edf3f8;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .profile-menu-item.active {
+            padding-left: 13px;
+            color: #0863c9;
+            background: #e9f4ff;
+            border-left: 4px solid #147cf0;
+            font-weight: 600;
+        }
+
+        .profile-menu-icon {
+            flex-shrink: 0;
+            font-size: 23px;
+        }
+
+        /* Center column and cards */
+        .center {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            min-width: 0;
+        }
+
+        .card,
+        .documents {
+            padding: 20px 24px;
+            background: white;
+            border: 1px solid #dceafa;
+            border-radius: 9px;
+            min-width: 0;
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+
+        .card-title-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            min-width: 0;
+        }
+
+        .card-title-left .icon {
+            flex-shrink: 0;
+            font-size: 27px;
+        }
+
+        .card-title h2 {
+            color: #0b4382;
+            font-size: 21px;
+        }
+
+        .edit-btn,
+        .view-btn {
+            flex-shrink: 0;
+            padding: 9px 16px;
+            color: #0870dc;
+            background: #f5fbff;
+            border: 1px solid #77b6ee;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .profile-form {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 15px 18px;
+        }
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .form-field.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-field label {
+            margin-bottom: 6px;
+            color: #607d9c;
+            font-size: 13px;
+        }
+
+        .form-field input,
+        .form-field select {
+            width: 100%;
+            min-height: 42px;
+            padding: 9px 11px;
+            color: #073e7d;
+            background: white;
+            border: 1px solid #d7e5f3;
+            border-radius: 7px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .form-field input:focus,
+        .form-field select:focus {
+            border-color: #2380df;
+            box-shadow: 0 0 0 2px rgba(35, 128, 223, 0.12);
+        }
+
+        .save-section:disabled,
+        .view-btn:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
+
+        /* Documents */
+        .documents-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .documents-title h2 {
+            color: #0b4382;
+            font-size: 16px;
+        }
+
+        .document {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            padding: 8px 0;
+            color: #12477f;
+            font-size: 14px;
+        }
+
+        .document-name {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+            overflow-wrap: anywhere;
+        }
+
+        .check {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 22px;
+            height: 22px;
+            color: white;
+            background: #29b878;
+            border-radius: 50%;
+            font-size: 13px;
+        }
+
+        .document-download {
+            flex-shrink: 0;
+            padding: 6px 9px;
+            color: #0870d8;
+            background: #f4faff;
+            border: 1px solid #8ac0ee;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+
+        .empty-message {
+            padding: 10px 0;
+            color: #607d9c;
+            font-size: 13px;
+        }
+
+        .status-message {
+            min-height: 20px;
+            color: #08744b;
+            font-size: 13px;
+        }
+
+        .status-message.error {
+            color: #b91c1c;
+        }
+
+        /* Right column */
+        .right {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            min-width: 0;
+        }
+
+        .quick-summary {
+            padding: 20px;
+            background: white;
+            border: 1px solid #dceafa;
+            border-radius: 9px;
+        }
+
+        .quick-summary h2 {
+            margin-bottom: 12px;
+            color: #0b4382;
+            font-size: 18px;
+        }
+
+        .summary-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #e4edf5;
+            cursor: pointer;
+        }
+
+        .summary-item:last-child {
+            border-bottom: 0;
+        }
+
+        .summary-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 44px;
+            height: 44px;
+            background: #e9f4ff;
+            border-radius: 50%;
+            font-size: 22px;
+        }
+
+        .summary-text {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .summary-text span {
+            display: block;
+            margin-bottom: 3px;
+            color: #64809d;
+            font-size: 13px;
+        }
+
+        .summary-text strong {
+            color: #164b84;
+            font-size: 14px;
+            overflow-wrap: anywhere;
+        }
+
+        .arrow {
+            color: #4779aa;
+            font-size: 24px;
+        }
+
+        /* Profile reminder box */
+        .update-box {
+            padding: 22px;
+            background: #eaf6ff;
+            border: 1px solid #cce5f8;
+            border-radius: 9px;
+        }
+
+        .update-box h3 {
+            margin-bottom: 9px;
+            color: #0b4382;
+            font-size: 15px;
+        }
+
+        .update-box p {
+            color: #537391;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .edit-profile {
+            width: 100%;
+            height: 47px;
+            margin-top: 17px;
+            color: white;
+            background: #087bf0;
+            border: 0;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .edit-profile:hover {
+            background: #056bd3;
+        }
+
+        /* Responsive layout */
+        @media (max-width: 1250px) {
+            .content {
+                grid-template-columns: 200px minmax(0, 1fr);
+            }
+
+            .right {
+                grid-column: 2;
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .completion {
+                width: 300px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .sidebar {
+                width: 80px;
+            }
+
+            .sidebar .logo,
+            .sidebar .sidebar-bottom,
+            .sidebar .menu-item > span:last-child {
+                display: none;
+            }
+
+            .sidebar .menu-item {
+                justify-content: center;
+                padding: 0;
+            }
+
+            .topbar {
+                left: 80px;
+            }
+
+            .main {
+                margin-left: 80px;
+            }
+
+            .content {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .profile-menu {
+                min-height: 0;
+            }
+
+            .profile-menu-item {
+                min-height: 50px;
+            }
+
+            .right {
+                grid-column: auto;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .profile-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .completion {
+                width: 100%;
+            }
+
+            .menu-btn {
+                display: none;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .topbar {
+                padding: 0 15px;
+            }
+
+            .notification {
+                margin-right: 12px;
+            }
+
+            .notification-panel {
+                right: 12px;
+            }
+
+            .profile-header {
+                padding: 15px;
+            }
+
+            .profile-intro {
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .large-avatar {
+                width: 82px;
+                height: 82px;
+                font-size: 46px;
+            }
+
+            .profile-intro h1 {
+                font-size: 24px;
+            }
+
+            .completion {
+                gap: 14px;
+                padding: 15px;
+            }
+
+            .progress {
+                width: 76px;
+                height: 76px;
+                border-width: 7px;
+                font-size: 16px;
+            }
+
+            .profile-form {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .form-field.full-width {
+                grid-column: auto;
+            }
+
+            .right {
+                display: flex;
+            }
+
+            .card,
+            .documents {
+                padding: 16px;
+            }
+
+            .card-title {
+                align-items: flex-start;
+            }
+
+            .card-title h2 {
+                font-size: 18px;
+            }
+
+            .edit-btn {
+                padding: 8px 10px;
+                font-size: 12px;
+            }
+
+            .profile-top > span:last-child {
+                display: none;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .profile-intro {
+                flex-direction: column;
+            }
+
+            .profile-top #topProfileName {
+                max-width: 100px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .completion {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo">
+            <img
+                src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg"
+                alt="Government of India">
+            <span class="logo-text">Scheme Finder</span>
+        </div>
+
+        <nav class="menu" aria-label="Main navigation">
+            <a href="dashboard.html" class="menu-item">
+                <span class="menu-icon"><i class="fa-solid fa-house"></i></span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="schemes.html" class="menu-item">
+                <span class="menu-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                <span>Schemes</span>
+            </a>
+
+            <a href="savedschemes.html" class="menu-item">
+                <span class="menu-icon"><i class="fa-regular fa-heart"></i></span>
+                <span>Saved Schemes</span>
+            </a>
+
+            <a href="alerts.html" class="menu-item">
+                <span class="menu-icon"><i class="fa-regular fa-bell"></i></span>
+                <span>Alerts</span>
+            </a>
+
+            <a href="profile.html" class="menu-item active" aria-current="page">
+                <span class="menu-icon"><i class="fa-regular fa-user"></i></span>
+                <span>Profile</span>
+            </a>
+
+            <a href="settings.html" class="menu-item">
+                <span class="menu-icon"><i class="fa-solid fa-gear"></i></span>
+                <span>Settings</span>
+            </a>
+
+            <a href="logout.html" class="menu-item">
+                <span class="menu-icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+                <span>Logout</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <p>Government Schemes<br>for a Better Tomorrow</p>
+            <div class="tricolor"></div>
+        </div>
+    </aside>
+
+    <!-- Sidebar toggle button -->
+    <button
+        class="menu-btn"
+        id="menuButton"
+        type="button"
+        onclick="toggleSidebar()"
+        aria-label="Toggle sidebar">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <!-- Top bar -->
+    <header class="topbar">
+        <button
+            class="notification"
+            id="notificationButton"
+            type="button"
+            aria-label="View notifications"
+            title="Notifications">
+            <i class="fa-regular fa-bell"></i>
+            <span class="notification-number" id="unreadAlertCount">0</span>
+        </button>
+
+        <div class="profile-top" id="topProfile">
+            <div class="profile-circle"><i class="fa-regular fa-user"></i></div>
+            <span id="topProfileName">User</span>
+            <span><i class="fa-solid fa-chevron-down"></i></span>
+        </div>
+    </header>
+
+    <!-- Notifications -->
+    <div id="notificationPanel" class="notification-panel" hidden>
+        <div class="notification-panel-heading">
+            <strong>Notifications</strong>
+            <button type="button" id="closeNotifications" aria-label="Close notifications">×</button>
+        </div>
+        <div id="notificationList">
+            <p class="empty-message">Loading notifications...</p>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <main class="main" id="main">
+        <section class="profile-header">
+            <div class="profile-intro">
+                <div class="large-avatar" aria-hidden="true">👤</div>
+                <div>
+                    <h1 id="profileHeading">Loading profile...</h1>
+                    <p id="profileCategory">Occupation / category</p>
+                    <p class="location">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span id="profileLocation">Location not provided</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="completion">
+                <div class="progress" id="completionProgress">0%</div>
+                <div>
+                    <h3>Profile Completed</h3>
+                    <p id="completionMessage">Your saved details will appear here.<br>Keep your profile updated.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content profile-content">
+            <!-- Profile section menu -->
+            <nav class="profile-menu" aria-label="Profile sections">
+                <button type="button" class="profile-menu-item active" data-section="personal">
+                    <span class="profile-menu-icon"><i class="fa-regular fa-user"></i></span>
+                    Personal Information
+                </button>
+
+                <button type="button" class="profile-menu-item" data-section="education">
+                    <span class="profile-menu-icon"><i class="fa-solid fa-graduation-cap"></i></span>
+                    Educational Details
+                </button>
+
+                <button type="button" class="profile-menu-item" data-section="employment">
+                    <span class="profile-menu-icon"><i class="fa-solid fa-briefcase"></i></span>
+                    Employment Details
+                </button>
+
+                <button type="button" class="profile-menu-item" data-section="location">
+                    <span class="profile-menu-icon"><i class="fa-solid fa-location-dot"></i></span>
+                    Location Details
+                </button>
+
+                <button type="button" class="profile-menu-item" data-section="income">
+                    <span class="profile-menu-icon"><i class="fa-solid fa-coins"></i></span>
+                    Income Details
+                </button>
+            </nav>
+
+            <!-- Forms -->
+            <div class="center">
+                <section class="card profile-section-panel" data-panel="personal">
+                    <div class="card-title">
+                        <div class="card-title-left">
+                            <span class="icon"><i class="fa-regular fa-user"></i></span>
+                            <h2>Personal Information</h2>
+                        </div>
+                        <button class="edit-btn save-section" data-save="personal" type="button">
+                            <i class="fa-solid fa-floppy-disk"></i> Save Details
+                        </button>
+                    </div>
+
+                    <form id="personalForm" class="profile-form">
+                        <div class="form-field">
+                            <label for="full_name">Full Name</label>
+                            <input id="full_name" name="full_name" required maxlength="100">
+                        </div>
+                        <div class="form-field">
+                            <label for="email">Email</label>
+                            <input id="email" name="email" type="email" maxlength="150">
+                        </div>
+                        <div class="form-field">
+                            <label for="mobile_number">Mobile Number</label>
+                            <input id="mobile_number" name="mobile_number" type="tel" maxlength="15">
+                        </div>
+                        <div class="form-field">
+                            <label for="date_of_birth">Date of Birth</label>
+                            <input id="date_of_birth" name="date_of_birth" type="date">
+                        </div>
+                        <div class="form-field">
+                            <label for="gender">Gender</label>
+                            <select id="gender" name="gender">
+                                <option value="">Select gender</option>
+                                <option>Female</option>
+                                <option>Male</option>
+                                <option>Other</option>
+                                <option>Prefer not to say</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="state">State</label>
+                            <input id="state" name="state" maxlength="100">
+                        </div>
+                        <div class="form-field">
+                            <label for="category">Category / Occupation</label>
+                            <input id="category" name="category" maxlength="100">
+                        </div>
+                        <div class="form-field">
+                            <label for="district">District</label>
+                            <input id="district" name="district" maxlength="100">
+                        </div>
+                        <div class="form-field">
+                            <label for="annual_income">Annual Income (₹)</label>
+                            <input id="annual_income" name="annual_income" type="number" min="0" step="0.01">
+                        </div>
+                    </form>
+                </section>
+
+                <section class="card profile-section-panel" data-panel="education" hidden>
+                    <div class="card-title">
+                        <div class="card-title-left">
+                            <span class="icon"><i class="fa-solid fa-graduation-cap"></i></span>
+                            <h2>Educational Details</h2>
+                        </div>
+                        <button class="edit-btn save-section" data-save="education" type="button">
+                            <i class="fa-solid fa-floppy-disk"></i> Save Details
+                        </button>
+                    </div>
+
+                    <form id="educationForm" class="profile-form">
+                        <div class="form-field">
+                            <label for="qualification_level">Qualification Level</label>
+                            <select id="qualification_level" name="qualification_level">
+                                <option value="">Select qualification</option>
+                                <option>School</option>
+                                <option>Diploma</option>
+                                <option>Undergraduate</option>
+                                <option>Graduate</option>
+                                <option>Postgraduate</option>
+                                <option>Doctorate</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="institution_name">School / College / Institution</label>
+                            <input id="institution_name" name="institution_name" maxlength="200">
+                        </div>
+                        <div class="form-field">
+                            <label for="course_name">Course Name</label>
+                            <input id="course_name" name="course_name" maxlength="150">
+                        </div>
+                        <div class="form-field">
+                            <label for="field_of_study">Field of Study</label>
+                            <input id="field_of_study" name="field_of_study" maxlength="150">
+                        </div>
+                        <div class="form-field">
+                            <label for="graduation_year">Graduation Year</label>
+                            <input id="graduation_year" name="graduation_year" type="number" min="1950" max="2100">
+                        </div>
+                        <div class="form-field">
+                            <label for="grade_or_cgpa">Grade / CGPA</label>
+                            <input id="grade_or_cgpa" name="grade_or_cgpa" maxlength="30">
+                        </div>
+                    </form>
+                </section>
+
+                <section class="card profile-section-panel" data-panel="employment" hidden>
+                    <div class="card-title">
+                        <div class="card-title-left">
+                            <span class="icon"><i class="fa-solid fa-briefcase"></i></span>
+                            <h2>Employment Details</h2>
+                        </div>
+                        <button class="edit-btn save-section" data-save="employment" type="button">
+                            <i class="fa-solid fa-floppy-disk"></i> Save Details
+                        </button>
+                    </div>
+
+                    <form id="employmentForm" class="profile-form">
+                        <div class="form-field">
+                            <label for="employment_status">Employment Status</label>
+                            <select id="employment_status" name="employment_status">
+                                <option value="">Select status</option>
+                                <option>Student</option>
+                                <option>Employed</option>
+                                <option>Self-employed</option>
+                                <option>Unemployed</option>
+                                <option>Homemaker</option>
+                                <option>Retired</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="employer_name">Employer Name</label>
+                            <input id="employer_name" name="employer_name" maxlength="200">
+                        </div>
+                        <div class="form-field">
+                            <label for="job_title">Job Title</label>
+                            <input id="job_title" name="job_title" maxlength="150">
+                        </div>
+                        <div class="form-field">
+                            <label for="work_experience_years">Work Experience (Years)</label>
+                            <input id="work_experience_years" name="work_experience_years" type="number" min="0" step="0.5">
+                        </div>
+                        <div class="form-field">
+                            <label for="monthly_salary">Monthly Salary (₹)</label>
+                            <input id="monthly_salary" name="monthly_salary" type="number" min="0" step="0.01">
+                        </div>
+                    </form>
+                </section>
+
+                <section class="card profile-section-panel" data-panel="location" hidden>
+                    <div class="card-title">
+                        <div class="card-title-left">
+                            <span class="icon"><i class="fa-solid fa-location-dot"></i></span>
+                            <h2>Location Details</h2>
+                        </div>
+                        <button class="edit-btn save-section" data-save="location" type="button">
+                            <i class="fa-solid fa-floppy-disk"></i> Save Details
+                        </button>
+                    </div>
+
+                    <form id="locationForm" class="profile-form">
+                        <div class="form-field full-width">
+                            <label for="address_line">Address</label>
+                            <input id="address_line" name="address_line" maxlength="255">
+                        </div>
+                        <div class="form-field">
+                            <label for="loc_district">District</label>
+                            <input id="loc_district" name="district" maxlength="100">
+                        </div>
+                        <div class="form-field">
+                            <label for="city">City / Town / Village</label>
+                            <input id="city" name="city" maxlength="100">
+                        </div>
+                        <div class="form-field">
+                            <label for="loc_state">State</label>
+                            <input id="loc_state" name="state" maxlength="100">
+                        </div>
+                        <div class="form-field">
+                            <label for="pincode">PIN Code</label>
+                            <input id="pincode" name="pincode" inputmode="numeric" maxlength="10">
+                        </div>
+                    </form>
+                </section>
+
+                <section class="card profile-section-panel" data-panel="income" hidden>
+                    <div class="card-title">
+                        <div class="card-title-left">
+                            <span class="icon"><i class="fa-solid fa-coins"></i></span>
+                            <h2>Income Details</h2>
+                        </div>
+                        <button class="edit-btn save-section" data-save="income" type="button">
+                            <i class="fa-solid fa-floppy-disk"></i> Save Details
+                        </button>
+                    </div>
+
+                    <form id="incomeForm" class="profile-form">
+                        <div class="form-field">
+                            <label for="inc_annual_income">Annual Income (₹)</label>
+                            <input id="inc_annual_income" name="annual_income" type="number" min="0" step="0.01">
+                        </div>
+                        <div class="form-field">
+                            <label for="income_source">Income Source</label>
+                            <input id="income_source" name="income_source" maxlength="150">
+                        </div>
+                        <div class="form-field">
+                            <label for="family_income">Family Annual Income (₹)</label>
+                            <input id="family_income" name="family_income" type="number" min="0" step="0.01">
+                        </div>
+                        <div class="form-field">
+                            <label for="ration_card_type">Ration Card Type</label>
+                            <select id="ration_card_type" name="ration_card_type">
+                                <option value="">Select type</option>
+                                <option>White</option>
+                                <option>Pink</option>
+                                <option>Yellow</option>
+                                <option>Antyodaya Anna Yojana (AAY)</option>
+                                <option>Other</option>
+                                <option>Not applicable</option>
+                            </select>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- Uploaded documents -->
+                <section class="documents">
+                    <div class="documents-title">
+                        <h2><i class="fa-solid fa-folder-open"></i>&nbsp; Documents Uploaded</h2>
+                        <button class="view-btn" id="refreshDocuments" type="button">Refresh</button>
+                    </div>
+
+                    <div id="documentList">
+                        <p class="empty-message">Loading documents...</p>
+                    </div>
+                </section>
+
+                <p id="statusMessage" class="status-message" role="status" aria-live="polite"></p>
+            </div>
+
+            <!-- Right sidebar -->
+            <aside class="right">
+                <section class="quick-summary">
+                    <h2><i class="fa-solid fa-list-check"></i>&nbsp; Quick Summary</h2>
+
+                    <div class="summary-item" data-summary-section="education">
+                        <div class="summary-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                        <div class="summary-text">
+                            <span>Education</span>
+                            <strong id="summaryEducation">Not provided</strong>
+                        </div>
+                        <div class="arrow"><i class="fa-solid fa-angle-right"></i></div>
+                    </div>
+
+                    <div class="summary-item" data-summary-section="employment">
+                        <div class="summary-icon"><i class="fa-solid fa-briefcase"></i></div>
+                        <div class="summary-text">
+                            <span>Employment</span>
+                            <strong id="summaryEmployment">Not provided</strong>
+                        </div>
+                        <div class="arrow"><i class="fa-solid fa-angle-right"></i></div>
+                    </div>
+
+                    <div class="summary-item" data-summary-section="income">
+                        <div class="summary-icon"><i class="fa-solid fa-coins"></i></div>
+                        <div class="summary-text">
+                            <span>Income</span>
+                            <strong id="summaryIncome">Not provided</strong>
+                        </div>
+                        <div class="arrow"><i class="fa-solid fa-angle-right"></i></div>
+                    </div>
+
+                    <div class="summary-item" data-summary-section="location">
+                        <div class="summary-icon"><i class="fa-solid fa-location-dot"></i></div>
+                        <div class="summary-text">
+                            <span>Location</span>
+                            <strong id="summaryLocation">Not provided</strong>
+                        </div>
+                        <div class="arrow"><i class="fa-solid fa-angle-right"></i></div>
+                    </div>
+                </section>
+
+                <section class="update-box">
+                    <h3><i class="fa-solid fa-lightbulb"></i>&nbsp; Keep your profile updated</h3>
+                    <p>Your saved details remain in the database when you log out. You can return and edit them after logging in again.</p>
+                    <button class="edit-profile" id="editCurrentSection" type="button">
+                        <i class="fa-solid fa-pen"></i>&nbsp; Edit Current Section
+                    </button>
+                </section>
+            </aside>
+        </section>
+    </main>
+
+    <script src="profile.js"></script>
+    <script src="../js/user_notifications.js"></script>
+
+    <script>
+        // Keep the notification badge ID aligned with profile.js.
+        // This mirrors the unread count if the shared notification script uses
+        // the older unreadAlertCount element.
+        const unreadBadge = document.getElementById("unreadAlertCount");
+
+        if (unreadBadge) {
+            const observer = new MutationObserver(() => {
+                unreadBadge.style.display =
+                    unreadBadge.textContent.trim() === "0" ? "none" : "flex";
+            });
+
+            observer.observe(unreadBadge, {
+                childList: true,
+                characterData: true,
+                subtree: true
+            });
+
+            unreadBadge.style.display =
+                unreadBadge.textContent.trim() === "0" ? "none" : "flex";
+        }
+
+        // Navigate from Quick Summary to the selected profile section.
+        document.querySelectorAll("[data-summary-section]").forEach(item => {
+            item.addEventListener("click", () => {
+                const section = item.dataset.summarySection;
+                const menuButton = document.querySelector(
+                    `.profile-menu-item[data-section="${section}"]`
+                );
+
+                menuButton?.click();
+            });
+        });
+    </script>
+</body>
+</html>

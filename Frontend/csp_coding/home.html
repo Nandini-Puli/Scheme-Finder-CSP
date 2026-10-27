@@ -1,0 +1,2142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Scheme Finder - Government Schemes</title>
+
+<style>
+
+/* =========================================================
+   GENERAL
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#ffffff;
+    color:#123b70;
+}
+
+button,
+input{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar{
+    height:72px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 4.2%;
+
+    background:white;
+
+    border-bottom:1px solid #e3edf7;
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.logo-section{
+    display:flex;
+    align-items:center;
+
+    gap:12px;
+
+    min-width:250px;
+}
+
+.logo{
+    width:52px;
+    height:58px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    flex-shrink:0;
+}
+
+.logo img{
+    width:43px;
+    height:52px;
+
+    object-fit:contain;
+
+    display:block;
+}
+
+.brand-name{
+    color:#0b3977;
+
+    font-size:21px;
+
+    font-weight:bold;
+}
+
+.tagline{
+    color:#6c819d;
+
+    font-size:11px;
+
+    margin-top:3px;
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.nav-links{
+    display:flex;
+    align-items:center;
+
+    gap:40px;
+
+    margin-left:30px;
+}
+
+.nav-links a{
+    color:#123b70;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    padding:26px 0;
+
+    text-decoration:none;
+
+    transition:.2s;
+}
+
+.nav-links a:hover{
+    color:#1769e0;
+}
+
+.nav-links a:first-child{
+    color:#1769e0;
+
+    border-bottom:3px solid #1769e0;
+}
+
+
+/* =========================================================
+   RIGHT SIDE
+========================================================= */
+
+.nav-right{
+    display:flex;
+    align-items:center;
+
+    gap:12px;
+}
+
+/* =========================================================
+   LOGIN / REGISTER
+========================================================= */
+
+.login-btn,
+.register-btn{
+    height:42px;
+
+    padding:0 30px;
+
+    border-radius:23px;
+
+    font-size:13px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.login-btn{
+    background:white;
+
+    color:#1769df;
+
+    border:1px solid #1769df;
+}
+
+.login-btn:hover{
+    background:#eef6ff;
+}
+
+.register-btn{
+    background:#1769df;
+
+    color:white;
+
+    border:1px solid #1769df;
+}
+
+.register-btn:hover{
+    background:#075ac9;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    min-height:292px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #eef8ff 0%,
+            #e9f5ff 50%,
+            #dff3ff 100%
+        );
+
+    display:flex;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.hero-content{
+    width:50%;
+
+    padding:28px 0 30px 4.2%;
+
+    z-index:2;
+}
+
+.hero-small{
+    font-size:13px;
+
+    color:#174a82;
+
+    margin-bottom:10px;
+
+    font-weight:500;
+}
+
+.hero-small span{
+    margin:0 8px;
+
+    color:#839ab3;
+}
+
+.hero h1{
+    font-size:34px;
+
+    line-height:1.15;
+
+    color:#123f79;
+
+    margin-bottom:10px;
+}
+
+.hero h1 span{
+    color:#1266dc;
+}
+
+.hero-description{
+    color:#416486;
+
+    font-size:15px;
+
+    line-height:1.55;
+
+    max-width:610px;
+
+    margin-bottom:18px;
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.search-box{
+    width:650px;
+
+    max-width:92%;
+
+    height:49px;
+
+    background:white;
+
+    border-radius:11px;
+
+    display:flex;
+
+    align-items:center;
+
+    padding:5px 6px 5px 16px;
+
+    box-shadow:
+        0 3px 12px rgba(37,93,150,.12);
+}
+
+.search-icon{
+    font-size:21px;
+
+    color:#1769df;
+
+    margin-right:12px;
+}
+
+.search-box input{
+    flex:1;
+
+    border:none;
+
+    outline:none;
+
+    font-size:12px;
+
+    color:#55718f;
+}
+
+.search-box input::placeholder{
+    color:#9aabba;
+}
+
+.search-btn{
+    height:40px;
+
+    width:110px;
+
+    border:none;
+
+    border-radius:9px;
+
+    background:#1769df;
+
+    color:white;
+
+    font-weight:bold;
+}
+
+.search-btn:hover{
+    background:#075ac9;
+}
+
+
+/* =========================================================
+   HERO IMAGE
+========================================================= */
+
+.hero-image{
+    width:50%;
+
+    position:relative;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:flex-end;
+}
+
+.students{
+    width:90%;
+    height:260px;
+
+    object-fit:cover;
+
+    object-position:center;
+}
+
+.support-text{
+    position:absolute;
+
+    left:8%;
+    top:62px;
+
+    color:#073f80;
+
+    font-family:cursive;
+
+    font-size:22px;
+
+    font-weight:bold;
+
+    transform:rotate(-7deg);
+
+    z-index:3;
+}
+
+
+/* =========================================================
+   CATEGORY SECTION
+========================================================= */
+
+.categories{
+    display:grid;
+
+    grid-template-columns:
+        repeat(5,1fr);
+
+    gap:16px;
+
+    padding:18px 3.5%;
+
+    background:white;
+}
+
+
+/* CATEGORY BUTTON */
+
+.category-card{
+    min-height:150px;
+
+    width:100%;
+
+    border-radius:12px;
+
+    padding:14px 20px;
+
+    position:relative;
+
+    border:1px solid rgba(100,150,200,.12);
+
+    text-align:left;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.category-card:hover{
+    transform:translateY(-4px);
+
+    box-shadow:
+        0 8px 20px rgba(30,90,150,.12);
+}
+
+
+/* CATEGORY COLORS */
+
+.education{
+    background:#eef6ff;
+}
+
+.employed{
+    background:#edf9f3;
+}
+
+.unemployed{
+    background:#fff6ec;
+}
+
+.entrepreneurship{
+    background:#f4f0ff;
+}
+
+.internships{
+    background:#edfaff;
+}
+
+
+/* =========================================================
+   CATEGORY ICON
+========================================================= */
+
+.category-icon{
+    width:52px;
+    height:52px;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:white;
+
+    font-size:23px;
+
+    margin-bottom:8px;
+}
+
+.education .category-icon{
+    background:#1769e0;
+}
+
+.employed .category-icon{
+    background:#27b36b;
+}
+
+.unemployed .category-icon{
+    background:#f39a2d;
+}
+
+.entrepreneurship .category-icon{
+    background:#7045d8;
+}
+
+.internships .category-icon{
+    background:#18afc8;
+}
+
+
+/* CATEGORY TITLE */
+
+.category-card h3{
+    font-size:16px;
+
+    color:#123e76;
+
+    margin-bottom:6px;
+}
+
+.employed h3{
+    color:#087440;
+}
+
+.category-card p{
+    font-size:12px;
+
+    color:#55708e;
+
+    line-height:1.5;
+
+    max-width:220px;
+}
+
+
+/* =========================================================
+   ARROW
+========================================================= */
+
+.arrow{
+    position:absolute;
+
+    top:22px;
+    right:18px;
+
+    width:27px;
+    height:27px;
+
+    border-radius:50%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:17px;
+}
+
+.education .arrow{
+    background:#d9eaff;
+    color:#1769df;
+}
+
+.employed .arrow{
+    background:#daf4e7;
+    color:#20a965;
+}
+
+.unemployed .arrow{
+    background:#ffead1;
+    color:#e98a1c;
+}
+
+.entrepreneurship .arrow{
+    background:#e7dcff;
+    color:#6942c9;
+}
+
+.internships .arrow{
+    background:#d8f4f8;
+    color:#159bb2;
+}
+
+
+/* =========================================================
+   HOW IT WORKS
+========================================================= */
+
+.how-section{
+    margin:0 3.5%;
+
+    min-height:105px;
+
+    border-radius:10px;
+
+    background:#eef7ff;
+
+    display:flex;
+
+    align-items:center;
+
+    padding:15px 18px;
+
+    gap:25px;
+}
+
+.how-title{
+    width:25%;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+}
+
+.how-main-icon{
+    width:52px;
+    height:52px;
+
+    border-radius:9px;
+
+    background:#d9ebff;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    color:#1769df;
+
+    font-size:25px;
+}
+
+.how-title h2{
+    font-size:18px;
+
+    color:#143f76;
+
+    margin-bottom:4px;
+}
+
+.how-title p{
+    font-size:11px;
+
+    color:#66809c;
+}
+
+.steps{
+    flex:1;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+}
+
+.step{
+    display:flex;
+
+    align-items:center;
+
+    gap:9px;
+}
+
+.step-icon{
+    width:42px;
+    height:42px;
+
+    background:#1599dc;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    color:white;
+
+    font-size:18px;
+
+    flex-shrink:0;
+}
+
+.step-number{
+    color:#1771d8;
+
+    font-size:11px;
+
+    font-weight:bold;
+}
+
+.step h4{
+    font-size:12px;
+
+    color:#17477d;
+
+    margin-bottom:5px;
+}
+
+.step p{
+    font-size:9px;
+
+    color:#69829d;
+
+    line-height:1.4;
+
+    max-width:120px;
+}
+
+.step-arrow{
+    font-size:22px;
+
+    color:#88b5e7;
+}
+
+
+/* =========================================================
+   FEATURED SCHEMES
+========================================================= */
+
+.featured{
+    padding:14px 3.5% 18px;
+}
+
+.featured-header{
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:10px;
+}
+
+.featured-title{
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+}
+
+.star{
+    color:#f5b62b;
+
+    font-size:21px;
+}
+
+.featured-title h2{
+    font-size:18px;
+
+    color:#123e76;
+}
+
+.view-all{
+    font-size:11px;
+
+    color:#1769df;
+
+    font-weight:bold;
+
+    text-decoration:none;
+}
+
+.scheme-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(5,1fr);
+
+    gap:14px;
+}
+
+.scheme-card{
+    background:white;
+
+    border:1px solid #dbe8f5;
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 2px 7px rgba(35,85,130,.06);
+
+    transition:.2s;
+}
+
+.scheme-card:hover{
+    transform:translateY(-3px);
+
+    box-shadow:
+        0 7px 16px rgba(35,85,130,.10);
+}
+
+.scheme-image{
+    height:64px;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.scheme-image img{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+}
+
+.scheme-label{
+    position:absolute;
+
+    top:8px;
+    left:10px;
+
+    color:white;
+
+    border-radius:14px;
+
+    padding:5px 11px;
+
+    font-size:10px;
+
+    font-weight:bold;
+}
+
+.blue-label{
+    background:#1876dc;
+}
+
+.green-label{
+    background:#20ad68;
+}
+
+.orange-label{
+    background:#f19b2e;
+}
+
+.purple-label{
+    background:#7650d8;
+}
+
+.cyan-label{
+    background:#16a7bd;
+}
+
+.scheme-content{
+    padding:8px 12px 11px;
+}
+
+.scheme-content h3{
+    font-size:12px;
+
+    color:#17467c;
+
+    margin-bottom:4px;
+}
+
+.ministry{
+    font-size:9px;
+
+    color:#71869c;
+
+    margin-bottom:7px;
+}
+
+.benefit{
+    display:inline-block;
+
+    background:#edf7ff;
+
+    color:#3181c9;
+
+    padding:4px 7px;
+
+    border-radius:10px;
+
+    font-size:8px;
+
+    margin-bottom:7px;
+}
+
+.scheme-info{
+    display:flex;
+
+    gap:8px;
+
+    color:#55718d;
+
+    font-size:8px;
+
+    margin-bottom:10px;
+}
+
+.details{
+    text-align:right;
+
+    color:#1470d5;
+
+    font-size:9px;
+
+    font-weight:bold;
+}
+
+
+/* =========================================================
+   TRUST SECTION
+========================================================= */
+
+.trust-section{
+    background:#edf7ff;
+
+    min-height:92px;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    align-items:center;
+
+    padding:15px 7%;
+}
+
+.trust-item{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:13px;
+
+    border-right:1px solid #bfd5e9;
+}
+
+.trust-item:last-child{
+    border-right:none;
+}
+
+.trust-icon{
+    color:#126bd8;
+
+    font-size:29px;
+}
+
+.trust-item h4{
+    color:#17457c;
+
+    font-size:12px;
+
+    margin-bottom:4px;
+}
+
+.trust-item p{
+    color:#6b829b;
+
+    font-size:9px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1100px){
+
+    .nav-links{
+        gap:20px;
+
+        margin-left:10px;
+    }
+
+    .nav-right{
+        gap:7px;
+    }
+
+    .login-btn,
+    .register-btn{
+        padding:0 18px;
+    }
+
+    .search-box{
+        width:90%;
+    }
+
+    .categories,
+    .scheme-grid{
+        grid-template-columns:
+            repeat(3,1fr);
+    }
+
+    .how-title{
+        width:20%;
+    }
+}
+
+
+@media(max-width:800px){
+
+    .navbar{
+        height:auto;
+
+        padding:15px;
+
+        flex-wrap:wrap;
+
+        gap:15px;
+    }
+
+    .nav-links{
+        order:3;
+
+        width:100%;
+
+        justify-content:center;
+    }
+
+    .nav-right{
+        margin-left:auto;
+    }
+
+    .hero{
+        flex-direction:column;
+    }
+
+    .hero-content,
+    .hero-image{
+        width:100%;
+    }
+
+    .hero-content{
+        padding:25px;
+    }
+
+    .hero-image{
+        height:220px;
+    }
+
+    .categories,
+    .scheme-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .how-section{
+        flex-direction:column;
+
+        align-items:flex-start;
+    }
+
+    .how-title{
+        width:100%;
+    }
+
+    .steps{
+        width:100%;
+
+        flex-wrap:wrap;
+
+        gap:15px;
+    }
+
+    .trust-section{
+        grid-template-columns:
+            repeat(2,1fr);
+
+        gap:20px;
+    }
+
+    .trust-item:nth-child(2){
+        border-right:none;
+    }
+}
+
+
+@media(max-width:550px){
+
+    .logo-section{
+        min-width:auto;
+    }
+
+    .logo{
+        width:45px;
+        height:52px;
+    }
+
+    .logo img{
+        width:38px;
+        height:47px;
+    }
+
+    .brand-name{
+        font-size:18px;
+    }
+
+    .nav-links{
+        gap:12px;
+    }
+
+    .nav-links a{
+        font-size:11px;
+    }
+
+    .language{
+        min-width:90px;
+    }
+
+    .login-btn,
+    .register-btn{
+        padding:0 15px;
+    }
+
+    .hero h1{
+        font-size:27px;
+    }
+
+    .categories,
+    .scheme-grid{
+        grid-template-columns:1fr;
+    }
+
+    .trust-section{
+        grid-template-columns:1fr;
+    }
+
+    .trust-item{
+        border-right:none;
+
+        border-bottom:1px solid #bfd5e9;
+
+        padding-bottom:12px;
+    }
+
+    .trust-item:last-child{
+        border-bottom: none;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<header class="navbar">
+
+
+    <!-- LOGO -->
+
+    <div class="logo-section">
+
+        <div class="logo">
+
+            <img
+                src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg"
+                alt="Emblem of India"
+            >
+
+        </div>
+
+
+        <div>
+
+            <div class="brand-name">
+                Scheme Finder
+            </div>
+
+            <div class="tagline">
+                Government Schemes for a Brighter Future
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- NAVIGATION -->
+
+    <nav class="nav-links">
+
+        <a href="home.html">
+            Home
+        </a>
+
+        <a href="schemesssss.html">
+            Schemes
+        </a>
+
+        <a href="about us.html">
+            About Us
+        </a>
+
+        <a href="help.html">
+            Help
+        </a>
+
+    </nav>
+
+
+
+    <!-- RIGHT SIDE -->
+
+    <div class="nav-right">
+        <!-- LOGIN -->
+
+        <button
+            class="login-btn"
+            onclick="location.href='login.html'"
+        >
+            Login
+        </button>
+
+
+
+        <!-- REGISTER -->
+
+        <button
+            class="register-btn"
+            onclick="location.href='register.html'"
+        >
+            Register
+        </button>
+
+    </div>
+
+</header>
+
+<section class="hero">
+
+
+    <div class="hero-content">
+
+
+        <div class="hero-small">
+
+            One Portal
+
+            <span>|</span>
+
+            Multiple Schemes
+
+            <span>|</span>
+
+            Your Future
+
+        </div>
+
+
+        <h1>
+
+            Discover Government Schemes
+
+            <br>
+
+            <span>Made For You</span>
+
+        </h1>
+
+
+        <p class="hero-description">
+
+            Find the right schemes, check your eligibility,
+            know the benefits, and apply through official
+            portals — all in one place.
+
+        </p>
+
+
+        <!-- SEARCH -->
+
+        <div class="search-box">
+
+            <span class="search-icon">
+                ⌕
+            </span>
+
+            <input
+                type="text"
+                id="schemeSearch"
+                placeholder="Search for schemes (e.g. Education, Employment, Internship...)"
+            >
+
+            <button
+                class="search-btn"
+                onclick="searchSchemes()"
+            >
+                Search
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- HERO IMAGE -->
+
+    <div class="hero-image">
+
+        <div class="support-text">
+
+            Your Goals
+            <br>
+            Our Support
+
+        </div>
+
+
+        <img
+            class="students"
+            src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1000&q=80"
+            alt="Students"
+        >
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     CATEGORY BUTTONS
+========================================================= -->
+
+<section class="categories">
+
+
+    <!-- EDUCATION -->
+
+    <button
+        class="category-card education"
+        onclick="location.href='education.html'"
+    >
+
+        <div class="category-icon">
+            🎓
+        </div>
+
+        <div class="arrow">
+            →
+        </div>
+
+        <h3>
+            Education
+        </h3>
+
+        <p>
+            Scholarships, Loans,
+            <br>
+            Skill Development,
+            <br>
+            Higher Education
+        </p>
+
+    </button>
+
+
+
+    <!-- EMPLOYED -->
+
+    <button
+        class="category-card employed"
+        onclick="location.href='employed.html'"
+    >
+
+        <div class="category-icon">
+            💼
+        </div>
+
+        <div class="arrow">
+            →
+        </div>
+
+        <h3>
+            Employed
+        </h3>
+
+        <p>
+            Job Opportunities,
+            <br>
+            Career Growth,
+            <br>
+            Skill Enhancement
+        </p>
+
+    </button>
+
+
+
+    <!-- UNEMPLOYED -->
+
+    <button
+        class="category-card unemployed"
+        onclick="location.href='unemployed.html'"
+    >
+
+        <div class="category-icon">
+            👤
+        </div>
+
+        <div class="arrow">
+            →
+        </div>
+
+        <h3>
+            Unemployed
+        </h3>
+
+        <p>
+            Employment Support,
+            <br>
+            Skill Training,
+            <br>
+            Placement Assistance
+        </p>
+
+    </button>
+
+
+
+    <!-- ENTREPRENEURSHIP -->
+
+    <button
+        class="category-card entrepreneurship"
+        onclick="location.href='entrepreneurship.html'"
+    >
+
+        <div class="category-icon">
+            💡
+        </div>
+
+        <div class="arrow">
+            →
+        </div>
+
+        <h3>
+            Entrepreneurship
+        </h3>
+
+        <p>
+            Startup Support,
+            <br>
+            Loans,
+            <br>
+            Business Development
+        </p>
+
+    </button>
+
+
+
+    <!-- INTERNSHIP -->
+
+    <button
+        class="category-card internships"
+        onclick="location.href='internship.html'"
+    >
+
+        <div class="category-icon">
+            💻
+        </div>
+
+        <div class="arrow">
+            →
+        </div>
+
+        <h3>
+            Internship
+        </h3>
+
+        <p>
+            Paid Internships,
+            <br>
+            Learning Programs,
+            <br>
+            Industry Exposure
+        </p>
+
+    </button>
+
+</section>
+
+
+
+<!-- =========================================================
+     HOW IT WORKS
+========================================================= -->
+
+<section class="how-section">
+
+
+    <div class="how-title">
+
+        <div class="how-main-icon">
+            📋
+        </div>
+
+        <div>
+
+            <h2>
+                How It Works?
+            </h2>
+
+            <p>
+                Get started in just a few simple steps
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="steps">
+
+
+        <!-- STEP 1 -->
+
+        <div class="step">
+
+            <div class="step-icon">
+                👤
+            </div>
+
+            <div>
+
+                <div class="step-number">
+                    1
+                </div>
+
+                <h4>
+                    Register / Login
+                </h4>
+
+                <p>
+                    Create your account or login to continue
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="step-arrow">
+            →
+        </div>
+
+
+
+        <!-- STEP 2 -->
+
+        <div class="step">
+
+            <div class="step-icon">
+                📝
+            </div>
+
+            <div>
+
+                <div class="step-number">
+                    2
+                </div>
+
+                <h4>
+                    Fill Your Details
+                </h4>
+
+                <p>
+                    Share your profile information
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="step-arrow">
+            →
+        </div>
+
+
+
+        <!-- STEP 3 -->
+
+        <div class="step">
+
+            <div class="step-icon">
+                🔍
+            </div>
+
+            <div>
+
+                <div class="step-number">
+                    3
+                </div>
+
+                <h4>
+                    Find Eligible Schemes
+                </h4>
+
+                <p>
+                    Get personalized scheme recommendations
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="step-arrow">
+            →
+        </div>
+
+
+
+        <!-- STEP 4 -->
+
+        <div class="step">
+
+            <div class="step-icon">
+                📄
+            </div>
+
+            <div>
+
+                <div class="step-number">
+                    4
+                </div>
+
+                <h4>
+                    View Details & Apply
+                </h4>
+
+                <p>
+                    Check benefits, documents and official portal
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     FEATURED SCHEMES
+========================================================= -->
+
+<section class="featured">
+
+
+    <div class="featured-header">
+
+
+        <div class="featured-title">
+
+            <span class="star">
+                ★
+            </span>
+
+            <h2>
+                Featured Schemes
+            </h2>
+
+        </div>
+
+
+        <a
+            href="schemes.html"
+            class="view-all"
+        >
+            View All Schemes →
+        </a>
+
+    </div>
+
+
+
+    <div class="scheme-grid">
+
+
+        <!-- CARD 1 -->
+
+        <div class="scheme-card">
+
+            <div class="scheme-image">
+
+                <img
+                    src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=500&q=80"
+                    alt="Education"
+                >
+
+                <span class="scheme-label blue-label">
+                    Education
+                </span>
+
+            </div>
+
+
+            <div class="scheme-content">
+
+                <h3>
+                    PM-USP Scholarship
+                </h3>
+
+                <p class="ministry">
+                    Ministry of Education
+                </p>
+
+                <span class="benefit">
+                    Up to ₹1,25,000
+                </span>
+
+                <div class="scheme-info">
+
+                    👤 Age: 18 – 25
+
+                    <span>|</span>
+
+                    For: Students
+
+                </div>
+
+                <div class="details">
+                    View Details →
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- CARD 2 -->
+
+        <div class="scheme-card">
+
+            <div class="scheme-image">
+
+                <img
+                    src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=500&q=80"
+                    alt="Employment"
+                >
+
+                <span class="scheme-label green-label">
+                    Employed
+                </span>
+
+            </div>
+
+
+            <div class="scheme-content">
+
+                <h3>
+                    PM Internship Scheme
+                </h3>
+
+                <p class="ministry">
+                    Ministry of Corporate Affairs
+                </p>
+
+                <span class="benefit">
+                    ₹5,000/month
+                </span>
+
+                <div class="scheme-info">
+
+                    👤 Age: 21 – 24
+
+                    <span>|</span>
+
+                    For: Job Seekers
+
+                </div>
+
+                <div class="details">
+                    View Details →
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- CARD 3 -->
+
+        <div class="scheme-card">
+
+            <div class="scheme-image">
+
+                <img
+                    src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=500&q=80"
+                    alt="Skill Development"
+                >
+
+                <span class="scheme-label orange-label">
+                    Unemployed
+                </span>
+
+            </div>
+
+
+            <div class="scheme-content">
+
+                <h3>
+                    Skill India Mission
+                </h3>
+
+                <p class="ministry">
+                    Ministry of Skill Development
+                </p>
+
+                <span class="benefit">
+                    Free Training + Certification
+                </span>
+
+                <div class="scheme-info">
+
+                    👤 Age: 18 – 35
+
+                    <span>|</span>
+
+                    For: Unemployed Youth
+
+                </div>
+
+                <div class="details">
+                    View Details →
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- CARD 4 -->
+
+        <div class="scheme-card">
+
+            <div class="scheme-image">
+
+                <img
+                    src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=500&q=80"
+                    alt="Entrepreneurship"
+                >
+
+                <span class="scheme-label purple-label">
+                    Entrepreneurship
+                </span>
+
+            </div>
+
+
+            <div class="scheme-content">
+
+                <h3>
+                    Stand-Up India Scheme
+                </h3>
+
+                <p class="ministry">
+                    Ministry of Finance
+                </p>
+
+                <span class="benefit">
+                    Up to ₹10 Crore Loan
+                </span>
+
+                <div class="scheme-info">
+
+                    👤 Age: 18 – 55
+
+                    <span>|</span>
+
+                    For: Entrepreneurs
+
+                </div>
+
+                <div class="details">
+                    View Details →
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- CARD 5 -->
+
+        <div class="scheme-card">
+
+            <div class="scheme-image">
+
+                <img
+                    src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=500&q=80"
+                    alt="Internship"
+                >
+
+                <span class="scheme-label cyan-label">
+                    Internship
+                </span>
+
+            </div>
+
+
+            <div class="scheme-content">
+
+                <h3>
+                    AICTE Internship Portal
+                </h3>
+
+                <p class="ministry">
+                    Ministry of Education
+                </p>
+
+                <span class="benefit">
+                    Stipend up to ₹8,000/month
+                </span>
+
+                <div class="scheme-info">
+
+                    👤 Age: 18 – 25
+
+                    <span>|</span>
+
+                    For: Students
+
+                </div>
+
+                <div class="details">
+                    View Details →
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     TRUST SECTION
+========================================================= -->
+
+<section class="trust-section">
+
+
+    <div class="trust-item">
+
+        <div class="trust-icon">
+            🛡️
+        </div>
+
+        <div>
+
+            <h4>
+                Trusted Information
+            </h4>
+
+            <p>
+                Official government sources
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="trust-item">
+
+        <div class="trust-icon">
+            🔒
+        </div>
+
+        <div>
+
+            <h4>
+                Secure & Safe
+            </h4>
+
+            <p>
+                Your data is protected
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="trust-item">
+
+        <div class="trust-icon">
+            🎯
+        </div>
+
+        <div>
+
+            <h4>
+                Personalized for You
+            </h4>
+
+            <p>
+                Relevant schemes based on your profile
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="trust-item">
+
+        <div class="trust-icon">
+            ◷
+        </div>
+
+        <div>
+
+            <h4>
+                Always Updated
+            </h4>
+
+            <p>
+                Latest schemes & deadlines
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+function searchSchemes(){
+
+    const search =
+        document
+        .getElementById("schemeSearch")
+        .value
+        .toLowerCase()
+        .trim();
+
+    if(search === ""){
+        alert("Please enter a scheme or category to search.");
+        return;
+    }
+
+    if(search.includes("education") ||
+       search.includes("scholarship")){
+
+        location.href="education.html";
+
+    }
+
+    else if(search.includes("employed") ||
+            search.includes("employment")){
+
+        location.href="employed.html";
+
+    }
+
+    else if(search.includes("unemployed") ||
+            search.includes("job")){
+
+        location.href="unemployed.html";
+
+    }
+
+    else if(search.includes("entrepreneur") ||
+            search.includes("startup") ||
+            search.includes("business")){
+
+        location.href="entrepreneurship.html";
+
+    }
+
+    else if(search.includes("intern") ||
+            search.includes("internship")){
+
+        location.href="internship.html";
+
+    }
+
+    else{
+
+        location.href="schemes.html";
+
+    }
+
+}
+
+
+/* =========================================================
+   ENTER KEY SEARCH
+========================================================= */
+
+document
+.getElementById("schemeSearch")
+.addEventListener("keypress", function(event){
+
+    if(event.key === "Enter"){
+
+        searchSchemes();
+
+    }
+
+});
+
+</script>
+
+
+</body>
+
+</html>
