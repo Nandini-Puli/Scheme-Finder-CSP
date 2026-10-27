@@ -1,0 +1,7 @@
+Flask
+Flask-CORS
+Flask-Mail
+mysql-connector-python
+python-dotenv
+itsdangerous
+gunicorn
