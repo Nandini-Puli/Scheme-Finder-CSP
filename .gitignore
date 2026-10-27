@@ -1,2 +1,30 @@
 
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+.venv/
+venv/
+Backend/.venv/
+
+# Secrets
+.env
+.env.*
+!.env.example
+Backend/.env
+
+# Private uploads
 Backend/private_uploads/
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs and tests
+*.log
+.pytest_cache/
+.coverage
+htmlcov/
