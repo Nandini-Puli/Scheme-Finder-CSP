@@ -1,9 +1,9 @@
 
 {
-  "rewrites": [
+    "rewrites": [
     {
-      "source": "/",
-      "destination": "/csp_coding/home.html"
+        "source": "/",
+        "destination": "/csp_coding/home.html"
     }
-  ]
+    ]
 }
