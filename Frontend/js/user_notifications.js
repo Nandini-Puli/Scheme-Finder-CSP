@@ -1,5 +1,5 @@
 
-const USER_API_BASE = "http://127.0.0.1:5000/api";
+const USER_API_BASE = "https://scheme-finder-csp-backend.onrender.com/api";
 
 async function loadUserNotificationBadge() {
     const badge = document.getElementById("unreadAlertCount");

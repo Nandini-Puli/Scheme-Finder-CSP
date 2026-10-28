@@ -1660,7 +1660,7 @@ body {
 <script>
 "use strict";
 
-const API_BASE = "http://127.0.0.1:5000/api/admin/settings";
+const API_BASE = "https://scheme-finder-csp-backend.onrender.com/api/admin/settings";
 
 const byId = (id) => document.getElementById(id);
 
@@ -1953,7 +1953,7 @@ async function loadAdminNotificationBadge() {
 
     try {
         const response = await fetch(
-            "http://127.0.0.1:5000/api/admin/alerts",
+            "https://scheme-finder-csp-backend.onrender.com/api/admin/alerts",
             {
                 method: "GET",
                 credentials: "include"

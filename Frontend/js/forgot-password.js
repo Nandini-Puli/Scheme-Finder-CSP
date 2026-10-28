@@ -2,7 +2,7 @@
 (() => {
     "use strict";
 
-    const API_BASE = "http://127.0.0.1:5000";
+    const API_BASE = "https://scheme-finder-csp-backend.onrender.com";
 
     window.sendOTP = async function () {
         // Keep the existing button's onclick name to avoid HTML errors.

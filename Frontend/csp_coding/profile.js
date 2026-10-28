@@ -1,6 +1,6 @@
 "use strict";
 
-const API_BASE = "http://127.0.0.1:5000/api";
+const API_BASE = "https://scheme-finder-csp-backend.onrender.com/api";
 const SECTION_FIELDS = {
     education: ["qualification_level", "institution_name", "course_name", "field_of_study", "graduation_year", "grade_or_cgpa"],
     employment: ["employment_status", "employer_name", "job_title", "work_experience_years", "monthly_salary"],

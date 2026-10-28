@@ -1671,13 +1671,13 @@ body{
 <script>
 "use strict";
 
-const API_BASE = "http://127.0.0.1:5000/api";
+const API_BASE = "https://scheme-finder-csp-backend.onrender.com/api";
 
 let userAlerts = [];
 let activeAlertFilter = "all";
 
 
-fetch("http://127.0.0.1:5000/api/user/profile", {
+fetch("https://scheme-finder-csp-backend.onrender.com/api/user/profile", {
     credentials: "include"
 })
 .then(response => response.json())

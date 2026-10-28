@@ -2,7 +2,7 @@
 (() => {
     "use strict";
 
-    const API_BASE_URL = "http://127.0.0.1:5000";
+    const API_BASE_URL = "https://scheme-finder-csp-backend.onrender.com";
 
     // Sidebar toggle
     window.toggleSidebar = function () {

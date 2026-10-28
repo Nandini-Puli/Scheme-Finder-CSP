@@ -5,7 +5,7 @@
     async function checkAuthentication() {
         try {
             const response = await fetch(
-                "http://127.0.0.1:5000/api/auth/session",
+                "https://scheme-finder-csp-backend.onrender.com/api/auth/session",
                 {
                     method: "GET",
                     credentials: "include",
