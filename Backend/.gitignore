@@ -8,22 +8,25 @@ __pycache__/
 venv/
 Backend/.venv/
 
-# Environment variables and secrets
+# Secrets
 .env
 .env.*
 !.env.example
 Backend/.env
 
-# Private user documents
+# Database certificates
+ca.pem
+
+# Private uploads
 Backend/private_uploads/
 
-# IDE and operating system files
+# IDE and OS files
 .vscode/
 .idea/
 .DS_Store
 Thumbs.db
 
-# Logs and test files
+# Logs and tests
 *.log
 .pytest_cache/
 .coverage
