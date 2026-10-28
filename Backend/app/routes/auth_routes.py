@@ -36,6 +36,10 @@ MAX_PASSWORD_LENGTH = 1024
 # Shared helpers
 # =========================================
 
+@auth_bp.get("/healthz")
+def healthz():
+    return {"status": "ok"}, 200
+
 def close_database_resources(cursor=None, connection=None):
     """Close database resources without hiding the original error."""
     if cursor is not None:
