@@ -35,24 +35,25 @@ def create_app():
     
     # Configure CORS for the frontend
     CORS(
-        app,
-        resources={
-            r"/api/*": {
-                "origins": [
-                    "http://127.0.0.1:5500",
-                    "http://localhost:5500",
-                ],
-                "methods": [
-                    "GET", "POST", "PUT", "PATCH",
-                    "DELETE", "OPTIONS",
-                ],
-                "allow_headers": [
-                    "Content-Type", "Authorization",
-                ],
-            }
-        },
-        supports_credentials=True,
-    )
+    app,
+    resources={
+        r"/api/*": {
+            "origins": [
+                "http://127.0.0.1:5500",
+                "http://localhost:5500",
+                "https://scheme-finder-csp.vercel.app",
+            ],
+            "methods": [
+                "GET", "POST", "PUT", "PATCH",
+                "DELETE", "OPTIONS",
+            ],
+            "allow_headers": [
+                "Content-Type", "Authorization",
+            ],
+        }
+    },
+    supports_credentials=True,
+)
 
 
     # Configure email
